@@ -31,6 +31,10 @@ msgstr "openMultiboot Install"
 msgid "Choose the image to install"
 msgstr "Scegli l'immagine da installare"
 
+#: OMBManagerInstall.py:92
+msgid "Do you want to copy settings from the current image?"
+msgstr "Vuoi copiare le impostazioni dall'immagine corrente?"
+
 #: OMBManagerInstall.py:73
 msgid ""
 "Please wait while installation is in progress.\n"
