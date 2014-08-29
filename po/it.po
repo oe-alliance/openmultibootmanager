@@ -1,0 +1,154 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Sandro Cavazzoni <sandro@skanetwork.com>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-29 18:02+0200\n"
+"PO-Revision-Date: 2014-08-29 18:12+0200\n"
+"Last-Translator: Sandro Cavazzoni <sandro@skanetwork.com>\n"
+"Language-Team: Italiano <sandro@skanetwork.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.6\n"
+
+#: OMBManagerAbout.py:22
+msgid "openMultiboot About"
+msgstr "openMultiboot About"
+
+#: OMBManagerInstall.py:52
+msgid "openMultiboot Install"
+msgstr "openMultiboot Install"
+
+#: OMBManagerInstall.py:57
+msgid "Choose the image to install"
+msgstr "Scegli l'immagine da installare"
+
+#: OMBManagerInstall.py:73
+msgid ""
+"Please wait while installation is in progress.\n"
+"This operation may take a while."
+msgstr ""
+"Attendere, installazione in corso.\n"
+"L'operazione potrebbe richiedere molto tempo."
+
+#: OMBManagerInstall.py:105
+#, python-format
+msgid "Cannot create kernel folder %s"
+msgstr "Impossibile creare la cartella del kernel %s"
+
+#: OMBManagerInstall.py:109
+#, python-format
+msgid "The folder %s already exist"
+msgstr "La cartella %s è già esistente"
+
+#: OMBManagerInstall.py:115 OMBManagerInstall.py:125
+#, python-format
+msgid "Cannot create folder %s"
+msgstr "Impossibile creare la cartella %s"
+
+#: OMBManagerInstall.py:129
+msgid "Cannot deflate image"
+msgstr "Impossibile decomprimere l'immagine"
+
+#: OMBManagerInstall.py:148
+msgid "Your STB doesn't seem supported"
+msgstr "Il tuo decoder non sembra essere supportato"
+
+#: OMBManagerInstall.py:162
+msgid "Cannot create virtual MTD device"
+msgstr "Impossibile creare il dispositivo MTD virtuale"
+
+#: OMBManagerList.py:113 plugin.py:9
+msgid "openMultiboot Manager"
+msgstr "openMultiboot Manager"
+
+#: OMBManagerList.py:125
+msgid "Close"
+msgstr "Chiudi"
+
+#: OMBManagerList.py:126
+msgid "Install"
+msgstr "Installa"
+
+#: OMBManagerList.py:128
+msgid "About"
+msgstr "Informarzioni"
+
+#: OMBManagerList.py:204
+msgid "Delete"
+msgstr "Elimina"
+
+#: OMBManagerList.py:216
+msgid "Please wait while delete is in progress."
+msgstr "Attendere, eliminazione in corso."
+
+#: OMBManagerList.py:235
+#, python-format
+msgid "Do you want to delete %s?"
+msgstr "Vuoi eliminare %s?"
+
+#: OMBManagerList.py:252
+#, python-format
+msgid "Please upload an image inside %s"
+msgstr "Per favore carica un'immagine dentro %s"
+
+#: OMBManager.py:16
+msgid "Where do you want to install openMultiboot?"
+msgstr "Dove vuoi installare openMultiboot?"
+
+#: OMBManager.py:27
+msgid "No suitable devices found"
+msgstr "Nessun dispositivo supportato trovato"
+
+#: OMBManager.py:50
+msgid "Cannot create data folder"
+msgstr "Impossibile creare la cartella dei dati"
+
+#: OMBManager.py:58
+msgid "Please wait while format is in progress."
+msgstr "Attendere, formattazione in corso."
+
+#: OMBManager.py:67
+msgid "Cannot umount the device"
+msgstr "Impossibile sconnettere il dispositivo"
+
+#: OMBManager.py:70
+msgid "Cannot format the device"
+msgstr "Impossibile formattare il dispositivo"
+
+#: OMBManager.py:73
+msgid "Cannot remount the device"
+msgstr "Impossibile riconnettere il dispositivo"
+
+#: OMBManager.py:99
+msgid ""
+"Filesystem not supported\n"
+"Do you want format your drive?"
+msgstr ""
+"Filesystem non supportato\n"
+"Vuoi formattare il tuo disco?"
+
+#: OMBManager.py:109
+msgid ""
+"You need the module kernel-module-nandsim to use openMultiboot\n"
+"Do you want install it?"
+msgstr ""
+"Devi installare il modulo kernel-module-nandsim per poter usare "
+"openMultiboot\n"
+"Vuoi installarlo?"
+
+#: OMBManager.py:119
+msgid "Please wait while installation is in progress."
+msgstr "Attendere, installazione in corso."
+
+#: OMBManager.py:128
+msgid "Cannot install kernel-module-nandsim"
+msgstr "Impossibile installare kernel-module-nandsim"
