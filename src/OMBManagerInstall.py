@@ -35,7 +35,13 @@ from enigma import eTimer
 import os
 
 OMB_STB_MAP = {
-	'gbquadplus': 'quadplus'
+	'gbquadplus': 'quadplus',
+    'gbquad': 'quad',
+    'gb800ueplus': 'ueplus',
+    'gb800seplus': 'seplus',
+    'gbipbox': 'ipbox',
+    'gb800ue': 'ue',
+    'gb800se': 'se'
 }
 
 OMB_DD_BIN = '/bin/dd'
@@ -210,4 +216,3 @@ class OMBManagerInstall(Screen):
 			os.system(OMB_CP_BIN + ' /etc/enigma2/settings ' + dst_path + '/etc/enigma2')
 		
 		return True
-
