@@ -34,6 +34,50 @@ from enigma import eTimer
 
 import os
 
+from boxbranding import *
+
+OMB_GETBOXTYPE = getBoxType()
+OMB_GETBRANDOEM = getBrandOEM()
+OMB_GETIMAGEDISTRO = getImageDistro()
+OMB_GETIMAGEVERSION = getImageVersion()
+OMB_GETIMAGEFILESYSTEM = getImageFileSystem()
+OMB_GETIMAGEFOLDER = getImageFolder()
+OMB_GETMACHINEMTDKERNEL = getMachineMtdKernel()
+OMB_GETMACHINEKERNELFILE = getMachineKernelFile()
+OMB_GETMACHINEMTDROOT = getMachineMtdRoot()
+OMB_GETMACHINEROOTFILE = getMachineRootFile()
+OMB_GETMACHINEMKUBIFS = getMachineMKUBIFS()
+OMB_GETMACHINEUBINIZE = getMachineUBINIZE()
+OMB_getMachineBuild = getMachineBuild()
+OMB_getMachineProcModel = getMachineProcModel()
+OMB_getMachineBrand = getMachineBrand()
+OMB_getMachineName = getMachineName()
+OMB_GETOEVERSION = getOEVersion()
+
+#
+# SAMPLE-DATA BOXBRANDING
+#
+# getMachineBuild=gbquadplus<
+# getMachineProcModel=gbquadplus<
+# getMachineBrand=GigaBlue<
+# getMachineName=Quad Plus<
+# getMachineMtdKernel=mtd2<
+# getMachineKernelFile=kernel.bin<
+# getMachineMtdRoot=mtd0<
+# getMachineRootFile=rootfs.bin<
+# getMachineMKUBIFS=-m 2048 -e 126976 -c 4000 -F<
+# getMachineUBINIZE=-m 2048 -p 128KiB<
+# getBoxType=gbquadplus<
+# getBrandOEM=gigablue<
+# getOEVersion=OE-Alliance 2.3<
+# getDriverDate=20140828<
+# getImageVersion=4.2<
+# getImageBuild=1<
+# getImageDistro=openmips<
+# getImageFolder=gigablue/quadplus<
+# getImageFileSystem=ubi<
+# 
+
 OMB_STB_MAP = {
 	'gbquadplus': 'quadplus',
     'gbquad': 'quad',
