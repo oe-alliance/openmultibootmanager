@@ -78,16 +78,6 @@ OMB_GETOEVERSION = getOEVersion()
 # getImageFileSystem=ubi<
 # 
 
-OMB_STB_MAP = {
-	'gbquadplus': 'quadplus',
-    'gbquad': 'quad',
-    'gb800ueplus': 'ueplus',
-    'gb800seplus': 'seplus',
-    'gbipbox': 'ipbox',
-    'gb800ue': 'ue',
-    'gb800se': 'se'
-}
-
 OMB_DD_BIN = '/bin/dd'
 OMB_CP_BIN = '/bin/cp'
 OMB_RM_BIN = '/bin/rm'
@@ -220,16 +210,13 @@ class OMBManagerInstall(Screen):
 				break
 		mtd = str(i)
 
-		model = open('/proc/stb/info/model').read().strip()
-		if not model in OMB_STB_MAP:
+		if OMB_GETBOXTYPE in ('gb800solo'):
 			self.showError(_("Your STB doesn\'t seem supported"))
 			return False
 
-		model = OMB_STB_MAP[model]
-
-		base_path = src_path + '/gigablue/' + model
-		rootfs_path = base_path + '/rootfs.bin'
-		kernel_path = base_path + '/kernel.bin'
+		base_path = src_path + '/' + OMB_GETIMAGEFOLDER
+		rootfs_path = base_path + '/' + OMB_GETMACHINEROOTFILE
+		kernel_path = base_path + '/' + OMB_GETMACHINEKERNELFILE
 		ubi_path = src_path + '/ubi'
 
 		virtual_mtd = tmp_folder + '/virtual_mtd'
