@@ -22,6 +22,8 @@
 
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
+#from Screens.InputBox import InputBox
+from Screens.VirtualKeyBoard import VirtualKeyBoard
 
 from Components.ActionMap import ActionMap
 from Components.Button import Button
@@ -145,14 +147,14 @@ class OMBManagerList(Screen):
 		self["list"] = List(self.images_list)
 		self["list"].onSelectionChanged.append(self.onSelectionChanged)
 		self["background"] = Pixmap()
-		self["key_red"] = Button(_('Close'))
+		self["key_red"] = Button(_('Rename'))
 		self["key_green"] = Button(_('Install'))
 		self["key_yellow"] = Button()
 		self["key_blue"] = Button(_('About'))
-		self["config_actions"] = ActionMap(["SetupActions", "ColorActions"],
+		self["config_actions"] = ActionMap(["OkCancelActions", "ColorActions"],
 		{
-			"cancel": self.keyCancel,
-			"red": self.keyCancel,
+			"cancel": self.close,
+			"red": self.keyRename,
 			"yellow": self.keyDelete,
 			"green": self.keyInstall,
 			"blue": self.keyAbout
@@ -174,25 +176,49 @@ class OMBManagerList(Screen):
 			return image_distro + " " + image_version
 		else:
 			return identifier
+
+	def ImageTitleFromLabel(self, file_entry):
+		f = open(self.data_dir + '/' + file_entry)
+		label = f.readline()
+		f.close()
+		if label.endswith('\n'):
+			return label[:-1]
+		else:
+			return label
 		
 	def populateImagesList(self):
+		exclude_list = ['.label_flash']
 		self.images_list = []
 		self.images_entries = []
+		flashimageLabel = 'Flash image'
+
+		if os.path.exists(self.data_dir + '/.label_flash'): # use label name
+			flashimageLabel = self.ImageTitleFromLabel('.label_flash') + ' (Flash)'
+
 		self.images_entries.append({
-			'label': 'Flash image',
+			'label': flashimageLabel,
 			'identifier': 'flash',
 			'path': '/'
 		})
 		self.images_list.append(self.images_entries[0]['label'])
 		if os.path.exists(self.data_dir):
 			for file_entry in os.listdir(self.data_dir):
-				if not os.path.isdir(self.data_dir + '/' + file_entry):
+				if file_entry in exclude_list:
 					continue
-					
-				if file_entry[0] == '.':
+
+				if not os.path.isdir(self.data_dir + '/' + file_entry) and not file_entry[:7] == '.label_':
 					continue
-					
-				title = self.guessImageTitle(self.data_dir + '/' + file_entry, file_entry)
+
+				if file_entry[0] == '.' and not file_entry[:7] == '.label_':
+					continue
+
+				if file_entry[:7] == '.label_': # use label name
+					title = self.ImageTitleFromLabel(file_entry)
+					tmp_file_entry = file_entry[7:]
+					exclude_list.append(tmp_file_entry)
+					file_entry = tmp_file_entry
+				else:
+					title = self.guessImageTitle(self.data_dir + '/' + file_entry, file_entry)
 				
 				self.images_entries.append({
 					'label': title,
@@ -230,9 +256,28 @@ class OMBManagerList(Screen):
 			
 	def keyAbout(self):
 		self.session.open(OMBManagerAbout)
-		
-	def keyCancel(self):
-		self.close()
+
+	def keyRename(self):
+		self.renameIndex = self["list"].getIndex()
+		name = self["list"].getCurrent()
+		if self["list"].getIndex() == 0:
+			name = name[:-8]
+
+		self.session.openWithCallback(self.renameEntryCallback, VirtualKeyBoard, title=_("Please enter new name:"), text=name)
+
+	def renameEntryCallback(self, name):
+		if name:
+			renameimage = self.images_entries[self.renameIndex]
+
+			if renameimage['identifier'] == 'flash':
+				file_entry = self.data_dir + '/.label_flash'
+			else:
+				file_entry = self.data_dir + '/.label_' + renameimage['identifier']
+
+			f = open(file_entry, 'w')
+			f.write(name)
+			f.close()
+			self.refresh()
 		
 	def deleteConfirm(self, confirmed):
 		if confirmed and len(self.entry_to_delete['path']) > 1:
