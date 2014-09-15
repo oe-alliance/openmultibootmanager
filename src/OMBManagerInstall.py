@@ -210,7 +210,7 @@ class OMBManagerInstall(Screen):
 				break
 		mtd = str(i)
 
-		if OMB_GETBOXTYPE in ('gb800solo'):
+		if OMB_GETBOXTYPE in ('whatever'):
 			self.showError(_("Your STB doesn\'t seem supported"))
 			return False
 
