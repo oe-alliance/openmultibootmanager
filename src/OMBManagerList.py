@@ -22,7 +22,6 @@
 
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
-#from Screens.InputBox import InputBox
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 
 from Components.ActionMap import ActionMap
@@ -261,7 +260,8 @@ class OMBManagerList(Screen):
 		self.renameIndex = self["list"].getIndex()
 		name = self["list"].getCurrent()
 		if self["list"].getIndex() == 0:
-			name = name[:-8]
+			if name.endswith('(Flash)'):
+				name = name[:-8]
 
 		self.session.openWithCallback(self.renameEntryCallback, VirtualKeyBoard, title=_("Please enter new name:"), text=name)
 
