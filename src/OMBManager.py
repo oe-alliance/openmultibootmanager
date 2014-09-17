@@ -43,6 +43,7 @@ class OMBManagerInit:
 				disks_list.append((partition.description, partition))
 
 		if len(disks_list) > 0:
+			disks_list.append((_("Cancel"), None))
 			self.session.openWithCallback(self.initCallback, MessageBox, message, list=disks_list)
 		else:
 			self.session.open(
