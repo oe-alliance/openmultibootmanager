@@ -88,6 +88,8 @@ OMB_UMOUNT_BIN = '/bin/umount'
 OMB_MODPROBE_BIN = '/sbin/modprobe'
 OMB_RMMOD_BIN = '/sbin/rmmod'
 OMB_UNZIP_BIN = '/usr/bin/unzip'
+OMB_LOSETUP_BIN = '/sbin/losetup'
+OMB_ECHO_BIN = '/bin/echo'
 
 class OMBManagerInstall(Screen):
 	skin = """
@@ -188,6 +190,7 @@ class OMBManagerInstall(Screen):
 		try:
 			os.makedirs(tmp_folder)
 			os.makedirs(tmp_folder + '/ubi')
+			os.makedirs(tmp_folder + '/jffs2')
 		except OSError as exception:
 			self.showError(_("Cannot create folder %s") % tmp_folder)
 			return
@@ -202,17 +205,52 @@ class OMBManagerInstall(Screen):
 			self.close()
 		
 		os.system(OMB_RM_BIN + ' -rf ' + tmp_folder)
-			
+
 	def installImage(self, src_path, dst_path, kernel_dst_path, tmp_folder):
+		if OMB_GETIMAGEFILESYSTEM == "ubi":
+			return self.installImageUBI(src_path, dst_path, kernel_dst_path, tmp_folder)
+		elif OMB_GETIMAGEFILESYSTEM == "jffs2":
+			return self.installImageJFFS2(src_path, dst_path, kernel_dst_path, tmp_folder)
+		else:
+			self.showError(_("Your STB doesn\'t seem supported"))
+			return False
+			
+	def installImageJFFS2(self, src_path, dst_path, kernel_dst_path, tmp_folder):
+		base_path = src_path + '/' + OMB_GETIMAGEFOLDER
+		rootfs_path = base_path + '/' + OMB_GETMACHINEROOTFILE
+		kernel_path = base_path + '/' + OMB_GETMACHINEKERNELFILE
+		jffs2_path = src_path + '/jffs2'
+
+		os.system(OMB_MODPROBE_BIN + ' loop')
+		os.system(OMB_MODPROBE_BIN + ' mtdblock')
+		os.system(OMB_MODPROBE_BIN + ' block2mtd')
+		os.system(OMB_LOSETUP_BIN + ' /dev/loop0 ' + kernel_path)
+		os.system(OMB_ECHO_BIN + ' "/dev/loop0,128KiB" > /sys/module/block2mtd/parameters/block2mtd')
+		os.system(OMB_MOUNT_BIN + ' -t jffs2 /dev/mtdblock3 ' + jffs2_path)
+		
+		if os.path.exists(jffs2_path + '/usr/bin/enigma2'):
+			os.system(OMB_CP_BIN + ' -rp ' + jffs2_path + '/* ' + dst_path)
+			os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path)
+			
+		os.system(OMB_UMOUNT_BIN + ' ' + jffs2_path)
+		os.system(OMB_RMMOD_BIN + ' block2mtd')
+		os.system(OMB_RMMOD_BIN + ' mtdblock')
+		os.system(OMB_RMMOD_BIN + ' loop')
+
+		self.installSettings(dst_path)
+		
+		return True
+
+	def installImageUBI(self, src_path, dst_path, kernel_dst_path, tmp_folder):
 		for i in range(0, 20):
 			mtdfile = "/dev/mtd" + str(i)
 			if os.path.exists(mtdfile) is False:
 				break
 		mtd = str(i)
 
-		if OMB_GETBOXTYPE in ('whatever'):
-			self.showError(_("Your STB doesn\'t seem supported"))
-			return False
+		#if OMB_GETBOXTYPE in ('whatever'):
+		#	self.showError(_("Your STB doesn\'t seem supported"))
+		#	return False
 
 		base_path = src_path + '/' + OMB_GETIMAGEFOLDER
 		rootfs_path = base_path + '/' + OMB_GETMACHINEROOTFILE
@@ -238,6 +276,11 @@ class OMBManagerInstall(Screen):
 		os.system(OMB_UBIDETACH_BIN + ' -m ' + mtd)
 		os.system(OMB_RMMOD_BIN + ' nandsim')
 		
+		self.installSettings(dst_path)
+		
+		return True
+	
+	def installSettings(self, dst_path):
 		if self.install_settings:
 			if not os.path.exists(dst_path + '/etc/enigma2'):
 				os.makedirs(dst_path + '/etc/enigma2')
@@ -245,5 +288,4 @@ class OMBManagerInstall(Screen):
 			os.system(OMB_CP_BIN + ' /etc/enigma2/*.radio ' + dst_path + '/etc/enigma2')
 			os.system(OMB_CP_BIN + ' /etc/enigma2/lamedb ' + dst_path + '/etc/enigma2')
 			os.system(OMB_CP_BIN + ' /etc/enigma2/settings ' + dst_path + '/etc/enigma2')
-		
-		return True
+
