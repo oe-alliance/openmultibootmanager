@@ -157,15 +157,28 @@ class OMBManagerInstall(Screen):
 		self.error_message = error_message;
 		self.error_timer.start(100)
 		
+	def guessIdentifierName(self, selected_image):
+		selected_image = selected_image.replace(' ', '_')
+		prefix = self.mount_point + '/' + OMB_DATA_DIR + '/'
+		if not os.path.exists(prefix + selected_image):
+			return selected_image
+			
+		count = 1
+		while os.path.exists(prefix + selected_image + '_' + str(count)):
+			count += 1
+			
+		return selected_image + '_' + str(count)
+		
 	def installPrepare(self):
 		self.timer.stop()
 		
 		selected_image = self.selected_image
+		selected_image_identifier = self.guessIdentifierName(selected_image)
 
 		source_file = self.mount_point + '/' + OMB_UPLOAD_DIR + '/' + selected_image + '.zip'
-		target_folder = self.mount_point + '/' + OMB_DATA_DIR + '/' + selected_image.replace(' ', '_')
+		target_folder = self.mount_point + '/' + OMB_DATA_DIR + '/' + selected_image_identifier
 		kernel_target_folder = self.mount_point + '/' + OMB_DATA_DIR + '/.kernels'
-		kernel_target_file = kernel_target_folder + '/' + selected_image.replace(' ', '_') + '.bin'
+		kernel_target_file = kernel_target_folder + '/' + selected_image_identifier + '.bin'
 
 		if not os.path.exists(kernel_target_folder):
 			try:
