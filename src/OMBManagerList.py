@@ -176,14 +176,11 @@ class OMBManagerList(Screen):
 		else:
 			return identifier
 
-	def ImageTitleFromLabel(self, file_entry):
+	def imageTitleFromLabel(self, file_entry):
 		f = open(self.data_dir + '/' + file_entry)
-		label = f.readline()
+		label = f.readline().strip()
 		f.close()
-		if label.endswith('\n'):
-			return label[:-1]
-		else:
-			return label
+		return label
 		
 	def populateImagesList(self):
 		exclude_list = ['.label_flash']
@@ -192,7 +189,7 @@ class OMBManagerList(Screen):
 		flashimageLabel = 'Flash image'
 
 		if os.path.exists(self.data_dir + '/.label_flash'): # use label name
-			flashimageLabel = self.ImageTitleFromLabel('.label_flash') + ' (Flash)'
+			flashimageLabel = self.imageTitleFromLabel('.label_flash') + ' (Flash)'
 
 		self.images_entries.append({
 			'label': flashimageLabel,
