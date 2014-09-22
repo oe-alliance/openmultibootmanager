@@ -26,6 +26,7 @@ from Screens.MessageBox import MessageBox
 
 from OMBManagerList import OMBManagerList
 from OMBManagerCommon import OMB_MAIN_DIR, OMB_DATA_DIR, OMB_UPLOAD_DIR
+from OMBManagerInstall import OMB_GETIMAGEFILESYSTEM
 from OMBManagerLocale import _
 
 from enigma import eTimer
@@ -127,10 +128,11 @@ class OMBManagerInit:
 				self.createDir(response)
 
 class OMBManagerKernelModule:
-	def __init__(self, session):
+	def __init__(self, session, kernel_module):
 		self.session = session
+		self.kernel_module = kernel_module
 
-		message = _("You need the module kernel-module-nandsim to use openMultiboot\nDo you want install it?")
+		message = _("You need the module " + self.kernel_module + " to use openMultiboot\nDo you want install it?")
 		disks_list = []
 		for partition in harddiskmanager.getMountedPartitions():
 			if partition.mountpoint != '/':
@@ -148,8 +150,8 @@ class OMBManagerKernelModule:
 	def installModule(self):
 		self.timer.stop()
 		self.error_message = ''
-		if os.system('opkg update && opkg install kernel-module-nandsim') != 0:
-			self.error_message = _('Cannot install kernel-module-nandsim')
+		if os.system('opkg update && opkg install ' + self.kernel_module) != 0:
+			self.error_message = _('Cannot install ' + self.kernel_module)
 		
 		self.messagebox.close()
 		self.timer = eTimer()
@@ -170,8 +172,12 @@ class OMBManagerKernelModule:
 def OMBManager(session, **kwargs):
 	found = False
 	
-	if os.system('opkg list_installed | grep kernel-module-nandsim') != 0:
-		OMBManagerKernelModule(session)
+	kernel_module = 'kernel-module-nandsim'
+	if OMB_GETIMAGEFILESYSTEM == "jffs2":
+		kernel_module = 'kernel-module-block2mtd'
+	
+	if os.system('opkg list_installed | grep ' + kernel_module) != 0:
+		OMBManagerKernelModule(session, kernel_module)
 		return
 	
 	data_dir = OMB_MAIN_DIR + '/' + OMB_DATA_DIR
