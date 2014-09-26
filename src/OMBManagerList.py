@@ -209,7 +209,7 @@ class OMBManagerList(Screen):
 					continue
 
 				if file_entry[:7] == '.label_': # use label name
-					title = self.ImageTitleFromLabel(file_entry)
+					title = self.imageTitleFromLabel(file_entry)
 					tmp_file_entry = file_entry[7:]
 					exclude_list.append(tmp_file_entry)
 					file_entry = tmp_file_entry
