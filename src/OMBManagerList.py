@@ -212,7 +212,9 @@ class OMBManagerList(Screen):
 				self.images_entries.append({
 					'label': title,
 					'identifier': file_entry,
-					'path': self.data_dir + '/' + file_entry
+					'path': self.data_dir + '/' + file_entry,
+					'labelfile': self.data_dir + '/' + '.label_' + file_entry,
+					'kernelbin': self.data_dir + '/' + '.kernels' + '/' + file_entry + '.bin'
 				})
 				self.images_list.append(title)
 					
@@ -279,6 +281,11 @@ class OMBManagerList(Screen):
 	def deleteImage(self):
 		self.timer.stop()
 		os.system(OMB_RM_BIN + ' -rf ' + self.entry_to_delete['path'])
+		os.system(OMB_RM_BIN + ' -rf ' + self.entry_to_delete['kernelbin'])
+		try:
+			os.system(OMB_RM_BIN + ' -rf ' + self.entry_to_delete['labelfile'])
+		except:
+			pass
 		self.messagebox.close()
 		self.refresh()
 		
