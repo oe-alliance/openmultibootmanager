@@ -183,7 +183,6 @@ class OMBManagerList(Screen):
 		return label
 		
 	def populateImagesList(self):
-		exclude_list = ['.label_flash']
 		self.images_list = []
 		self.images_entries = []
 		flashimageLabel = 'Flash image'
@@ -199,20 +198,14 @@ class OMBManagerList(Screen):
 		self.images_list.append(self.images_entries[0]['label'])
 		if os.path.exists(self.data_dir):
 			for file_entry in os.listdir(self.data_dir):
-				if file_entry in exclude_list:
+				if not os.path.isdir(self.data_dir + '/' + file_entry):
 					continue
 
-				if not os.path.isdir(self.data_dir + '/' + file_entry) and not file_entry[:7] == '.label_':
+				if file_entry[0] == '.':
 					continue
 
-				if file_entry[0] == '.' and not file_entry[:7] == '.label_':
-					continue
-
-				if file_entry[:7] == '.label_': # use label name
-					title = self.imageTitleFromLabel(file_entry)
-					tmp_file_entry = file_entry[7:]
-					exclude_list.append(tmp_file_entry)
-					file_entry = tmp_file_entry
+				if os.path.exists(self.data_dir + '/.label_' + file_entry):
+					title = self.imageTitleFromLabel('.label_' + file_entry)
 				else:
 					title = self.guessImageTitle(self.data_dir + '/' + file_entry, file_entry)
 				
