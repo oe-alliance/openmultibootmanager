@@ -281,8 +281,8 @@ class OMBManagerList(Screen):
 	def deleteImage(self):
 		self.timer.stop()
 		os.system(OMB_RM_BIN + ' -rf ' + self.entry_to_delete['path'])
-		os.system(OMB_RM_BIN + ' -rf ' + self.entry_to_delete['kernelbin'])
-		os.system(OMB_RM_BIN + ' -rf ' + self.entry_to_delete['labelfile'])
+		os.system(OMB_RM_BIN + ' -f ' + self.entry_to_delete['kernelbin'])
+		os.system(OMB_RM_BIN + ' -f ' + self.entry_to_delete['labelfile'])
 		self.messagebox.close()
 		self.refresh()
 		
