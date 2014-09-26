@@ -282,10 +282,7 @@ class OMBManagerList(Screen):
 		self.timer.stop()
 		os.system(OMB_RM_BIN + ' -rf ' + self.entry_to_delete['path'])
 		os.system(OMB_RM_BIN + ' -rf ' + self.entry_to_delete['kernelbin'])
-		try:
-			os.system(OMB_RM_BIN + ' -rf ' + self.entry_to_delete['labelfile'])
-		except:
-			pass
+		os.system(OMB_RM_BIN + ' -rf ' + self.entry_to_delete['labelfile'])
 		self.messagebox.close()
 		self.refresh()
 		
