@@ -78,6 +78,9 @@ msgstr "openMultiboot Manager"
 msgid "Close"
 msgstr "Chiudi"
 
+msgid "Rename"
+msgstr "Rinomina"
+
 #: OMBManagerList.py:126
 msgid "Install"
 msgstr "Installa"
