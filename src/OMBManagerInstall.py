@@ -131,10 +131,6 @@ class OMBManagerInstall(Screen):
 		self.close()
 		
 	def keyInstall(self):
-		self.session.openWithCallback(self.installStart, MessageBox, _("Do you want to copy settings from the current image?"), MessageBox.TYPE_YESNO)
-
-	def installStart(self, install_settings):
-		self.install_settings = install_settings
 		self.selected_image = self["list"].getCurrent()
 		if not self.selected_image:
 			return
@@ -250,8 +246,6 @@ class OMBManagerInstall(Screen):
 		os.system(OMB_RMMOD_BIN + ' mtdblock')
 		os.system(OMB_RMMOD_BIN + ' loop')
 
-		self.installSettings(dst_path)
-		
 		return True
 
 	def installImageUBI(self, src_path, dst_path, kernel_dst_path, tmp_folder):
@@ -289,16 +283,4 @@ class OMBManagerInstall(Screen):
 		os.system(OMB_UBIDETACH_BIN + ' -m ' + mtd)
 		os.system(OMB_RMMOD_BIN + ' nandsim')
 		
-		self.installSettings(dst_path)
-		
 		return True
-	
-	def installSettings(self, dst_path):
-		if self.install_settings:
-			if not os.path.exists(dst_path + '/etc/enigma2'):
-				os.makedirs(dst_path + '/etc/enigma2')
-			os.system(OMB_CP_BIN + ' /etc/enigma2/*.tv ' + dst_path + '/etc/enigma2')
-			os.system(OMB_CP_BIN + ' /etc/enigma2/*.radio ' + dst_path + '/etc/enigma2')
-			os.system(OMB_CP_BIN + ' /etc/enigma2/lamedb ' + dst_path + '/etc/enigma2')
-			os.system(OMB_CP_BIN + ' /etc/enigma2/settings ' + dst_path + '/etc/enigma2')
-
