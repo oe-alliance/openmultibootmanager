@@ -90,6 +90,7 @@ OMB_RMMOD_BIN = '/sbin/rmmod'
 OMB_UNZIP_BIN = '/usr/bin/unzip'
 OMB_LOSETUP_BIN = '/sbin/losetup'
 OMB_ECHO_BIN = '/bin/echo'
+OMB_MKNOD_BIN = '/bin/mknod'
 
 class OMBManagerInstall(Screen):
 	skin = """
@@ -235,6 +236,7 @@ class OMBManagerInstall(Screen):
 		os.system(OMB_MODPROBE_BIN + ' block2mtd')
 		os.system(OMB_LOSETUP_BIN + ' /dev/loop0 ' + rootfs_path)
 		os.system(OMB_ECHO_BIN + ' "/dev/loop0,128KiB" > /sys/module/block2mtd/parameters/block2mtd')
+		os.system(OMB_MKNOD_BIN + ' /tmp/mtdblock3 b 31 0')
 		os.system(OMB_MOUNT_BIN + ' -t jffs2 /dev/mtdblock3 ' + jffs2_path)
 		
 		if os.path.exists(jffs2_path + '/usr/bin/enigma2'):
