@@ -267,7 +267,7 @@ class OMBManagerInstall(Screen):
 		ubi_path = src_path + '/ubi'
 
 		virtual_mtd = tmp_folder + '/virtual_mtd'
-		os.system(OMB_MODPROBE_BIN + ' nandsim cache_file=' + virtual_mtd + ' first_id_byte=0x20 second_id_byte=0xaa third_id_byte=0x00 fourth_id_byte=0x25')
+		os.system(OMB_MODPROBE_BIN + ' nandsim cache_file=' + virtual_mtd + ' first_id_byte=0x20 second_id_byte=0xac third_id_byte=0x00 fourth_id_byte=0x15')
 		if not os.path.exists('/dev/mtd' + mtd):
 			os.system('rmmod nandsim')
 			self.showError(_("Cannot create virtual MTD device"))
