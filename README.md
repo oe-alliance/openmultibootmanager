@@ -21,3 +21,4 @@
 - Do not use Flash-Online if you have not booted your regularly flashed image - use delete/install in OpenMultiBoot of regularly flashed image
 - Special thx goes to skaman, kajgan, captain, arn354 and all testers!
 
+[![Play openMultiBoot YouTube](http://img.youtube.com/vi/WYOYCraLoMk/0.jpg)](https://www.youtube.com/watch?v=WYOYCraLoMk)
