@@ -26,7 +26,7 @@ from Screens.MessageBox import MessageBox
 
 from OMBManagerList import OMBManagerList
 from OMBManagerCommon import OMB_MAIN_DIR, OMB_DATA_DIR, OMB_UPLOAD_DIR
-from OMBManagerInstall import OMB_GETIMAGEFILESYSTEM
+from OMBManagerInstall import OMB_GETIMAGEFILESYSTEM, BRANDING
 from OMBManagerLocale import _
 
 from enigma import eTimer
@@ -176,7 +176,7 @@ def OMBManager(session, **kwargs):
 	if OMB_GETIMAGEFILESYSTEM == "jffs2":
 		kernel_module = 'kernel-module-block2mtd'
 	
-	if os.system('opkg list_installed | grep ' + kernel_module) != 0:
+	if os.system('opkg list_installed | grep ' + kernel_module) != 0 and BRANDING:
 		OMBManagerKernelModule(session, kernel_module)
 		return
 	

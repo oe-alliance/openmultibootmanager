@@ -34,25 +34,38 @@ from enigma import eTimer
 
 import os
 
-from boxbranding import *
+try:
+	from boxbranding import *
+	BRANDING = True
+except:
+	BRANDING = False
 
-OMB_GETBOXTYPE = getBoxType()
-OMB_GETBRANDOEM = getBrandOEM()
-OMB_GETIMAGEDISTRO = getImageDistro()
-OMB_GETIMAGEVERSION = getImageVersion()
-OMB_GETIMAGEFILESYSTEM = getImageFileSystem()
-OMB_GETIMAGEFOLDER = getImageFolder()
-OMB_GETMACHINEMTDKERNEL = getMachineMtdKernel()
-OMB_GETMACHINEKERNELFILE = getMachineKernelFile()
-OMB_GETMACHINEMTDROOT = getMachineMtdRoot()
-OMB_GETMACHINEROOTFILE = getMachineRootFile()
-OMB_GETMACHINEMKUBIFS = getMachineMKUBIFS()
-OMB_GETMACHINEUBINIZE = getMachineUBINIZE()
-OMB_GETMACHINEBUILD = getMachineBuild()
-OMB_GETMACHINEPROCMODEL = getMachineProcModel()
-OMB_GETMACHINEBRAND = getMachineBrand()
-OMB_GETMACHINENAME = getMachineName()
-OMB_GETOEVERSION = getOEVersion()
+if BRANDING:
+	OMB_GETBOXTYPE = getBoxType()
+	OMB_GETBRANDOEM = getBrandOEM()
+	OMB_GETIMAGEDISTRO = getImageDistro()
+	OMB_GETIMAGEVERSION = getImageVersion()
+	OMB_GETIMAGEFILESYSTEM = getImageFileSystem() # needed
+	OMB_GETIMAGEFOLDER = getImageFolder() # needed
+	OMB_GETMACHINEMTDKERNEL = getMachineMtdKernel()
+	OMB_GETMACHINEKERNELFILE = getMachineKernelFile() # needed
+	OMB_GETMACHINEMTDROOT = getMachineMtdRoot()
+	OMB_GETMACHINEROOTFILE = getMachineRootFile() # needed
+	OMB_GETMACHINEMKUBIFS = getMachineMKUBIFS()
+	OMB_GETMACHINEUBINIZE = getMachineUBINIZE()
+	OMB_GETMACHINEBUILD = getMachineBuild()
+	OMB_GETMACHINEPROCMODEL = getMachineProcModel()
+	OMB_GETMACHINEBRAND = getMachineBrand()
+	OMB_GETMACHINENAME = getMachineName()
+	OMB_GETOEVERSION = getOEVersion()
+else:
+	OMB_GETIMAGEFILESYSTEM = "ubi"
+	f=open("/proc/mounts","r")
+	for line in f:
+		if line.find("rootfs")>-1:
+			if line.find("jffs2")>-1:
+				OMB_GETIMAGEFILESYSTEM = "jffs2"
+				break
 
 #
 # SAMPLE-DATA BOXBRANDING

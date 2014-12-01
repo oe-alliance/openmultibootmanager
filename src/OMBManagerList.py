@@ -30,7 +30,7 @@ from Components.ConfigList import ConfigListScreen
 from Components.Pixmap import Pixmap
 from Components.Sources.List import List
 
-from OMBManagerInstall import OMBManagerInstall, OMB_RM_BIN
+from OMBManagerInstall import OMBManagerInstall, OMB_RM_BIN, BRANDING
 from OMBManagerAbout import OMBManagerAbout
 from OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR
 from OMBManagerLocale import _
@@ -147,9 +147,12 @@ class OMBManagerList(Screen):
 		self["list"].onSelectionChanged.append(self.onSelectionChanged)
 		self["background"] = Pixmap()
 		self["key_red"] = Button(_('Rename'))
-		self["key_green"] = Button(_('Install'))
 		self["key_yellow"] = Button()
 		self["key_blue"] = Button(_('About'))
+		if BRANDING:
+			self["key_green"] = Button(_('Install'))
+		else:
+			self["key_green"] = Button('')
 		self["config_actions"] = ActionMap(["OkCancelActions", "ColorActions"],
 		{
 			"cancel": self.close,
@@ -297,6 +300,8 @@ class OMBManagerList(Screen):
 				self.session.openWithCallback(self.deleteConfirm, MessageBox, _("Do you want to delete %s?") % self.entry_to_delete['label'], MessageBox.TYPE_YESNO)
 		
 	def keyInstall(self):
+		if not BRANDING:
+			return
 		upload_list = []
 		if os.path.exists(self.upload_dir):
 			for file_entry in os.listdir(self.upload_dir):
