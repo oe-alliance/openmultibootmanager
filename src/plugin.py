@@ -28,8 +28,9 @@ from OMBManagerLocale import _
 def Plugins(**kwargs):
 	return [
 		PluginDescriptor(
-			name = "openMultiboot",
+			name = "OpenMultiboot",
 			description = _("openMultiboot Manager"),
+			icon='plugin.png',
 			where = [PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU],
 			fnc = OMBManager
 		)
