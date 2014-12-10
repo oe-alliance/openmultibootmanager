@@ -33,6 +33,7 @@ from OMBManagerLocale import _
 from enigma import eTimer
 
 import os
+import glob
 
 try:
 	from boxbranding import *
@@ -221,12 +222,17 @@ class OMBManagerInstall(Screen):
 		if os.system(OMB_UNZIP_BIN + ' ' + source_file + ' -d ' + tmp_folder) != 0:
 			self.showError(_("Cannot deflate image"))
 			return
-			
+
+		nfifile = glob.glob('%s/*.nfi' % tmp_folder)
+		if nfifile and not extractImageNFI(nfifile[0], tmp_folder):
+			self.showError(_("Cannot extract nfi image"))
+			return
+
 		if self.installImage(tmp_folder, target_folder, kernel_target_file, tmp_folder):
 			os.system(OMB_RM_BIN + ' -f ' + source_file)
 			self.messagebox.close()
 			self.close()
-		
+
 		os.system(OMB_RM_BIN + ' -rf ' + tmp_folder)
 
 	def installImage(self, src_path, dst_path, kernel_dst_path, tmp_folder):
@@ -304,4 +310,81 @@ class OMBManagerInstall(Screen):
 		os.system(OMB_UBIDETACH_BIN + ' -m ' + mtd)
 		os.system(OMB_RMMOD_BIN + ' nandsim')
 		
+		return True
+
+	# Based on nfi Extract by gutemine
+	def extractImageNFI(self, nfifile, extractdir):
+		nfidata = open(nfifile, 'r')
+		header = nfidata.read(32)
+		if header[:3] != 'NFI':
+			print 'Sorry, old NFI format deteced'
+			nfidata.close()
+			return False
+		else:
+			machine_type = header[4:4+header[4:].find('\0')]
+			if header[:4] == 'NFI3':
+				machine_type = 'dm7020hdv2'
+
+		print 'Dreambox image type: %s' % machine_type
+		if machine_type == 'dm800' or machine_type == 'dm500hd' or machine_type == 'dm800se':
+			flashsize=128  # we may have images larger then Flash 
+			vidoff = 512
+			bs = 512
+			bso = 528
+		elif machine_type == 'dm7020hd':
+			flashsize = 1024
+	                vidoff = 4096
+			bs = 4096
+			bso = 4224
+		elif machine_type == 'dm8000':
+	        	flashsize = 512
+	                vidoff = 512
+			bs = 2048
+			bso = 2112
+		else: # dm7020hdv2, dm500hdv2, dm800sev2
+	        	flashsize = 1024
+	                vidoff = 2048
+			bs = 2048
+			bso = 2112
+
+		(total_size, ) = struct.unpack('!L', nfidata.read(4))
+		print 'Total image size: %s Bytes' % total_size
+
+		part = 0
+		while nfidata.tell() < total_size:
+		        (size, ) = struct.unpack('!L', nfidata.read(4))
+			print 'Processing partition # %d size %d Bytes' % (part, size)
+			output_names = { 2: 'kernel.bin', 3: 'rootfs.bin' }
+			if part not in output_names:
+				nfidata.seek(size, 1)
+				print 'Skipping %d data...' % size
+			else:
+				print 'Extracting %s with %d blocksize...' % (output_names[part], bs)
+				output_filename = extractdir + '/' + output_names[part];
+				if os.path.exists(output_filename):
+					os.remove(output_filename)
+				output = open(output_filename, 'wb')
+				for sector in range(size / bso):
+					d = nfidata.read(bso)
+					output.write(d[:bs])
+				if p > 10:
+					if p == 2:
+						# padd boot image with zeros to 8MB to prevent corrupt kernel
+						psize = 8
+					else:
+						# padd root image with zeros to flashsize
+						psize = flashsize
+					print 'Padding to %d MB ...' % psize
+					blocks = psize*1024*1024 / bs
+					output = open(output_filename, 'a')
+					empty = open('/dev/zero', 'r').read(bso)
+					while sector < blocks:
+						output.write(empty[:bs])
+						sector=sector+1
+				output.close()
+			part = part + 1
+
+		nfidata.close()
+		print 'Extracting %s to %s Finished!' % (nfifile, extractdir)
+
 		return True
