@@ -239,6 +239,12 @@ class OMBManagerInstall(Screen):
 			return False
 			
 	def installImageJFFS2(self, src_path, dst_path, kernel_dst_path, tmp_folder):
+		mtdfile = "/dev/mtdblock0"
+		for i in range(0, 20):
+			mtdfile = "/dev/mtdblock%d" % i
+			if not os.path.exists(mtdfile):
+				break
+
 		base_path = src_path + '/' + OMB_GETIMAGEFOLDER
 		rootfs_path = base_path + '/' + OMB_GETMACHINEROOTFILE
 		kernel_path = base_path + '/' + OMB_GETMACHINEKERNELFILE
@@ -247,10 +253,10 @@ class OMBManagerInstall(Screen):
 		os.system(OMB_MODPROBE_BIN + ' loop')
 		os.system(OMB_MODPROBE_BIN + ' mtdblock')
 		os.system(OMB_MODPROBE_BIN + ' block2mtd')
-		os.system(OMB_MKNOD_BIN + ' /dev/mtdblock3 b 31 0')
+		os.system(OMB_MKNOD_BIN + ' ' + mtdfile + ' b 31 0')
 		os.system(OMB_LOSETUP_BIN + ' /dev/loop0 ' + rootfs_path)
 		os.system(OMB_ECHO_BIN + ' "/dev/loop0,128KiB" > /sys/module/block2mtd/parameters/block2mtd')
-		os.system(OMB_MOUNT_BIN + ' -t jffs2 /dev/mtdblock3 ' + jffs2_path)
+		os.system(OMB_MOUNT_BIN + ' -t jffs2 ' + mtdfile + ' + jffs2_path)
 		
 		if os.path.exists(jffs2_path + '/usr/bin/enigma2'):
 			os.system(OMB_CP_BIN + ' -rp ' + jffs2_path + '/* ' + dst_path)
