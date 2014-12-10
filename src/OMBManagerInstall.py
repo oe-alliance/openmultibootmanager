@@ -256,7 +256,7 @@ class OMBManagerInstall(Screen):
 		os.system(OMB_MKNOD_BIN + ' ' + mtdfile + ' b 31 0')
 		os.system(OMB_LOSETUP_BIN + ' /dev/loop0 ' + rootfs_path)
 		os.system(OMB_ECHO_BIN + ' "/dev/loop0,128KiB" > /sys/module/block2mtd/parameters/block2mtd')
-		os.system(OMB_MOUNT_BIN + ' -t jffs2 ' + mtdfile + ' + jffs2_path)
+		os.system(OMB_MOUNT_BIN + ' -t jffs2 ' + mtdfile + ' ' + jffs2_path)
 		
 		if os.path.exists(jffs2_path + '/usr/bin/enigma2'):
 			os.system(OMB_CP_BIN + ' -rp ' + jffs2_path + '/* ' + dst_path)
