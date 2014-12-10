@@ -29,7 +29,7 @@ def Plugins(**kwargs):
 	return [
 		PluginDescriptor(
 			name = "OpenMultiboot",
-			description = _("openMultiboot Manager"),
+			description = _("OpenMultiboot Manager"),
 			icon='plugin.png',
 			where = [PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU],
 			fnc = OMBManager
