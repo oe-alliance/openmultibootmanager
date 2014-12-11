@@ -236,14 +236,14 @@ class OMBManagerInstall(Screen):
 		os.system(OMB_RM_BIN + ' -rf ' + tmp_folder)
 
 	def installImage(self, src_path, dst_path, kernel_dst_path, tmp_folder):
-		if OMB_GETIMAGEFILESYSTEM == "ubi":
+		if "ubi" in OMB_GETIMAGEFILESYSTEM:
 			return self.installImageUBI(src_path, dst_path, kernel_dst_path, tmp_folder)
-		elif OMB_GETIMAGEFILESYSTEM == "jffs2":
+		elif "jffs2" in OMB_GETIMAGEFILESYSTEM:
 			return self.installImageJFFS2(src_path, dst_path, kernel_dst_path, tmp_folder)
 		else:
 			self.showError(_("Your STB doesn\'t seem supported"))
 			return False
-			
+
 	def installImageJFFS2(self, src_path, dst_path, kernel_dst_path, tmp_folder):
 		mtdfile = "/dev/mtdblock0"
 		for i in range(0, 20):
