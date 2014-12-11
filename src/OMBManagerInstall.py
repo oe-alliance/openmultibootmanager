@@ -34,6 +34,7 @@ from enigma import eTimer
 
 import os
 import glob
+import struct
 
 try:
 	from boxbranding import *
