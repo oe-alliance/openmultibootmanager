@@ -224,7 +224,7 @@ class OMBManagerInstall(Screen):
 			return
 
 		nfifile = glob.glob('%s/*.nfi' % tmp_folder)
-		if nfifile and not extractImageNFI(nfifile[0], tmp_folder):
+		if nfifile and not self.extractImageNFI(nfifile[0], tmp_folder):
 			self.showError(_("Cannot extract nfi image"))
 			return
 
