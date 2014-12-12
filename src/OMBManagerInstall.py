@@ -226,9 +226,11 @@ class OMBManagerInstall(Screen):
 			return
 
 		nfifile = glob.glob('%s/*.nfi' % tmp_folder)
-		if nfifile and not self.extractImageNFI(nfifile[0], tmp_folder):
-			self.showError(_("Cannot extract nfi image"))
-			return
+		if nfifile:
+			if not self.extractImageNFI(nfifile[0], tmp_folder):
+				self.showError(_("Cannot extract nfi image"))
+				return
+			kernel_target_file = kernel_target_file + '.jffs2'
 
 		if self.installImage(tmp_folder, target_folder, kernel_target_file, tmp_folder):
 			os.system(OMB_RM_BIN + ' -f ' + source_file)
@@ -265,11 +267,11 @@ class OMBManagerInstall(Screen):
 		os.system(OMB_LOSETUP_BIN + ' /dev/loop0 ' + rootfs_path)
 		os.system(OMB_ECHO_BIN + ' "/dev/loop0,%s" > /sys/module/block2mtd/parameters/block2mtd' % self.esize)
 		os.system(OMB_MOUNT_BIN + ' -t jffs2 ' + mtdfile + ' ' + jffs2_path)
-		
+
 		if os.path.exists(jffs2_path + '/usr/bin/enigma2'):
 			os.system(OMB_CP_BIN + ' -rp ' + jffs2_path + '/* ' + dst_path)
 			os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path)
-			
+
 		os.system(OMB_UMOUNT_BIN + ' ' + jffs2_path)
 		os.system(OMB_RMMOD_BIN + ' block2mtd')
 		os.system(OMB_RMMOD_BIN + ' mtdblock')
@@ -303,15 +305,15 @@ class OMBManagerInstall(Screen):
 		os.system(OMB_DD_BIN + ' if=' + rootfs_path + ' of=/dev/mtdblock' + mtd + ' bs=2048')
 		os.system(OMB_UBIATTACH_BIN + ' /dev/ubi_ctrl -m ' + mtd + ' -O 2048')
 		os.system(OMB_MOUNT_BIN + ' -t ubifs ubi1_0 ' + ubi_path)
-	
+
 		if os.path.exists(ubi_path + '/usr/bin/enigma2'):
 			os.system(OMB_CP_BIN + ' -rp ' + ubi_path + '/* ' + dst_path)
 			os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path)
-	
+
 		os.system(OMB_UMOUNT_BIN + ' ' + ubi_path)
 		os.system(OMB_UBIDETACH_BIN + ' -m ' + mtd)
 		os.system(OMB_RMMOD_BIN + ' nandsim')
-		
+
 		return True
 
 	# Based on nfi Extract by gutemine
