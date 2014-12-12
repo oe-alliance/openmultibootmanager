@@ -373,7 +373,7 @@ class OMBManagerInstall(Screen):
 				for sector in range(size / bso):
 					d = nfidata.read(bso)
 					output.write(d[:bs])
-				if part == 2:
+				if part > 10:
 					if part == 2:
 						# padd boot image with zeros to 8MB to prevent corrupt kernel
 						psize = 8
