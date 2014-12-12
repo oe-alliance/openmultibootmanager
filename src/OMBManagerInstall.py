@@ -373,7 +373,7 @@ class OMBManagerInstall(Screen):
 					os.remove(output_filename)
 				output = open(output_filename, 'wb')
 				if part == 2:
-					output.write(nfidata.read(size)
+					output.write(nfidata.read(size))
 				else:
 					for sector in range(size / bso):
 						d = nfidata.read(bso)
