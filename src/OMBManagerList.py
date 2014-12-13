@@ -23,6 +23,7 @@
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 from Screens.VirtualKeyBoard import VirtualKeyBoard
+from Screens.Standby import TryQuitMainloop
 
 from Components.ActionMap import ActionMap
 from Components.Button import Button
@@ -140,6 +141,7 @@ class OMBManagerList(Screen):
 		self.mount_point = mount_point
 		self.data_dir = mount_point + '/' + OMB_DATA_DIR
 		self.upload_dir = mount_point + '/' + OMB_UPLOAD_DIR
+		self.select = None
 
 		self.populateImagesList()
 		
@@ -159,7 +161,8 @@ class OMBManagerList(Screen):
 			"red": self.keyRename,
 			"yellow": self.keyDelete,
 			"green": self.keyInstall,
-			"blue": self.keyAbout
+			"blue": self.keyAbout,
+			"ok": self.KeyOk
 		})
 
 	def guessImageTitle(self, base_path, identifier):
@@ -248,6 +251,26 @@ class OMBManagerList(Screen):
 			else:
 				self["key_yellow"].setText('')
 			
+	def KeyOk(self):
+		self.select = self["list"].getIndex()
+		name = self["list"].getCurrent()
+		self.session.openWithCallback(self.confirmNextbootCB, MessageBox,_('Set next boot to %s ?' % name), MessageBox.TYPE_YESNO)
+
+	def confirmNextbootCB(self, ret):
+		if ret:
+			image = self.images_entries[self.select]['identifier']
+			print "[OMB] set nextboot to %s" % image
+			file_entry = self.data_dir + '/.nextboot'
+			f = open(file_entry, 'w')
+			f.write(image)
+			f.close()
+
+			self.session.openWithCallback(self.confirmRebootCB, MessageBox,_('Do you want to reboot now ?'), MessageBox.TYPE_YESNO)
+
+	def confirmRebootCB(self, ret):
+		if ret:
+			self.session.open(TryQuitMainloop, 2)
+
 	def keyAbout(self):
 		self.session.open(OMBManagerAbout)
 
