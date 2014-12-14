@@ -262,7 +262,7 @@ class OMBManagerInstall(Screen):
 		jffs2_path = src_path + '/jffs2'
 
 		if os.path.exists(OMB_UNJFFS2_BIN):
-			os.system("%s %s %s" % (OMB_UNJFFS2_BIN, mtdfile, jffs2_path))
+			os.system("%s %s %s" % (OMB_UNJFFS2_BIN, rootfs_path, jffs2_path))
 
 			if os.path.exists(jffs2_path + '/usr/bin/enigma2'):
 				os.system(OMB_CP_BIN + ' -rp ' + jffs2_path + '/* ' + dst_path)
