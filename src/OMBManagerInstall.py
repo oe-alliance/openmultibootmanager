@@ -231,7 +231,6 @@ class OMBManagerInstall(Screen):
 			if not self.extractImageNFI(nfifile[0], tmp_folder):
 				self.showError(_("Cannot extract nfi image"))
 				return
-			kernel_target_file = kernel_target_file + '.jffs2'
 
 		if self.installImage(tmp_folder, target_folder, kernel_target_file, tmp_folder):
 			os.system(OMB_RM_BIN + ' -f ' + source_file)
