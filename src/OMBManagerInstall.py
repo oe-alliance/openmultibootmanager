@@ -106,6 +106,7 @@ OMB_UNZIP_BIN = '/usr/bin/unzip'
 OMB_LOSETUP_BIN = '/sbin/losetup'
 OMB_ECHO_BIN = '/bin/echo'
 OMB_MKNOD_BIN = '/bin/mknod'
+OMB_UNJFFS2_BIN = '/usr/bin/unjffs2'
 
 class OMBManagerInstall(Screen):
 	skin = """
@@ -260,22 +261,29 @@ class OMBManagerInstall(Screen):
 		kernel_path = base_path + '/' + OMB_GETMACHINEKERNELFILE
 		jffs2_path = src_path + '/jffs2'
 
-		os.system(OMB_MODPROBE_BIN + ' loop')
-		os.system(OMB_MODPROBE_BIN + ' mtdblock')
-		os.system(OMB_MODPROBE_BIN + ' block2mtd')
-		os.system(OMB_MKNOD_BIN + ' ' + mtdfile + ' b 31 0')
-		os.system(OMB_LOSETUP_BIN + ' /dev/loop0 ' + rootfs_path)
-		os.system(OMB_ECHO_BIN + ' "/dev/loop0,%s" > /sys/module/block2mtd/parameters/block2mtd' % self.esize)
-		os.system(OMB_MOUNT_BIN + ' -t jffs2 ' + mtdfile + ' ' + jffs2_path)
+		if os.path.exists(OMB_UNJFFS2_BIN):
+			os.system("%s %s %s" % (OMB_UNJFFS2_BIN, mtdfile, jffs2_path))
 
-		if os.path.exists(jffs2_path + '/usr/bin/enigma2'):
-			os.system(OMB_CP_BIN + ' -rp ' + jffs2_path + '/* ' + dst_path)
-			os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path)
+			if os.path.exists(jffs2_path + '/usr/bin/enigma2'):
+				os.system(OMB_CP_BIN + ' -rp ' + jffs2_path + '/* ' + dst_path)
+				os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path)
+		else:
+			os.system(OMB_MODPROBE_BIN + ' loop')
+			os.system(OMB_MODPROBE_BIN + ' mtdblock')
+			os.system(OMB_MODPROBE_BIN + ' block2mtd')
+			os.system(OMB_MKNOD_BIN + ' ' + mtdfile + ' b 31 0')
+			os.system(OMB_LOSETUP_BIN + ' /dev/loop0 ' + rootfs_path)
+			os.system(OMB_ECHO_BIN + ' "/dev/loop0,%s" > /sys/module/block2mtd/parameters/block2mtd' % self.esize)
+			os.system(OMB_MOUNT_BIN + ' -t jffs2 ' + mtdfile + ' ' + jffs2_path)
 
-		os.system(OMB_UMOUNT_BIN + ' ' + jffs2_path)
-		os.system(OMB_RMMOD_BIN + ' block2mtd')
-		os.system(OMB_RMMOD_BIN + ' mtdblock')
-		os.system(OMB_RMMOD_BIN + ' loop')
+			if os.path.exists(jffs2_path + '/usr/bin/enigma2'):
+				os.system(OMB_CP_BIN + ' -rp ' + jffs2_path + '/* ' + dst_path)
+				os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path)
+
+			os.system(OMB_UMOUNT_BIN + ' ' + jffs2_path)
+			os.system(OMB_RMMOD_BIN + ' block2mtd')
+			os.system(OMB_RMMOD_BIN + ' mtdblock')
+			os.system(OMB_RMMOD_BIN + ' loop')
 
 		return True
 
