@@ -136,6 +136,7 @@ class OMBManagerInstall(Screen):
 		self.session = session
 		self.mount_point = mount_point
 		self.esize = "128KiB"
+		self.vid_offset = "2048"
 
 		self['info'] = Label(_("Choose the image to install"))
 		self["list"] = List(upload_list)
@@ -310,7 +311,7 @@ class OMBManagerInstall(Screen):
 			return False
 
 		os.system(OMB_DD_BIN + ' if=' + rootfs_path + ' of=/dev/mtdblock' + mtd + ' bs=2048')
-		os.system(OMB_UBIATTACH_BIN + ' /dev/ubi_ctrl -m ' + mtd + ' -O 2048')
+		os.system(OMB_UBIATTACH_BIN + ' /dev/ubi_ctrl -m ' + mtd + ' -O ' + self.vid_offset)
 		os.system(OMB_MOUNT_BIN + ' -t ubifs ubi1_0 ' + ubi_path)
 
 		if os.path.exists(ubi_path + '/usr/bin/enigma2'):
@@ -339,26 +340,26 @@ class OMBManagerInstall(Screen):
 		print 'Dreambox image type: %s' % machine_type
 		if machine_type == 'dm800' or machine_type == 'dm500hd' or machine_type == 'dm800se':
 			self.esize = '0x4000,0x200'
-			flashsize=128  # we may have images larger then Flash 
-			vidoff = 512
+			self.vid_offset = '512' 
+			flashsize=128  # we may have images larger then Flash
 			bs = 512
 			bso = 528
 		elif machine_type == 'dm7020hd':
 			self.esize = '0x40000,0x1000'
+			self.vid_offset = '4096'
 			flashsize = 1024
-			vidoff = 4096
 			bs = 4096
 			bso = 4224
 		elif machine_type == 'dm8000':
 			self.esize = '0x20000,0x800'
+			self.vid_offset = '512'
 			flashsize = 512
-			vidoff = 512
 			bs = 2048
 			bso = 2112
 		else: # dm7020hdv2, dm500hdv2, dm800sev2
 			self.esize = '0x20000,0x800'
+			self.vid_offset = '2048'
 			flashsize = 1024
-			vidoff = 2048
 			bs = 2048
 			bso = 2112
 
