@@ -385,20 +385,6 @@ class OMBManagerInstall(Screen):
 					for sector in range(size / bso):
 						d = nfidata.read(bso)
 						output.write(d[:bs])
-				if part > 10:
-					if part == 2:
-						# padd boot image with zeros to 8MB to prevent corrupt kernel
-						psize = 8
-					else:
-						# padd root image with zeros to flashsize
-						psize = flashsize
-					print 'Padding to %d MB ...' % psize
-					blocks = psize*1024*1024 / bs
-					output = open(output_filename, 'a')
-					empty = open('/dev/zero', 'r').read(bso)
-					while sector < blocks:
-						output.write(empty[:bs])
-						sector=sector+1
 				output.close()
 			part = part + 1
 
