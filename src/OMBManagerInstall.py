@@ -135,8 +135,10 @@ class OMBManagerInstall(Screen):
 
 		self.session = session
 		self.mount_point = mount_point
+
 		self.esize = "128KiB"
 		self.vid_offset = "2048"
+		self.nandsim_parm = "first_id_byte=0x20 second_id_byte=0xac third_id_byte=0x00 fourth_id_byte=0x15"
 
 		self['info'] = Label(_("Choose the image to install"))
 		self["list"] = List(upload_list)
@@ -304,7 +306,7 @@ class OMBManagerInstall(Screen):
 		ubi_path = src_path + '/ubi'
 
 		virtual_mtd = tmp_folder + '/virtual_mtd'
-		os.system(OMB_MODPROBE_BIN + ' nandsim cache_file=' + virtual_mtd + ' first_id_byte=0x20 second_id_byte=0xac third_id_byte=0x00 fourth_id_byte=0x15')
+		os.system(OMB_MODPROBE_BIN + ' nandsim cache_file=' + virtual_mtd + ' ' + self.nandsim_parm)
 		if not os.path.exists('/dev/mtd' + mtd):
 			os.system('rmmod nandsim')
 			self.showError(_("Cannot create virtual MTD device"))
@@ -340,13 +342,14 @@ class OMBManagerInstall(Screen):
 		print 'Dreambox image type: %s' % machine_type
 		if machine_type == 'dm800' or machine_type == 'dm500hd' or machine_type == 'dm800se':
 			self.esize = '0x4000,0x200'
-			self.vid_offset = '512' 
+			self.vid_offset = '512'
 			flashsize=128  # we may have images larger then Flash
 			bs = 512
 			bso = 528
 		elif machine_type == 'dm7020hd':
 			self.esize = '0x40000,0x1000'
 			self.vid_offset = '4096'
+			self.nandsim_parm = 'first_id_byte=0xec second_id_byte=0xd5 third_id_byte=0x51 fourth_id_byte=0xa6'
 			flashsize = 1024
 			bs = 4096
 			bso = 4224
@@ -359,6 +362,7 @@ class OMBManagerInstall(Screen):
 		else: # dm7020hdv2, dm500hdv2, dm800sev2
 			self.esize = '0x20000,0x800'
 			self.vid_offset = '2048'
+			self.nandsim_parm = 'first_id_byte=0xec second_id_byte=0xd3 third_id_byte=0x51 fourth_id_byte=0x95'
 			flashsize = 1024
 			bs = 2048
 			bso = 2112
