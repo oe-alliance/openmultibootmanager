@@ -33,6 +33,8 @@ from OMBManagerLocale import _
 from enigma import eTimer
 
 import os
+import glob
+import struct
 
 try:
 	from boxbranding import *
@@ -104,6 +106,7 @@ OMB_UNZIP_BIN = '/usr/bin/unzip'
 OMB_LOSETUP_BIN = '/sbin/losetup'
 OMB_ECHO_BIN = '/bin/echo'
 OMB_MKNOD_BIN = '/bin/mknod'
+OMB_UNJFFS2_BIN = '/usr/bin/unjffs2'
 
 class OMBManagerInstall(Screen):
 	skin = """
@@ -132,7 +135,11 @@ class OMBManagerInstall(Screen):
 
 		self.session = session
 		self.mount_point = mount_point
-		
+
+		self.esize = "128KiB"
+		self.vid_offset = "2048"
+		self.nandsim_parm = "first_id_byte=0x20 second_id_byte=0xac third_id_byte=0x00 fourth_id_byte=0x15"
+
 		self['info'] = Label(_("Choose the image to install"))
 		self["list"] = List(upload_list)
 		self["actions"] = ActionMap(["SetupActions"],
@@ -221,45 +228,64 @@ class OMBManagerInstall(Screen):
 		if os.system(OMB_UNZIP_BIN + ' ' + source_file + ' -d ' + tmp_folder) != 0:
 			self.showError(_("Cannot deflate image"))
 			return
-			
+
+		nfifile = glob.glob('%s/*.nfi' % tmp_folder)
+		if nfifile:
+			if not self.extractImageNFI(nfifile[0], tmp_folder):
+				self.showError(_("Cannot extract nfi image"))
+				return
+
 		if self.installImage(tmp_folder, target_folder, kernel_target_file, tmp_folder):
 			os.system(OMB_RM_BIN + ' -f ' + source_file)
 			self.messagebox.close()
 			self.close()
-		
+
 		os.system(OMB_RM_BIN + ' -rf ' + tmp_folder)
 
 	def installImage(self, src_path, dst_path, kernel_dst_path, tmp_folder):
-		if OMB_GETIMAGEFILESYSTEM == "ubi":
+		if "ubi" in OMB_GETIMAGEFILESYSTEM:
 			return self.installImageUBI(src_path, dst_path, kernel_dst_path, tmp_folder)
-		elif OMB_GETIMAGEFILESYSTEM == "jffs2":
+		elif "jffs2" in OMB_GETIMAGEFILESYSTEM:
 			return self.installImageJFFS2(src_path, dst_path, kernel_dst_path, tmp_folder)
 		else:
 			self.showError(_("Your STB doesn\'t seem supported"))
 			return False
-			
+
 	def installImageJFFS2(self, src_path, dst_path, kernel_dst_path, tmp_folder):
+		mtdfile = "/dev/mtdblock0"
+		for i in range(0, 20):
+			mtdfile = "/dev/mtdblock%d" % i
+			if not os.path.exists(mtdfile):
+				break
+
 		base_path = src_path + '/' + OMB_GETIMAGEFOLDER
 		rootfs_path = base_path + '/' + OMB_GETMACHINEROOTFILE
 		kernel_path = base_path + '/' + OMB_GETMACHINEKERNELFILE
 		jffs2_path = src_path + '/jffs2'
 
-		os.system(OMB_MODPROBE_BIN + ' loop')
-		os.system(OMB_MODPROBE_BIN + ' mtdblock')
-		os.system(OMB_MODPROBE_BIN + ' block2mtd')
-		os.system(OMB_MKNOD_BIN + ' /dev/mtdblock3 b 31 0')
-		os.system(OMB_LOSETUP_BIN + ' /dev/loop0 ' + rootfs_path)
-		os.system(OMB_ECHO_BIN + ' "/dev/loop0,128KiB" > /sys/module/block2mtd/parameters/block2mtd')
-		os.system(OMB_MOUNT_BIN + ' -t jffs2 /dev/mtdblock3 ' + jffs2_path)
-		
-		if os.path.exists(jffs2_path + '/usr/bin/enigma2'):
-			os.system(OMB_CP_BIN + ' -rp ' + jffs2_path + '/* ' + dst_path)
-			os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path)
-			
-		os.system(OMB_UMOUNT_BIN + ' ' + jffs2_path)
-		os.system(OMB_RMMOD_BIN + ' block2mtd')
-		os.system(OMB_RMMOD_BIN + ' mtdblock')
-		os.system(OMB_RMMOD_BIN + ' loop')
+		if os.path.exists(OMB_UNJFFS2_BIN):
+			os.system("%s %s %s" % (OMB_UNJFFS2_BIN, rootfs_path, jffs2_path))
+
+			if os.path.exists(jffs2_path + '/usr/bin/enigma2'):
+				os.system(OMB_CP_BIN + ' -rp ' + jffs2_path + '/* ' + dst_path)
+				os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path)
+		else:
+			os.system(OMB_MODPROBE_BIN + ' loop')
+			os.system(OMB_MODPROBE_BIN + ' mtdblock')
+			os.system(OMB_MODPROBE_BIN + ' block2mtd')
+			os.system(OMB_MKNOD_BIN + ' ' + mtdfile + ' b 31 0')
+			os.system(OMB_LOSETUP_BIN + ' /dev/loop0 ' + rootfs_path)
+			os.system(OMB_ECHO_BIN + ' "/dev/loop0,%s" > /sys/module/block2mtd/parameters/block2mtd' % self.esize)
+			os.system(OMB_MOUNT_BIN + ' -t jffs2 ' + mtdfile + ' ' + jffs2_path)
+
+			if os.path.exists(jffs2_path + '/usr/bin/enigma2'):
+				os.system(OMB_CP_BIN + ' -rp ' + jffs2_path + '/* ' + dst_path)
+				os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path)
+
+			os.system(OMB_UMOUNT_BIN + ' ' + jffs2_path)
+			os.system(OMB_RMMOD_BIN + ' block2mtd')
+			os.system(OMB_RMMOD_BIN + ' mtdblock')
+			os.system(OMB_RMMOD_BIN + ' loop')
 
 		return True
 
@@ -280,22 +306,90 @@ class OMBManagerInstall(Screen):
 		ubi_path = src_path + '/ubi'
 
 		virtual_mtd = tmp_folder + '/virtual_mtd'
-		os.system(OMB_MODPROBE_BIN + ' nandsim cache_file=' + virtual_mtd + ' first_id_byte=0x20 second_id_byte=0xac third_id_byte=0x00 fourth_id_byte=0x15')
+		os.system(OMB_MODPROBE_BIN + ' nandsim cache_file=' + virtual_mtd + ' ' + self.nandsim_parm)
 		if not os.path.exists('/dev/mtd' + mtd):
 			os.system('rmmod nandsim')
 			self.showError(_("Cannot create virtual MTD device"))
 			return False
 
 		os.system(OMB_DD_BIN + ' if=' + rootfs_path + ' of=/dev/mtdblock' + mtd + ' bs=2048')
-		os.system(OMB_UBIATTACH_BIN + ' /dev/ubi_ctrl -m ' + mtd + ' -O 2048')
+		os.system(OMB_UBIATTACH_BIN + ' /dev/ubi_ctrl -m ' + mtd + ' -O ' + self.vid_offset)
 		os.system(OMB_MOUNT_BIN + ' -t ubifs ubi1_0 ' + ubi_path)
-	
+
 		if os.path.exists(ubi_path + '/usr/bin/enigma2'):
 			os.system(OMB_CP_BIN + ' -rp ' + ubi_path + '/* ' + dst_path)
 			os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path)
-	
+
 		os.system(OMB_UMOUNT_BIN + ' ' + ubi_path)
 		os.system(OMB_UBIDETACH_BIN + ' -m ' + mtd)
 		os.system(OMB_RMMOD_BIN + ' nandsim')
-		
+
+		return True
+
+	# Based on nfi Extract by gutemine
+	def extractImageNFI(self, nfifile, extractdir):
+		nfidata = open(nfifile, 'r')
+		header = nfidata.read(32)
+		if header[:3] != 'NFI':
+			print 'Sorry, old NFI format deteced'
+			nfidata.close()
+			return False
+		else:
+			machine_type = header[4:4+header[4:].find('\0')]
+			if header[:4] == 'NFI3':
+				machine_type = 'dm7020hdv2'
+
+		print 'Dreambox image type: %s' % machine_type
+		if machine_type == 'dm800' or machine_type == 'dm500hd' or machine_type == 'dm800se':
+			self.esize = '0x4000,0x200'
+			self.vid_offset = '512'
+			bs = 512
+			bso = 528
+		elif machine_type == 'dm7020hd':
+			self.esize = '0x40000,0x1000'
+			self.vid_offset = '4096'
+			self.nandsim_parm = 'first_id_byte=0xec second_id_byte=0xd5 third_id_byte=0x51 fourth_id_byte=0xa6'
+			bs = 4096
+			bso = 4224
+		elif machine_type == 'dm8000':
+			self.esize = '0x20000,0x800'
+			self.vid_offset = '512'
+			bs = 2048
+			bso = 2112
+		else: # dm7020hdv2, dm500hdv2, dm800sev2
+			self.esize = '0x20000,0x800'
+			self.vid_offset = '2048'
+			self.nandsim_parm = 'first_id_byte=0xec second_id_byte=0xd3 third_id_byte=0x51 fourth_id_byte=0x95'
+			bs = 2048
+			bso = 2112
+
+		(total_size, ) = struct.unpack('!L', nfidata.read(4))
+		print 'Total image size: %s Bytes' % total_size
+
+		part = 0
+		while nfidata.tell() < total_size:
+		        (size, ) = struct.unpack('!L', nfidata.read(4))
+			print 'Processing partition # %d size %d Bytes' % (part, size)
+			output_names = { 2: 'kernel.bin', 3: 'rootfs.bin' }
+			if part not in output_names:
+				nfidata.seek(size, 1)
+				print 'Skipping %d data...' % size
+			else:
+				print 'Extracting %s with %d blocksize...' % (output_names[part], bs)
+				output_filename = extractdir + '/' + output_names[part];
+				if os.path.exists(output_filename):
+					os.remove(output_filename)
+				output = open(output_filename, 'wb')
+				if part == 2:
+					output.write(nfidata.read(size))
+				else:
+					for sector in range(size / bso):
+						d = nfidata.read(bso)
+						output.write(d[:bs])
+				output.close()
+			part = part + 1
+
+		nfidata.close()
+		print 'Extracting %s to %s Finished!' % (nfifile, extractdir)
+
 		return True
