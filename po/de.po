@@ -158,3 +158,9 @@ msgstr "Bitte warten, Installation läuft."
 #: OMBManager.py:128
 msgid "Cannot install kernel-module-nandsim"
 msgstr "Installation von kernel-module-nandsim nicht möglich"
+
+msgid "Do you want to reboot now ?"
+msgstr "Möchten Sie die Box jetzt neustarten ?"
+
+msgid "Set next boot to %s ?"
+msgstr "Nächster Neustart -> %s ?"
