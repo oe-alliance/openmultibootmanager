@@ -27,6 +27,8 @@ from Components.ActionMap import ActionMap
 from Components.Label import Label
 from Components.Sources.List import List
 
+from Tools.Directories import fileExists
+
 from OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR, OMB_TMP_DIR
 from OMBManagerLocale import _
 
@@ -303,7 +305,13 @@ class OMBManagerInstall(Screen):
 
 		# This is idea from EGAMI Team to handle universal UBIFS unpacking - used only for INI-HDp model
 		if OMB_GETMACHINEBUILD in ('inihdp'):
-			cmd = "python /usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.py " + rootfs_path + " -o " + ubi_path
+			if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.py"):
+				ubifile = "/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.py"
+			else:
+				ubifile = "/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.pyo"
+			cmd= "chmod 755 " + ubifile
+			rc = os.system(cmd)
+			cmd = "python " + ubifile + " " + rootfs_path + " -o " + ubi_path
 			rc = os.system(cmd)
 			os.system(OMB_CP_BIN + ' -rp ' + ubi_path + '/rootfs/* ' + dst_path)
 			rc = os.system(cmd)
