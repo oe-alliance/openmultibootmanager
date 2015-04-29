@@ -29,4 +29,13 @@ AC_OUTPUT([
 Makefile
 po/Makefile
 src/Makefile
+src/ubi_reader/Makefile
+src/ubi_reader/ubi/Makefile
+src/ubi_reader/ubi/block/Makefile
+src/ubi_reader/ubi/headers/Makefile
+src/ubi_reader/ubi/volume/Makefile
+src/ubi_reader/ubi_io/Makefile
+src/ubi_reader/ubifs/Makefile
+src/ubi_reader/ubifs/nodes/Makefile
+src/ubi_reader/ui/Makefile
 ])

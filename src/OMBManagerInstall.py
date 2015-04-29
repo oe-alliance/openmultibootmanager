@@ -296,14 +296,23 @@ class OMBManagerInstall(Screen):
 				break
 		mtd = str(i)
 
-		#if OMB_GETBOXTYPE in ('whatever'):
-		#	self.showError(_("Your STB doesn\'t seem supported"))
-		#	return False
-
 		base_path = src_path + '/' + OMB_GETIMAGEFOLDER
 		rootfs_path = base_path + '/' + OMB_GETMACHINEROOTFILE
 		kernel_path = base_path + '/' + OMB_GETMACHINEKERNELFILE
 		ubi_path = src_path + '/ubi'
+
+		# This is idea from EGAMI Team to handle universal UBIFS unpacking - used only for INI-HDp model
+		if OMB_GETMACHINEBUILD in ('inihdp'):
+			cmd = "python /usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.py " + rootfs_path + " -o " + ubi_path
+			rc = os.system(cmd)
+			os.system(OMB_CP_BIN + ' -rp ' + ubi_path + '/rootfs/* ' + dst_path)
+			rc = os.system(cmd)
+			cmd = ('chmod -R +x ' + dst_path)
+			rc = os.system(cmd)
+			cmd = 'rm -rf ' + ubi_path
+			rc = os.system(cmd)
+			os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path)
+			return True
 
 		virtual_mtd = tmp_folder + '/virtual_mtd'
 		os.system(OMB_MODPROBE_BIN + ' nandsim cache_file=' + virtual_mtd + ' ' + self.nandsim_parm)
