@@ -1,4 +1,4 @@
-installdir = $(pkglibdir)/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi
+installdir = $(libdir)/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi
 
 SUBDIRS = block headers volume
 

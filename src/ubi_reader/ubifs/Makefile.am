@@ -1,4 +1,4 @@
-installdir = $(pkglibdir)/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubifs
+installdir = $(libdir)/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubifs
 
 SUBDIRS = nodes
 

@@ -1,4 +1,4 @@
-installdir = $(pkglibdir)/python/Plugins/Extensions/OpenMultiboot/ubi_reader
+installdir = $(libdir)/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader
 
 SUBDIRS = ubi ubi_io ubifs ui
 
