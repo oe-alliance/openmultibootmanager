@@ -1,4 +1,4 @@
-installdir = $(pkglibdir)/python/Plugins/Extensions/EGAMIBoot/ubi_reader/ubifs/nodes
+installdir = $(pkglibdir)/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubifs/nodes
 
 install_PYTHON = \
 	__init__.py extract.py
