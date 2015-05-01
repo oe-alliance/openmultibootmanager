@@ -1,0 +1,103 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-11-15 17:16+0100\n"
+"PO-Revision-Date: 2015-03-24 22:29+0200\n"
+"Last-Translator: Dimitrij Dima-73@inbox.lv\n"
+"Language-Team: openPli dima-73@inbox.lv\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.7.5\n"
+
+msgid "About"
+msgstr "Инфо"
+
+msgid "Cannot create data folder"
+msgstr "Невозможно создать папку с данными"
+
+msgid "Cannot create folder %s"
+msgstr "Невозможно создать папку %s"
+
+msgid "Cannot create kernel folder %s"
+msgstr "Невозможно создать папку ядра %s"
+
+msgid "Cannot create virtual MTD device"
+msgstr "Невозможно создать виртуальное MTD устройство"
+
+msgid "Cannot deflate image"
+msgstr "Невозможно распаковать имидж"
+
+msgid "Cannot format the device"
+msgstr "Невозможно распаковать накопитель"
+
+msgid "Cannot remount the device"
+msgstr "Невозможно перемонтировать накопитель"
+
+msgid "Cannot umount the device"
+msgstr "Невозможно отмонтировать накопитель"
+
+msgid "Choose the image to install"
+msgstr "Выберите имидж для установки"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Do you want to delete %s?"
+msgstr "Вы хотите действительно удалить %s?"
+
+msgid ""
+"Filesystem not supported\n"
+"Do you want format your drive?"
+msgstr ""
+"Файловая система не поддерживается,\n"
+"хотите отформатировать накопитель?"
+
+msgid "Install"
+msgstr "Установить"
+
+msgid "No suitable devices found"
+msgstr "Не найдены подходящие накопители"
+
+msgid "Please upload an image inside %s"
+msgstr "Пожалуйста, загрузите нужный архив с имиджем в %s"
+
+msgid "Please wait while delete is in progress."
+msgstr "Пожалуйста подождите, удаление в процессе."
+
+msgid "Please wait while format is in progress."
+msgstr "Пожалуйста подождите, пока форматирование в процессе."
+
+msgid "Please wait while installation is in progress."
+msgstr "Пожалуйста подождите, пока идет процесс установки."
+
+msgid ""
+"Please wait while installation is in progress.\n"
+"This operation may take a while."
+msgstr ""
+"Пожалуйста подождите, пока идет процесс установки.\n"
+"Эта операция может занять некоторое время."
+
+msgid "Rename"
+msgstr "Переименовать"
+
+msgid "The folder %s already exist"
+msgstr "Папка %s уже существует"
+
+msgid "Where do you want to install openMultiboot?"
+msgstr "Куда Вы хотите установить openMultiboot?"
+
+msgid "Your STB doesn't seem supported"
+msgstr "Ваш ресивер ,кажется, не поддерживается"
+
+msgid "openMultiboot About"
+msgstr "Информация openMultiboot"
+
+msgid "openMultiboot Install"
+msgstr "Установить openMultiboot"
+
+msgid "openMultiboot Manager"
+msgstr "менеджер openMultiboot"
