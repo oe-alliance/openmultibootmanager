@@ -4,6 +4,8 @@ SUBDIRS = nodes
 
 install_PYTHON = \
 	__init__.py defines.py log.py misc.py output.py walk.py
-	
+
+if MIPSEL
 install_DATA = \
 	lzo.so
+endif
