@@ -218,7 +218,7 @@ class OMBManagerInstall(Screen):
 
 		tmp_folder = self.mount_point + '/' + OMB_TMP_DIR
 		if os.path.exists(tmp_folder):
-			os.system(OMB_RM_BIN + ' -rf ' + tmp_folder)			
+			os.system(OMB_RM_BIN + ' -rf ' + tmp_folder)
 		try:
 			os.makedirs(tmp_folder)
 			os.makedirs(tmp_folder + '/ubi')
@@ -329,7 +329,10 @@ class OMBManagerInstall(Screen):
 			self.showError(_("Cannot create virtual MTD device"))
 			return False
 
-		os.system(OMB_DD_BIN + ' if=' + rootfs_path + ' of=/dev/mtdblock' + mtd + ' bs=2048')
+		if OMB_GETBRANDOEM in ('xcore'):
+			os.system(OMB_DD_BIN + ' if=' + rootfs_path + ' of=/dev/mtd' + mtd + ' bs=2048')
+		else:
+			os.system(OMB_DD_BIN + ' if=' + rootfs_path + ' of=/dev/mtdblock' + mtd + ' bs=2048')
 		os.system(OMB_UBIATTACH_BIN + ' /dev/ubi_ctrl -m ' + mtd + ' -O ' + self.vid_offset)
 		os.system(OMB_MOUNT_BIN + ' -t ubifs ubi1_0 ' + ubi_path)
 
