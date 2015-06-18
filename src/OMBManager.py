@@ -76,6 +76,12 @@ class OMBManagerInit:
 				type = MessageBox.TYPE_ERROR
 			)
 			return
+# by Meo. We are installing in flash. We can link init to open_multiboot
+# so we can disable it in open multiboot postinst.
+# In this way we will be sure to have not open_multiboot init in mb installed images.
+		if os.path.isfile('/sbin/open_multiboot'):
+			os.system("ln -sfn /sbin/open_multiboot /sbin/init")
+				
 		self.session.open(OMBManagerList, partition.mountpoint)
 	
 	def formatDevice(self, confirmed):
@@ -197,5 +203,8 @@ def OMBManager(session, **kwargs):
 					break
 				
 	if not found:
-		OMBManagerInit(session)
+# by meo: Allow plugin installation only for images in flash. We don't need plugin in mb installed images.
+# The postinst link creation in open_multiboot will be also disabled to avoid conflicts between init files.
+		if not os.path.ismount('/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot'):
+			OMBManagerInit(session)
 
