@@ -31,7 +31,7 @@ from OMBManagerLocale import _
 
 class OMBManagerAbout(Screen):
 	skin = """
-			<screen position="360,150" size="560,400">
+			<screen position="center,center" size="560,400">
 				<widget name="about"
 						position="10,10"
 						size="540,340"

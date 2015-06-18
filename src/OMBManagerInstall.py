@@ -344,6 +344,36 @@ class OMBManagerInstall(Screen):
 		os.system(OMB_UBIDETACH_BIN + ' -m ' + mtd)
 		os.system(OMB_RMMOD_BIN + ' nandsim')
 
+# WARNING: dirty hack by Meo
+#
+# In a perfect world all the images are perfect and do their work.
+# But this is not a perfect world and we have to help OMB to
+# prevent funny cases for non standard images.
+# My apologies to Sandro for this bad code.
+
+		if not os.path.exists('/usr/lib/python2.7/boxbranding.so'):
+			os.system("ln -s /usr/lib/enigma2/python/boxbranding.so /usr/lib/python2.7/boxbranding.so")
+		if os.path.exists(dst_path + '/usr/lib/python2.7/boxbranding.py'):
+			os.system("cp /usr/lib/enigma2/python/boxbranding.so " + dst_path + "/usr/lib/python2.7/boxbranding.so")
+			os.system("rm -f " + dst_path + '/usr/lib/python2.7/boxbranding.py')
+		if not os.path.exists(dst_path + "/usr/lib/python2.7/subprocess.pyo"):
+			os.system("cp /usr/lib/python2.7/subprocess.pyo " + dst_path + "/usr/lib/python2.7/subprocess.pyo")
+# openmultiboot installed in the multiboot image. where the init will go ?
+		if os.path.exists(dst_path + '/sbin/open_multiboot'):
+			os.system("rm -f " + dst_path + '/sbin/open_multiboot')
+			os.system("rm -f " + dst_path + '/sbin/open-multiboot-branding-helper.py')
+# We can't create the init symlink because it will be overwrited by openmultiboot                                                           
+			os.system('ln -sfn /sbin/init.sysvinit ' + dst_path + '/sbin/open_multiboot')
+# our friends Pli
+		if dst_path.find('OpenPLi') != -1:
+			import fileinput
+			for line in fileinput.input(dst_path + '/etc/init.d/volatile-media.sh', inplace=True):
+				if 'mount -t tmpfs -o size=64k tmpfs /media' in line:
+					print "mountpoint -q \"/media\" || mount -t tmpfs -o size=64k tmpfs /media"
+				else:
+					print line.rstrip()
+# end dirty !
+		
 		return True
 
 	# Based on nfi Extract by gutemine
