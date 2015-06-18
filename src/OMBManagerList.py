@@ -22,6 +22,7 @@
 
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
+from Screens.ChoiceBox import ChoiceBox
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Screens.Standby import TryQuitMainloop
 
@@ -30,6 +31,8 @@ from Components.Button import Button
 from Components.ConfigList import ConfigListScreen
 from Components.Pixmap import Pixmap
 from Components.Sources.List import List
+from Components.Label import Label
+from Components.config import getConfigListEntry, config, ConfigYesNo, NoSave
 
 from OMBManagerInstall import OMBManagerInstall, OMB_RM_BIN, BRANDING
 from OMBManagerAbout import OMBManagerAbout
@@ -42,18 +45,36 @@ import os
 
 class OMBManagerList(Screen):
 	skin = """
-		<screen position="360,150" size="560,400">
+		<screen position="center,center" size="560,400">
 			<widget name="background"
 					zPosition="1"
 					position="0,0"
 					size="560,360"
 					alphatest="on" />
 					
+			<widget name="label1"
+					zPosition="2"
+					position="10,10"
+					size="540,30"
+					font="Regular;24" 
+					halign="center" 
+					valign="center"
+					transparent="1" />
+			
+			<widget name="label2"
+					zPosition="2"
+					position="10,40"
+					size="540,30"
+					font="Regular;24" 
+					halign="center" 
+					valign="center"
+					transparent="1" />		
+					
 			<widget source="list"
 					render="Listbox"
-					position="10,10"
+					position="10,100"
 					zPosition="3"
-					size="540,340"
+					size="540,260"
 					scrollbarMode="showOnDemand"
 					transparent="1">
 					
@@ -143,28 +164,31 @@ class OMBManagerList(Screen):
 		self.upload_dir = mount_point + '/' + OMB_UPLOAD_DIR
 		self.select = None
 
+		self["label1"] = Label(_("Current Running Image:"))
+		self["label2"] = Label("")
+
 		self.populateImagesList()
-		
 		self["list"] = List(self.images_list)
 		self["list"].onSelectionChanged.append(self.onSelectionChanged)
 		self["background"] = Pixmap()
 		self["key_red"] = Button(_('Rename'))
 		self["key_yellow"] = Button()
-		self["key_blue"] = Button(_('About'))
+		self["key_blue"] = Button(_('Menu'))
 		if BRANDING:
 			self["key_green"] = Button(_('Install'))
 		else:
 			self["key_green"] = Button('')
-		self["config_actions"] = ActionMap(["OkCancelActions", "ColorActions"],
+		self["actions"] = ActionMap(["OkCancelActions", "ColorActions", "MenuActions"],
 		{
 			"cancel": self.close,
 			"red": self.keyRename,
 			"yellow": self.keyDelete,
 			"green": self.keyInstall,
-			"blue": self.keyAbout,
-			"ok": self.KeyOk
+			"blue": self.showMen,
+			"ok": self.KeyOk,
+			"menu": self.showMen,
 		})
-
+	
 	def guessImageTitle(self, base_path, identifier):
 		image_distro = ""
 		image_version = ""
@@ -193,6 +217,9 @@ class OMBManagerList(Screen):
 		self.images_entries = []
 		flashimageLabel = 'Flash image'
 
+
+		self["label2"].setText(self.currentImage())
+		
 		if os.path.exists(self.data_dir + '/.label_flash'): # use label name
 			flashimageLabel = self.imageTitleFromLabel('.label_flash') + ' (Flash)'
 
@@ -228,6 +255,14 @@ class OMBManagerList(Screen):
 		self.populateImagesList()
 		self["list"].setList(self.images_list)
 		
+	def currentImage(self):
+		selected = 'Flash'
+		try:
+			selected = open(self.data_dir + '/.selected').read()
+		except:
+			pass
+		return selected
+		
 	def canDeleteEntry(self, entry):
 		selected = 'flash'
 		try:
@@ -255,6 +290,7 @@ class OMBManagerList(Screen):
 		self.select = self["list"].getIndex()
 		name = self["list"].getCurrent()
 		self.session.openWithCallback(self.confirmNextbootCB, MessageBox,_('Set next boot to %s ?' % name), MessageBox.TYPE_YESNO)
+		
 
 	def confirmNextbootCB(self, ret):
 		if ret:
@@ -271,8 +307,16 @@ class OMBManagerList(Screen):
 		if ret:
 			self.session.open(TryQuitMainloop, 2)
 
-	def keyAbout(self):
-		self.session.open(OMBManagerAbout)
+	def showMen(self):
+		myoptions = [['Preferences', 'preferences'], ['About', 'about']]	
+		self.session.openWithCallback(self.doshowMen,ChoiceBox, title=_("Open MultiBoot Menu"), list=myoptions)
+		
+	def doshowMen(self, sel):
+		if sel:
+			if sel[1] == "preferences":
+				self.session.open(OMBManagerPreferences, self.data_dir)
+			elif sel[1] == "about":
+				self.session.open(OMBManagerAbout)
 
 	def keyRename(self):
 		self.renameIndex = self["list"].getIndex()
@@ -342,3 +386,48 @@ class OMBManagerList(Screen):
 				_("Please upload an image inside %s") % self.upload_dir,
 				type = MessageBox.TYPE_ERROR
 			)
+
+
+# TODO: Move into a separate file
+class OMBManagerPreferences(Screen, ConfigListScreen):
+	skin = """
+	<screen position="center,center" size="800,340" title="Preferences">
+		<widget name="config" position="10,20" size="780,280" scrollbarMode="showOnDemand" />
+		<ePixmap pixmap="skin_default/buttons/red.png" position="330,270" size="140,40" alphatest="on" />
+		<widget name="key_red" position="330,270" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" />
+	</screen>"""
+	
+	def __init__(self, session, data_dir):
+		Screen.__init__(self, session)
+		
+		self.data_dir = data_dir
+		self.list = []
+		ConfigListScreen.__init__(self, self.list)
+		self["key_red"] = Label(_("Save"))
+		
+		self["actions"] = ActionMap(["WizardActions", "ColorActions"],
+		{
+			"red": self.saveConf,
+			"back": self.close
+
+		})
+		
+		self.bootmenu_enabled = NoSave(ConfigYesNo(default=True))
+		if os.path.isfile(self.data_dir + '/.bootmenu.lock'):
+			self.bootmenu_enabled.value = False
+		self.list.append(getConfigListEntry(_("Enable Boot Menu"), self.bootmenu_enabled))
+
+		self["config"].list = self.list
+		self["config"].l.setList(self.list)
+			
+	def saveConf(self):
+		if self.bootmenu_enabled.value == True:
+			if os.path.isfile(self.data_dir + '/.bootmenu.lock'):
+				os.remove(self.data_dir + '/.bootmenu.lock')
+		else:
+			if not os.path.isfile(self.data_dir + '/.bootmenu.lock'):	
+				cmd = "touch " + self.data_dir + '/.bootmenu.lock'
+				os.system(cmd)
+				
+		
+		self.close()
