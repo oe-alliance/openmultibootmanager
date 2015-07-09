@@ -89,7 +89,7 @@ msgid ""
 "Please wait while installation is in progress.\n"
 "This operation may take a while."
 msgstr ""
-"Even geduld terwijl de installatie wordt uitgevoerd. \ N"
+"Even geduld terwijl de installatie wordt uitgevoerd.\n"
 "Deze installatie kan even duren."
 
 #: OMBManagerInstall.py:204
