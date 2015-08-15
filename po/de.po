@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-15 17:58+0200\n"
-"PO-Revision-Date: 2015-08-15 18:27+0100\n"
+"PO-Revision-Date: 2015-08-15 21:11+0100\n"
 "Last-Translator: mike99 <mike99@mail.to>\n"
 "Language-Team: German <arn354@email.de>\n"
 "Language: de\n"
@@ -56,7 +56,7 @@ msgid ""
 "Filesystem not supported\n"
 "Do you want format your drive?"
 msgstr ""
-"Dateisystem nicht unterstützt\n"
+"Dateisystem wird nicht unterstützt\n"
 "Soll das Gerät formatiert werden?"
 
 #: OMBManager.py:141
@@ -94,7 +94,7 @@ msgstr ""
 #: OMBManagerInstall.py:206
 #, python-format
 msgid "Cannot create kernel folder %s"
-msgstr "Erstellen des Kernel Ordners %s nicht möglich"
+msgstr "Erstellen des Kernel-Ordners %s nicht möglich"
 
 #: OMBManagerInstall.py:210
 #, python-format
@@ -161,7 +161,7 @@ msgstr "Open MultiBoot Menü"
 
 #: OMBManagerList.py:328
 msgid "Please enter new name:"
-msgstr "Bitte geben Sie neuen Namen ein:"
+msgstr "Bitte geben Sie einen neuen Namen ein:"
 
 #: OMBManagerList.py:346
 msgid "Please wait while delete is in progress."
@@ -203,7 +203,7 @@ msgstr ""
 #~ "Do you want install it?"
 #~ msgstr ""
 #~ "openMultiboot benötigt kernel-module-nandsim\n"
-#~ "Wollen Sie es installieren?"
+#~ "Wollen Sie diese installieren?"
 
 #~ msgid "Cannot install kernel-module-nandsim"
 #~ msgstr "Installation von kernel-module-nandsim nicht möglich"
