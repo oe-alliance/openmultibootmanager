@@ -289,7 +289,7 @@ class OMBManagerList(Screen):
 	def KeyOk(self):
 		self.select = self["list"].getIndex()
 		name = self["list"].getCurrent()
-		self.session.openWithCallback(self.confirmNextbootCB, MessageBox,_('Set next boot to %s ?' % name), MessageBox.TYPE_YESNO)
+		self.session.openWithCallback(self.confirmNextbootCB, MessageBox,_('Set next boot to %s ?') % name, MessageBox.TYPE_YESNO)
 		
 
 	def confirmNextbootCB(self, ret):
