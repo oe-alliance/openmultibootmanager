@@ -157,7 +157,7 @@ class OMBManagerKernelModule:
 		self.timer.stop()
 		self.error_message = ''
 		if os.system('opkg update && opkg install ' + self.kernel_module) != 0:
-			self.error_message = _('Cannot install ' + self.kernel_module)
+			self.error_message = _('Cannot install ') + self.kernel_module
 		
 		self.messagebox.close()
 		self.timer = eTimer()
