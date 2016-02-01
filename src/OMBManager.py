@@ -138,7 +138,7 @@ class OMBManagerKernelModule:
 		self.session = session
 		self.kernel_module = kernel_module
 
-		message = _("You need the module " + self.kernel_module + " to use openMultiboot\nDo you want install it?")
+		message = _("You need the module ") + self.kernel_module + _(" to use openMultiboot\nDo you want install it?")
 		disks_list = []
 		for partition in harddiskmanager.getMountedPartitions():
 			if partition.mountpoint != '/':
