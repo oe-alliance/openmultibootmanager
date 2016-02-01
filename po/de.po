@@ -61,7 +61,11 @@ msgstr ""
 
 #: OMBManager.py:141
 msgid "You need the module "
-msgstr "Sie brauchen das Modul"
+msgstr "Sie brauchen das Modul '"
+
+#: OMBManager.py:141
+msgid " to use openMultiboot\nDo you want install it?"
+msgstr "' um openMultiboot zu benutzen!\nWollen sie es jetzt installieren?"
 
 #: OMBManager.py:151
 msgid "Please wait while installation is in progress."
