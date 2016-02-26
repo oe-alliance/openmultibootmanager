@@ -329,7 +329,7 @@ class OMBManagerInstall(Screen):
 			self.showError(_("Cannot create virtual MTD device"))
 			return False
 
-		if OMB_GETBRANDOEM in ('xcore'):
+		if not os.path.exists('/dev/mtdblock' + mtd):
 			os.system(OMB_DD_BIN + ' if=' + rootfs_path + ' of=/dev/mtd' + mtd + ' bs=2048')
 		else:
 			os.system(OMB_DD_BIN + ' if=' + rootfs_path + ' of=/dev/mtdblock' + mtd + ' bs=2048')
