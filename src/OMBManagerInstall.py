@@ -63,10 +63,13 @@ if BRANDING:
 	OMB_GETMACHINENAME = getMachineName()
 	OMB_GETOEVERSION = getOEVersion()
 else:
-	OMB_GETIMAGEFILESYSTEM = "ubi"
+	OMB_GETIMAGEFILESYSTEM = "tar.bz2"
 	f=open("/proc/mounts","r")
 	for line in f:
 		if line.find("rootfs")>-1:
+			if line.find("ubi")>-1:
+				OMB_GETIMAGEFILESYSTEM = "ubi"
+				break
 			if line.find("jffs2")>-1:
 				OMB_GETIMAGEFILESYSTEM = "jffs2"
 				break
@@ -98,6 +101,7 @@ else:
 OMB_DD_BIN = '/bin/dd'
 OMB_CP_BIN = '/bin/cp'
 OMB_RM_BIN = '/bin/rm'
+OMB_TAR_BIN = '/bin/tar'
 OMB_UBIATTACH_BIN = '/usr/sbin/ubiattach'
 OMB_UBIDETACH_BIN = '/usr/sbin/ubidetach'
 OMB_MOUNT_BIN = '/bin/mount'
@@ -249,9 +253,23 @@ class OMBManagerInstall(Screen):
 			return self.installImageUBI(src_path, dst_path, kernel_dst_path, tmp_folder)
 		elif "jffs2" in OMB_GETIMAGEFILESYSTEM:
 			return self.installImageJFFS2(src_path, dst_path, kernel_dst_path, tmp_folder)
+		elif "tar.bz2" in OMB_GETIMAGEFILESYSTEM:
+			return self.installImageTARBZ2(src_path, dst_path, kernel_dst_path, tmp_folder)
 		else:
 			self.showError(_("Your STB doesn\'t seem supported"))
 			return False
+
+	def self.installImageTARBZ2(self, src_path, dst_path, kernel_dst_path, tmp_folder):
+		base_path = src_path + '/' + OMB_GETIMAGEFOLDER
+		rootfs_path = base_path + '/' + OMB_GETMACHINEROOTFILE
+		kernel_path = base_path + '/' + OMB_GETMACHINEKERNELFILE
+
+		os.system(OMB_TAR_BIN + ' jxf %s -C %s' % (src_path,dst_path))
+
+		if os.path.exists(dst_path + '/usr/bin/enigma2'):
+			os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path)
+
+		return True
 
 	def installImageJFFS2(self, src_path, dst_path, kernel_dst_path, tmp_folder):
 		mtdfile = "/dev/mtdblock0"
