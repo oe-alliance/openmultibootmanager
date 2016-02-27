@@ -29,7 +29,7 @@ from Components.Sources.List import List
 
 from Tools.Directories import fileExists
 
-from OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR, OMB_TMP_DIR
+from OMBManagerCommon import OMB_MAIN_DIR, OMB_DATA_DIR, OMB_UPLOAD_DIR, OMB_TMP_DIR
 from OMBManagerLocale import _
 
 from enigma import eTimer
@@ -199,17 +199,24 @@ class OMBManagerInstall(Screen):
 		kernel_target_folder = self.mount_point + '/' + OMB_DATA_DIR + '/.kernels'
 		kernel_target_file = kernel_target_folder + '/' + selected_image_identifier + '.bin'
 
+		if not os.path.exists(OMB_MAIN_DIR):
+			try:
+				os.makedirs(OMB_MAIN_DIR)
+			except OSError as exception:
+				self.showError(_("Cannot create main folder %s") % OMB_MAIN_DIR)
+				return
+
 		if not os.path.exists(kernel_target_folder):
 			try:
 				os.makedirs(kernel_target_folder)
 			except OSError as exception:
 				self.showError(_("Cannot create kernel folder %s") % kernel_target_folder)
 				return
-				
+
 		if os.path.exists(target_folder):
 			self.showError(_("The folder %s already exist") % target_folder)
 			return
-			
+
 		try:
 			os.makedirs(target_folder)
 		except OSError as exception:
@@ -329,7 +336,7 @@ class OMBManagerInstall(Screen):
 			self.showError(_("Cannot create virtual MTD device"))
 			return False
 
-		if OMB_GETBRANDOEM in ('xcore'):
+		if not os.path.exists('/dev/mtdblock' + mtd):
 			os.system(OMB_DD_BIN + ' if=' + rootfs_path + ' of=/dev/mtd' + mtd + ' bs=2048')
 		else:
 			os.system(OMB_DD_BIN + ' if=' + rootfs_path + ' of=/dev/mtdblock' + mtd + ' bs=2048')
