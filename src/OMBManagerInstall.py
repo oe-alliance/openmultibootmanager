@@ -259,7 +259,7 @@ class OMBManagerInstall(Screen):
 			self.showError(_("Your STB doesn\'t seem supported"))
 			return False
 
-	def self.installImageTARBZ2(self, src_path, dst_path, kernel_dst_path, tmp_folder):
+	def installImageTARBZ2(self, src_path, dst_path, kernel_dst_path, tmp_folder):
 		base_path = src_path + '/' + OMB_GETIMAGEFOLDER
 		rootfs_path = base_path + '/' + OMB_GETMACHINEROOTFILE
 		kernel_path = base_path + '/' + OMB_GETMACHINEKERNELFILE
