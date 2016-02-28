@@ -264,7 +264,7 @@ class OMBManagerInstall(Screen):
 		rootfs_path = base_path + '/' + OMB_GETMACHINEROOTFILE
 		kernel_path = base_path + '/' + OMB_GETMACHINEKERNELFILE
 
-		os.system(OMB_TAR_BIN + ' jxf %s -C %s' % (src_path,dst_path))
+		os.system(OMB_TAR_BIN + ' jxf %s -C %s' % (rootfs_path,dst_path))
 
 		if os.path.exists(dst_path + '/usr/bin/enigma2'):
 			os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path)
