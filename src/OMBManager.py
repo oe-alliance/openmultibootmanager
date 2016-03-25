@@ -184,6 +184,8 @@ def OMBManager(session, **kwargs):
 			kernel_module = None
 		else:
 			kernel_module = 'kernel-module-block2mtd'
+	if "tar.bz2" in OMB_GETIMAGEFILESYSTEM:
+		kernel_module = None
 	
 	if kernel_module and os.system('opkg list_installed | grep ' + kernel_module) != 0 and BRANDING:
 		OMBManagerKernelModule(session, kernel_module)

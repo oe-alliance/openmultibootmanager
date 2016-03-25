@@ -29,7 +29,7 @@ from Components.Sources.List import List
 
 from Tools.Directories import fileExists
 
-from OMBManagerCommon import OMB_MAIN_DIR, OMB_DATA_DIR, OMB_UPLOAD_DIR, OMB_TMP_DIR
+from OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR, OMB_TMP_DIR
 from OMBManagerLocale import _
 
 from enigma import eTimer
@@ -63,10 +63,13 @@ if BRANDING:
 	OMB_GETMACHINENAME = getMachineName()
 	OMB_GETOEVERSION = getOEVersion()
 else:
-	OMB_GETIMAGEFILESYSTEM = "ubi"
+	OMB_GETIMAGEFILESYSTEM = "tar.bz2"
 	f=open("/proc/mounts","r")
 	for line in f:
 		if line.find("rootfs")>-1:
+			if line.find("ubi")>-1:
+				OMB_GETIMAGEFILESYSTEM = "ubi"
+				break
 			if line.find("jffs2")>-1:
 				OMB_GETIMAGEFILESYSTEM = "jffs2"
 				break
@@ -98,6 +101,7 @@ else:
 OMB_DD_BIN = '/bin/dd'
 OMB_CP_BIN = '/bin/cp'
 OMB_RM_BIN = '/bin/rm'
+OMB_TAR_BIN = '/bin/tar'
 OMB_UBIATTACH_BIN = '/usr/sbin/ubiattach'
 OMB_UBIDETACH_BIN = '/usr/sbin/ubidetach'
 OMB_MOUNT_BIN = '/bin/mount'
@@ -199,24 +203,17 @@ class OMBManagerInstall(Screen):
 		kernel_target_folder = self.mount_point + '/' + OMB_DATA_DIR + '/.kernels'
 		kernel_target_file = kernel_target_folder + '/' + selected_image_identifier + '.bin'
 
-		if not os.path.exists(OMB_MAIN_DIR):
-			try:
-				os.makedirs(OMB_MAIN_DIR)
-			except OSError as exception:
-				self.showError(_("Cannot create main folder %s") % OMB_MAIN_DIR)
-				return
-
 		if not os.path.exists(kernel_target_folder):
 			try:
 				os.makedirs(kernel_target_folder)
 			except OSError as exception:
 				self.showError(_("Cannot create kernel folder %s") % kernel_target_folder)
 				return
-
+				
 		if os.path.exists(target_folder):
 			self.showError(_("The folder %s already exist") % target_folder)
 			return
-
+			
 		try:
 			os.makedirs(target_folder)
 		except OSError as exception:
@@ -256,9 +253,23 @@ class OMBManagerInstall(Screen):
 			return self.installImageUBI(src_path, dst_path, kernel_dst_path, tmp_folder)
 		elif "jffs2" in OMB_GETIMAGEFILESYSTEM:
 			return self.installImageJFFS2(src_path, dst_path, kernel_dst_path, tmp_folder)
+		elif "tar.bz2" in OMB_GETIMAGEFILESYSTEM:
+			return self.installImageTARBZ2(src_path, dst_path, kernel_dst_path, tmp_folder)
 		else:
 			self.showError(_("Your STB doesn\'t seem supported"))
 			return False
+
+	def installImageTARBZ2(self, src_path, dst_path, kernel_dst_path, tmp_folder):
+		base_path = src_path + '/' + OMB_GETIMAGEFOLDER
+		rootfs_path = base_path + '/' + OMB_GETMACHINEROOTFILE
+		kernel_path = base_path + '/' + OMB_GETMACHINEKERNELFILE
+
+		os.system(OMB_TAR_BIN + ' jxf %s -C %s' % (rootfs_path,dst_path))
+
+		if os.path.exists(dst_path + '/usr/bin/enigma2'):
+			os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path)
+
+		return True
 
 	def installImageJFFS2(self, src_path, dst_path, kernel_dst_path, tmp_folder):
 		mtdfile = "/dev/mtdblock0"
@@ -336,7 +347,7 @@ class OMBManagerInstall(Screen):
 			self.showError(_("Cannot create virtual MTD device"))
 			return False
 
-		if not os.path.exists('/dev/mtdblock' + mtd):
+		if OMB_GETBRANDOEM in ('xcore'):
 			os.system(OMB_DD_BIN + ' if=' + rootfs_path + ' of=/dev/mtd' + mtd + ' bs=2048')
 		else:
 			os.system(OMB_DD_BIN + ' if=' + rootfs_path + ' of=/dev/mtdblock' + mtd + ' bs=2048')
