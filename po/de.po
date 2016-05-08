@@ -8,50 +8,52 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-15 17:58+0200\n"
-"PO-Revision-Date: 2015-08-15 21:11+0100\n"
-"Last-Translator: mike99 <mike99@mail.to>\n"
+"POT-Creation-Date: 2016-05-08 13:20+0200\n"
+"PO-Revision-Date: 2016-05-08 13:20+0200\n"
+"Last-Translator: neoatomic <neoatomic@users.noreply.github.com>\n"
 "Language-Team: German <arn354@email.de>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.7.4\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: .\n"
 
-#: OMBManager.py:40
+#: src/OMBManager.py:40
 msgid "Where do you want to install openMultiboot?"
 msgstr "Wohin soll openMultiboot installiert werden?"
 
-#: OMBManager.py:47
+#: src/OMBManager.py:47
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: OMBManager.py:52
+#: src/OMBManager.py:52
 msgid "No suitable devices found"
 msgstr "Kein nutzbares Gerät gefunden"
 
-#: OMBManager.py:75
+#: src/OMBManager.py:75
 msgid "Cannot create data folder"
 msgstr "Ordner data kann nicht erstellt werden"
 
-#: OMBManager.py:89
+#: src/OMBManager.py:89
 msgid "Please wait while format is in progress."
 msgstr "Bitte warten - Formatierung läuft."
 
-#: OMBManager.py:98
+#: src/OMBManager.py:98
 msgid "Cannot umount the device"
 msgstr "Gerät kann nicht ausgehängt werden"
 
-#: OMBManager.py:101
+#: src/OMBManager.py:101
 msgid "Cannot format the device"
 msgstr "Gerät kann nicht formatiert werden"
 
-#: OMBManager.py:104
+#: src/OMBManager.py:104
 msgid "Cannot remount the device"
 msgstr "Gerät kann nicht wieder eingehängt werden"
 
-#: OMBManager.py:130
+#: src/OMBManager.py:130
 msgid ""
 "Filesystem not supported\n"
 "Do you want format your drive?"
@@ -59,35 +61,39 @@ msgstr ""
 "Dateisystem wird nicht unterstützt\n"
 "Soll das Gerät formatiert werden?"
 
-#: OMBManager.py:141
+#: src/OMBManager.py:141
 msgid "You need the module "
 msgstr "Sie brauchen das Modul '"
 
-#: OMBManager.py:141
-msgid " to use openMultiboot\nDo you want install it?"
-msgstr "' um openMultiboot zu benutzen!\nWollen sie es jetzt installieren?"
+#: src/OMBManager.py:141
+msgid ""
+" to use openMultiboot\n"
+"Do you want install it?"
+msgstr ""
+"' um openMultiboot zu benutzen!\n"
+"Wollen sie es jetzt installieren?"
 
-#: OMBManager.py:151
+#: src/OMBManager.py:151
 msgid "Please wait while installation is in progress."
 msgstr "Bitte warten, Installation läuft."
 
-#: OMBManager.py:160
+#: src/OMBManager.py:160
 msgid "Cannot install "
 msgstr "Kann nicht installiert werden "
 
-#: OMBManagerAbout.py:45
+#: src/OMBManagerAbout.py:45
 msgid "openMultiboot About"
 msgstr "Über openMultiboot"
 
-#: OMBManagerInstall.py:136
+#: src/OMBManagerInstall.py:140
 msgid "openMultiboot Install"
 msgstr "openMultiboot Installieren"
 
-#: OMBManagerInstall.py:145
+#: src/OMBManagerInstall.py:149
 msgid "Choose the image to install"
 msgstr "Wählen Sie das zu installierende Image"
 
-#: OMBManagerInstall.py:161
+#: src/OMBManagerInstall.py:165
 msgid ""
 "Please wait while installation is in progress.\n"
 "This operation may take a while."
@@ -95,101 +101,106 @@ msgstr ""
 "Bitte warten, Installation läuft.\n"
 "Der Vorgang kann etwas dauern."
 
-#: OMBManagerInstall.py:206
+#: src/OMBManagerInstall.py:210
+#, python-format
+msgid "Cannot create main folder %s"
+msgstr ""
+
+#: src/OMBManagerInstall.py:217
 #, python-format
 msgid "Cannot create kernel folder %s"
 msgstr "Erstellen des Kernel-Ordners %s nicht möglich"
 
-#: OMBManagerInstall.py:210
+#: src/OMBManagerInstall.py:221
 #, python-format
 msgid "The folder %s already exist"
 msgstr "Der Ordner %s ist bereits vorhanden"
 
-#: OMBManagerInstall.py:216 OMBManagerInstall.py:227
+#: src/OMBManagerInstall.py:227 src/OMBManagerInstall.py:238
 #, python-format
 msgid "Cannot create folder %s"
 msgstr "Erstellen des Ordners %s nicht möglich"
 
-#: OMBManagerInstall.py:231
+#: src/OMBManagerInstall.py:242
 msgid "Cannot deflate image"
 msgstr "Image kann nicht entpackt werden"
 
-#: OMBManagerInstall.py:237
+#: src/OMBManagerInstall.py:248
 msgid "Cannot extract nfi image"
 msgstr "Kann nfi Image nicht extrahieren"
 
-#: OMBManagerInstall.py:253
+#: src/OMBManagerInstall.py:266
 msgid "Your STB doesn't seem supported"
 msgstr "Ihr Receiver scheint nicht unterstützt zu sein"
 
-#: OMBManagerInstall.py:329
+#: src/OMBManagerInstall.py:354
 msgid "Cannot create virtual MTD device"
 msgstr "Virtuelles MTD Laufwerk kann nicht erstellt werden"
 
-#: OMBManagerList.py:159
+#: src/OMBManagerList.py:159
 msgid "openMultiboot Manager"
 msgstr "openMultiboot Manager"
 
-#: OMBManagerList.py:167
+#: src/OMBManagerList.py:167
 msgid "Current Running Image:"
 msgstr "Aktiviertes Image:"
 
-#: OMBManagerList.py:174
+#: src/OMBManagerList.py:174
 msgid "Rename"
 msgstr "Umbenennen"
 
-#: OMBManagerList.py:176
+#: src/OMBManagerList.py:176
 msgid "Menu"
 msgstr "Menü"
 
-#: OMBManagerList.py:178
+#: src/OMBManagerList.py:178
 msgid "Install"
 msgstr "Installieren"
 
-#: OMBManagerList.py:285
+#: src/OMBManagerList.py:285
 msgid "Delete"
 msgstr "Löschen"
 
-#: OMBManagerList.py:292
+#: src/OMBManagerList.py:292
 #, python-format
 msgid "Set next boot to %s ?"
 msgstr "Nächster Neustart -> %s ?"
 
-#: OMBManagerList.py:304
+#: src/OMBManagerList.py:304
 msgid "Do you want to reboot now ?"
 msgstr "Möchten Sie die Box jetzt neustarten ?"
 
-#: OMBManagerList.py:312
+#: src/OMBManagerList.py:312
 msgid "Open MultiBoot Menu"
 msgstr "Open MultiBoot Menü"
 
-#: OMBManagerList.py:328
+#: src/OMBManagerList.py:328
 msgid "Please enter new name:"
 msgstr "Bitte geben Sie einen neuen Namen ein:"
 
-#: OMBManagerList.py:346
+#: src/OMBManagerList.py:346
 msgid "Please wait while delete is in progress."
 msgstr "Bitte warten - es wird gelöscht"
 
-#: OMBManagerList.py:367
+#: src/OMBManagerList.py:367
 #, python-format
 msgid "Do you want to delete %s?"
 msgstr "Soll %s gelöscht werden?"
 
-#: OMBManagerList.py:386
+#: src/OMBManagerList.py:386
 #, python-format
 msgid "Please upload an image inside %s"
 msgstr "Bitte laden Sie ein Image nach %s"
 
-#: OMBManagerList.py:406
+#: src/OMBManagerList.py:406
 msgid "Save"
 msgstr "Speichern"
 
-#: OMBManagerList.py:418
+#: src/OMBManagerList.py:418
 msgid "Enable Boot Menu"
 msgstr "Aktiviere Boot-Menü"
 
-#: plugin.py:32
+#: src/plugin.py:32
 msgid "OpenMultiboot Manager"
 msgstr ""
 
