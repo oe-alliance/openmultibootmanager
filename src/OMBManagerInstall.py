@@ -271,14 +271,19 @@ class OMBManagerInstall(Screen):
 		rootfs_path = base_path + '/' + OMB_GETMACHINEROOTFILE
 		kernel_path = base_path + '/' + OMB_GETMACHINEKERNELFILE
 
-		os.system(OMB_TAR_BIN + ' jxf %s -C %s' % (rootfs_path,dst_path))
+		if os.system(OMB_TAR_BIN + ' jxf %s -C %s' % (rootfs_path,dst_path)) != 0:
+			self.showError(_("Error unpacking rootfs"))
+			return False
 
 		if os.path.exists(dst_path + '/usr/bin/enigma2'):
-			os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path)
+			if os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path) != 0:
+				self.showError(_("Error copying kernel"))
+				return False
 
 		return True
 
 	def installImageJFFS2(self, src_path, dst_path, kernel_dst_path, tmp_folder):
+		rc = True
 		mtdfile = "/dev/mtdblock0"
 		for i in range(0, 20):
 			mtdfile = "/dev/mtdblock%d" % i
@@ -291,11 +296,17 @@ class OMBManagerInstall(Screen):
 		jffs2_path = src_path + '/jffs2'
 
 		if os.path.exists(OMB_UNJFFS2_BIN):
-			os.system("%s %s %s" % (OMB_UNJFFS2_BIN, rootfs_path, jffs2_path))
+			if os.system("%s %s %s" % (OMB_UNJFFS2_BIN, rootfs_path, jffs2_path)) != 0:
+				self.showError(_("Error unpacking rootfs"))
+				rc = False
 
 			if os.path.exists(jffs2_path + '/usr/bin/enigma2'):
-				os.system(OMB_CP_BIN + ' -rp ' + jffs2_path + '/* ' + dst_path)
-				os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path)
+				if os.system(OMB_CP_BIN + ' -rp ' + jffs2_path + '/* ' + dst_path) != 0:
+					self.showError(_("Error copying unpacked rootfs"))
+					rc = False
+				if os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path) != 0:
+					self.showError(_("Error copying kernel"))
+					rc = False
 		else:
 			os.system(OMB_MODPROBE_BIN + ' loop')
 			os.system(OMB_MODPROBE_BIN + ' mtdblock')
@@ -306,17 +317,25 @@ class OMBManagerInstall(Screen):
 			os.system(OMB_MOUNT_BIN + ' -t jffs2 ' + mtdfile + ' ' + jffs2_path)
 
 			if os.path.exists(jffs2_path + '/usr/bin/enigma2'):
-				os.system(OMB_CP_BIN + ' -rp ' + jffs2_path + '/* ' + dst_path)
-				os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path)
+				if os.system(OMB_CP_BIN + ' -rp ' + jffs2_path + '/* ' + dst_path) != 0:
+					self.showError(_("Error copying unpacked rootfs"))
+					rc = False
+				if os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path) != 0:
+					self.showError(_("Error copying kernel"))
+					rc = False
+			else:
+				self.showError(_("Generic error in unpaack process"))
+				rc = False
 
 			os.system(OMB_UMOUNT_BIN + ' ' + jffs2_path)
 			os.system(OMB_RMMOD_BIN + ' block2mtd')
 			os.system(OMB_RMMOD_BIN + ' mtdblock')
 			os.system(OMB_RMMOD_BIN + ' loop')
 
-		return True
+		return rc
 
 	def installImageUBI(self, src_path, dst_path, kernel_dst_path, tmp_folder):
+		rc = True
 		for i in range(0, 20):
 			mtdfile = "/dev/mtd" + str(i)
 			if os.path.exists(mtdfile) is False:
@@ -362,12 +381,21 @@ class OMBManagerInstall(Screen):
 		os.system(OMB_MOUNT_BIN + ' -t ubifs ubi1_0 ' + ubi_path)
 
 		if os.path.exists(ubi_path + '/usr/bin/enigma2'):
-			os.system(OMB_CP_BIN + ' -rp ' + ubi_path + '/* ' + dst_path)
-			os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path)
+			if os.system(OMB_CP_BIN + ' -rp ' + ubi_path + '/* ' + dst_path) != 0:
+				self.showError(_("Error copying unpacked rootfs"))
+				rc = False
+			if os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path) != 0:
+				self.showError(_("Error copying kernel"))
+				rc = False
+		else:
+			self.showError(_("Generic error in unpaack process"))
+			rc = False
 
 		os.system(OMB_UMOUNT_BIN + ' ' + ubi_path)
 		os.system(OMB_UBIDETACH_BIN + ' -m ' + mtd)
 		os.system(OMB_RMMOD_BIN + ' nandsim')
+
+		return rc
 
 # WARNING: dirty hack by Meo
 #
