@@ -1,0 +1,144 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-27 21:21+0200\n"
+"PO-Revision-Date: 2016-07-11 16:32+0300\n"
+"Last-Translator: Vytenis P. <vyteniui@gmail.com>\n"
+"Language-Team: Vytenis Pulokas <vyteniui@gmail.com>\n"
+"Language: lt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 1.8.8\n"
+
+msgid ""
+" to use openMultiboot\n"
+"Do you want install it?"
+msgstr ""
+" kad naudoti OpenMultiboot\n"
+"Norite jį įdiegti?"
+
+msgid "Cancel"
+msgstr "Atšaukti"
+
+msgid "Cannot create data folder"
+msgstr "Nepavyko sukurti duomenų katalogo"
+
+msgid "Cannot create folder %s"
+msgstr "Nepavyko sukurti katalogo %s"
+
+msgid "Cannot create kernel folder %s"
+msgstr "Nepavyko sukurti branduolio katalogo %s"
+
+msgid "Cannot create virtual MTD device"
+msgstr "Nepavyko sukurti virtualaus MTD prietaiso"
+
+msgid "Cannot deflate image"
+msgstr "Nepavyko išskleisti atvaizdo"
+
+msgid "Cannot extract nfi image"
+msgstr "Nepavyko išskleisti NFI atvaizdo"
+
+msgid "Cannot format the device"
+msgstr "Nepavyko suformatuoti įrenginio"
+
+msgid "Cannot install "
+msgstr "Nepavyko įdiegti "
+
+msgid "Cannot remount the device"
+msgstr "Nepavyko persieti įrenginio"
+
+msgid "Cannot umount the device"
+msgstr "Nepavyko išsieti įrenginio"
+
+msgid "Choose the image to install"
+msgstr "Pasirinkite atvaizdą įdiegimui"
+
+msgid "Current Running Image:"
+msgstr "Dabartinis atvaizdas: "
+
+msgid "Delete"
+msgstr "Pašalinti"
+
+msgid "Do you want to delete %s?"
+msgstr "Ar tikrai norite šalinti %s?"
+
+msgid "Do you want to reboot now ?"
+msgstr "Ar norite paleisti iš naujo?"
+
+msgid "Enable Boot Menu"
+msgstr "Įjungti paleisties meniu"
+
+msgid ""
+"Filesystem not supported\n"
+"Do you want format your drive?"
+msgstr ""
+"Nepalaikoma failų sistema\n"
+"Ar norite formatuoti laikmeną?"
+
+msgid "Install"
+msgstr "Įdiegti"
+
+msgid "Menu"
+msgstr "Meniu"
+
+msgid "No suitable devices found"
+msgstr "Tinkamų įrenginių nerasta"
+
+msgid "Open MultiBoot Menu"
+msgstr "OpenMultiboot meniu"
+
+msgid "Please enter new name:"
+msgstr "Įrašykite naują pavadinimą:"
+
+msgid "Please upload an image inside %s"
+msgstr "Įkelkite atvaizdą į %s"
+
+msgid "Please wait while delete is in progress."
+msgstr "Palaukite, kol vyksta šalinimas."
+
+msgid "Please wait while format is in progress."
+msgstr "Palaukite, kol vyksta formatavimas."
+
+msgid "Please wait while installation is in progress."
+msgstr "Palaukite, kol vyksta diegimas."
+
+msgid ""
+"Please wait while installation is in progress.\n"
+"This operation may take a while."
+msgstr ""
+"Palaukite, kol vyksta diegimas.\n"
+"Ši operacija gali šiek tiek užtrukti."
+
+msgid "Rename"
+msgstr "Pervadinti"
+
+msgid "Save"
+msgstr "Išsaugoti"
+
+msgid "Set next boot to %s ?"
+msgstr "Kitam paleidimui pasirinkti %s ?"
+
+msgid "The folder %s already exist"
+msgstr "Aplankas %s jau yra"
+
+msgid "Where do you want to install openMultiboot?"
+msgstr "Kur norite įdiegti openMultiboot?"
+
+msgid "You need the module "
+msgstr "Jums reikia modulio "
+
+msgid "Your STB doesn't seem supported"
+msgstr "Jūsų imtuvas nepalaiko"
+
+msgid "openMultiboot About"
+msgstr "Apie openMultiboot"
+
+msgid "openMultiboot Install"
+msgstr "Įdiegti openMultiboot"
+
+msgid "openMultiboot Manager"
+msgstr "OpenMultiboot tvarkytuvas"
