@@ -237,7 +237,7 @@ class OMBManagerInstall(Screen):
 		except OSError as exception:
 			self.showError(_("Cannot create folder %s") % tmp_folder)
 			return
-				
+
 		if os.system(OMB_UNZIP_BIN + ' ' + source_file + ' -d ' + tmp_folder) != 0:
 			self.showError(_("Cannot deflate image"))
 			return
@@ -395,6 +395,8 @@ class OMBManagerInstall(Screen):
 		os.system(OMB_UBIDETACH_BIN + ' -m ' + mtd)
 		os.system(OMB_RMMOD_BIN + ' nandsim')
 
+		self.afterInstallImage(dst_path)
+
 		return rc
 
 # WARNING: dirty hack by Meo
@@ -415,18 +417,11 @@ class OMBManagerInstall(Screen):
 		if os.path.exists(dst_path + '/sbin/open_multiboot'):
 			os.system("rm -f " + dst_path + '/sbin/open_multiboot')
 			os.system("rm -f " + dst_path + '/sbin/open-multiboot-branding-helper.py')
-# We can't create the init symlink because it will be overwrited by openmultiboot                                                           
+# We can't create the init symlink because it will be overwrited by openmultiboot
 			os.system('ln -sfn /sbin/init.sysvinit ' + dst_path + '/sbin/open_multiboot')
-# our friends Pli
-		if dst_path.find('OpenPLi') != -1:
-			import fileinput
-			for line in fileinput.input(dst_path + '/etc/init.d/volatile-media.sh', inplace=True):
-				if 'mount -t tmpfs -o size=64k tmpfs /media' in line:
-					print "mountpoint -q \"/media\" || mount -t tmpfs -o size=64k tmpfs /media"
-				else:
-					print line.rstrip()
-# end dirty !
-		
+
+		self.afterInstallImage(dst_path)
+
 		return True
 
 	# Based on nfi Extract by gutemine
@@ -495,4 +490,28 @@ class OMBManagerInstall(Screen):
 		nfidata.close()
 		print 'Extracting %s to %s Finished!' % (nfifile, extractdir)
 
+		self.afterInstallImage(dst_path)
+
 		return True
+
+	def afterInstallImage(self, dst_path):
+		fix = False
+		error = False
+		file = dst_path + '/etc/init.d/volatile-media.sh'
+		if os.path.exists(file):
+			try:
+				f = open(file, 'r')
+				for line in f.readlines():
+					if line.find('mountpoint -q "/media" || mount -t tmpfs -o size=64k tmpfs /media') > -1:
+						fix = True
+						break
+				f.close()
+			except:
+				error = True
+			if not fix and not error:
+				import fileinput
+				for line in fileinput.input(file, inplace=True):
+					if 'mount -t tmpfs -o size=64k tmpfs /media' in line:
+						print "mountpoint -q \"/media\" || mount -t tmpfs -o size=64k tmpfs /media"
+					else:
+						print line.rstrip()
