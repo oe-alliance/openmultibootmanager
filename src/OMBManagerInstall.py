@@ -153,48 +153,48 @@ class OMBManagerInstall(Screen):
 			"cancel": self.keyCancel,
 			"ok": self.keyInstall
 		})
-		
+
 	def keyCancel(self):
 		self.close()
-		
+
 	def keyInstall(self):
 		self.selected_image = self["list"].getCurrent()
 		if not self.selected_image:
 			return
-			
+
 		self.messagebox = self.session.open(MessageBox, _('Please wait while installation is in progress.\nThis operation may take a while.'), MessageBox.TYPE_INFO, enable_input = False)
 		self.timer = eTimer()
 		self.timer.callback.append(self.installPrepare)
 		self.timer.start(100)
 		self.error_timer = eTimer()
 		self.error_timer.callback.append(self.showErrorCallback)
-	
-	
+
+
 	def showErrorCallback(self):
 		self.error_timer.stop()
 		self.session.open(MessageBox, self.error_message, type = MessageBox.TYPE_ERROR)
 		self.close()
-		
+
 	def showError(self, error_message):
 		self.messagebox.close()
-		self.error_message = error_message;
+		self.error_message = error_message
 		self.error_timer.start(100)
-		
+
 	def guessIdentifierName(self, selected_image):
 		selected_image = selected_image.replace(' ', '_')
 		prefix = self.mount_point + '/' + OMB_DATA_DIR + '/'
 		if not os.path.exists(prefix + selected_image):
 			return selected_image
-			
+
 		count = 1
 		while os.path.exists(prefix + selected_image + '_' + str(count)):
 			count += 1
-			
+
 		return selected_image + '_' + str(count)
-		
+
 	def installPrepare(self):
 		self.timer.stop()
-		
+
 		selected_image = self.selected_image
 		selected_image_identifier = self.guessIdentifierName(selected_image)
 
@@ -216,11 +216,11 @@ class OMBManagerInstall(Screen):
 			except OSError as exception:
 				self.showError(_("Cannot create kernel folder %s") % kernel_target_folder)
 				return
-				
+
 		if os.path.exists(target_folder):
 			self.showError(_("The folder %s already exist") % target_folder)
 			return
-			
+
 		try:
 			os.makedirs(target_folder)
 		except OSError as exception:
@@ -247,8 +247,12 @@ class OMBManagerInstall(Screen):
 			if not self.extractImageNFI(nfifile[0], tmp_folder):
 				self.showError(_("Cannot extract nfi image"))
 				return
-
-		if self.installImage(tmp_folder, target_folder, kernel_target_file, tmp_folder):
+			else:
+				os.system(OMB_RM_BIN + ' -f ' + source_file)
+				self.afterInstallImage(target_folder)
+				self.messagebox.close()
+				self.close()
+		elif self.installImage(tmp_folder, target_folder, kernel_target_file, tmp_folder):
 			os.system(OMB_RM_BIN + ' -f ' + source_file)
 			self.messagebox.close()
 			self.close()
@@ -466,7 +470,7 @@ class OMBManagerInstall(Screen):
 
 		part = 0
 		while nfidata.tell() < total_size:
-		        (size, ) = struct.unpack('!L', nfidata.read(4))
+			(size, ) = struct.unpack('!L', nfidata.read(4))
 			print 'Processing partition # %d size %d Bytes' % (part, size)
 			output_names = { 2: 'kernel.bin', 3: 'rootfs.bin' }
 			if part not in output_names:
@@ -474,7 +478,7 @@ class OMBManagerInstall(Screen):
 				print 'Skipping %d data...' % size
 			else:
 				print 'Extracting %s with %d blocksize...' % (output_names[part], bs)
-				output_filename = extractdir + '/' + output_names[part];
+				output_filename = extractdir + '/' + output_names[part]
 				if os.path.exists(output_filename):
 					os.remove(output_filename)
 				output = open(output_filename, 'wb')
@@ -489,8 +493,6 @@ class OMBManagerInstall(Screen):
 
 		nfidata.close()
 		print 'Extracting %s to %s Finished!' % (nfifile, extractdir)
-
-		self.afterInstallImage(dst_path)
 
 		return True
 
