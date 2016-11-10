@@ -1,4 +1,4 @@
-LANGS = it de el ru nl
+LANGS = it de el ru nl pt
 LANGMO = $(LANGS:=.mo)
 LANGPO = $(LANGS:=.po)
 
