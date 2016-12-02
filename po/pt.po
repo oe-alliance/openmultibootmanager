@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-29 18:02+0200\n"
-"PO-Revision-Date: 2016-11-10 17:43+0000\n"
+"PO-Revision-Date: 2016-12-01 19:43+0000\n"
 "Last-Translator: nunigaia\n"
 "Language-Team: BH Team\n"
 "Language: pt_PT\n"
@@ -34,14 +34,14 @@ msgstr "Escolher a imagem a instalar"
 
 #: OMBManagerInstall.py:92
 msgid "Do you want to copy settings from the current image?"
-msgstr "Quer copiar definições da imagem atual?"
+msgstr "Quer copiar as definições da imagem atual?"
 
 #: OMBManagerInstall.py:73
 msgid ""
 "Please wait while installation is in progress.\n"
 "This operation may take a while."
 msgstr ""
-"Por favor espere, instalação em andamento\n"
+"Por favor espere, instalação em andamento.\n"
 "Esta operação poderá demorar um pouco."
 
 #: OMBManagerInstall.py:105
@@ -129,7 +129,7 @@ msgstr "P.F. introduza um nome novo:"
 
 #: OMBManager.py:16
 msgid "Where do you want to install openMultiboot?"
-msgstr "Onde deseja instalar o OpenMultiboot"
+msgstr "Onde deseja instalar o OpenMultiboot?"
 
 #: OMBManager.py:27
 msgid "No suitable devices found"
@@ -168,8 +168,8 @@ msgid ""
 "You need the module kernel-module-nandsim to use openMultiboot\n"
 "Do you want install it?"
 msgstr ""
-"Necessita instalar o módulo \"Kernel-module-nandsim\" para usar o OpenMultiboot\n"
-"Quer instalá-lo?"
+"Necessita instalar o módulo 'Kernel-module-nandsim' para usar o OpenMultiboot\n"
+"Pretende instalá-lo?"
 
 #: OMBManager.py:119
 msgid "Please wait while installation is in progress."
@@ -177,7 +177,7 @@ msgstr "Por favor espere, enquanto a instalação está em andamento."
 
 #: OMBManager.py:128
 msgid "Cannot install kernel-module-nandsim"
-msgstr "Não pode instlar o módulo \"kernel-module-nandsim\""
+msgstr "Não pode instalar o módulo 'kernel-module-nandsim'"
 
 #: OMBManagerList.py:292
 msgid "Set next boot to %s ?"
