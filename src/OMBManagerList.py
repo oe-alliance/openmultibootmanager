@@ -189,6 +189,34 @@ class OMBManagerList(Screen):
 			"menu": self.showMen,
 		})
 	
+
+	def isCompatible(self, base_path):
+		e2_path = base_path + '/usr/lib/enigma2/python'
+		if os.path.exists(e2_path + '/boxbranding.so'):
+			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
+			fin,fout = os.popen4(helper + " " + e2_path + " machine_proc_model")
+			machine_proc_model = fout.read().strip()
+			fin,fout = os.popen4(helper + " " + e2_path + " machine_build")
+			machine_build = fout.read().strip()
+
+			return (machine_build == machine_proc_model)
+
+		elif os.path.exists('/usr/lib/enigma2/python/boxbranding.so'):
+			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
+			fin,fout = os.popen4(helper + " " + e2_path + " machine_proc_model")
+			machine_proc_model = fout.read().strip()
+
+			try:
+				with open("/etc/opkg/arch.conf", "r") as arch:
+				    for line in arch:
+					machine_build = line.split()[1]
+					if machine_build == machine_proc_model:
+						return (machine_build == machine_proc_model)
+			except:
+				return 0
+
+		return 0
+
 	def guessImageTitle(self, base_path, identifier):
 		image_distro = ""
 		image_version = ""
@@ -235,6 +263,9 @@ class OMBManagerList(Screen):
 					continue
 
 				if file_entry[0] == '.':
+					continue
+				
+				if not self.isCompatible(self.data_dir + '/' + file_entry):
 					continue
 
 				if os.path.exists(self.data_dir + '/.label_' + file_entry):
