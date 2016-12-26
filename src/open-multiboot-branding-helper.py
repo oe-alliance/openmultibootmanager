@@ -75,11 +75,6 @@ else:
 						print open("/etc/issue").readlines()[-2].capitalize().strip()[:-6]
 					except:
 						print "undefined"
-				if sys.argv[2] == 'machine_proc_model':
-					try:
-						print "vu" + open("/proc/stb/info/vumodel").read().strip()
-					except:
-						print "undefined"
 				elif sys.argv[2] == 'image_version':
 					print ' '
 				else:
