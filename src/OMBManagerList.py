@@ -191,28 +191,28 @@ class OMBManagerList(Screen):
 	
 
 	def isCompatible(self, base_path):
+		e2_path = '/usr/lib/enigma2/python'
+		if os.path.exists(e2_path + '/boxbranding.so'):
+			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
+			fin,fout = os.popen4(helper + " " + e2_path + " box_type")
+			running_box_type = fout.read().strip()
+
 		e2_path = base_path + '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
 			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
-			fin,fout = os.popen4(helper + " " + e2_path + " machine_proc_model")
-			machine_proc_model = fout.read().strip()
-			fin,fout = os.popen4(helper + " " + e2_path + " machine_build")
-			machine_build = fout.read().strip()
+			fin,fout = os.popen4(helper + " " + e2_path + " box_type")
+			box_type = fout.read().strip()
 
-			return (machine_build == machine_proc_model)
-
-		else:
-			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
-			fin,fout = os.popen4(helper + " " + e2_path + " machine_proc_model")
-			machine_proc_model = fout.read().strip()
+			print "DEBUG",base_path, running_box_type , box_type
+			return (running_box_type == box_type)
 
 		try:
 			archconffile = "%s/etc/opkg/arch.conf" % base_path
 			with open(archconffile, "r") as arch:
-			    for line in arch:
-				machine_build = line.split()[1]
-				if machine_build == machine_proc_model:
-					return (machine_build == machine_proc_model)
+				for line in arch:
+					box_type = line.split()[1]
+					if running_box_type == box_type:
+						return (running_box_type == box_type)
 		except:
 			return 0
 
