@@ -32,7 +32,7 @@ from Components.ConfigList import ConfigListScreen
 from Components.Pixmap import Pixmap
 from Components.Sources.List import List
 from Components.Label import Label
-from Components.config import getConfigListEntry, config, ConfigYesNo, NoSave
+from Components.config import getConfigListEntry, config, ConfigYesNo, ConfigInteger, NoSave
 
 from OMBManagerInstall import OMBManagerInstall, OMB_RM_BIN, BRANDING
 from OMBManagerAbout import OMBManagerAbout
@@ -455,6 +455,14 @@ class OMBManagerPreferences(Screen, ConfigListScreen):
 			self.bootmenu_enabled.value = False
 		self.list.append(getConfigListEntry(_("Enable Boot Menu"), self.bootmenu_enabled))
 
+		self.usb_init_delay = NoSave(ConfigInteger(default = 0, limits = (1, 10)))
+		try:
+			self.usb_init_delay.value  = int(open(os.path.dirname(os.path.abspath(__file__))  + '/.usb_init_delay').read())
+		except:
+			pass
+
+		self.list.append(getConfigListEntry(_("Usb device init time delay"), self.usb_init_delay))
+
 		self["config"].list = self.list
 		self["config"].l.setList(self.list)
 			
@@ -467,5 +475,12 @@ class OMBManagerPreferences(Screen, ConfigListScreen):
 				cmd = "touch " + self.data_dir + '/.bootmenu.lock'
 				os.system(cmd)
 				
+
+		if self.usb_init_delay.value != 0:
+			file_entry =  os.path.dirname(os.path.abspath(__file__)) + '/.usb_init_delay'
+			f = open(file_entry, 'w')
+			f.write("%s" % self.usb_init_delay.value)
+			f.close()
+
 		
 		self.close()
