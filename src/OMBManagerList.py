@@ -194,14 +194,14 @@ class OMBManagerList(Screen):
 		e2_path = '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
 			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
-			fin,fout = os.popen4(helper + " " + e2_path + " brand_oem")
-			brand_oem = fout.read().strip()
 			fin,fout = os.popen4(helper + " " + e2_path + " box_type")
 			running_box_type = fout.read().strip()
 
 		e2_path = base_path + '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
 			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
+			fin,fout = os.popen4(helper + " " + e2_path + " brand_oem")
+			brand_oem = fout.read().strip()
 			fin,fout = os.popen4(helper + " " + e2_path + " box_type")
 			box_type = fout.read().strip()
 
