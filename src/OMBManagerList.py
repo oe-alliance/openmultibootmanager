@@ -190,27 +190,38 @@ class OMBManagerList(Screen):
 		})
 	
 
-	def isCompatible(self, base_path):
-		e2_path = '/usr/lib/enigma2/python'
+	def getBrandOem(self, base_path):
+		brand_oem = None
+		e2_path = base_path + '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
 			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
 			fin,fout = os.popen4(helper + " " + e2_path + " brand_oem")
 			brand_oem = fout.read().strip()
-			fin,fout = os.popen4(helper + " " + e2_path + " box_type")
-			running_box_type = fout.read().strip()
+		return brand_oem
 
+	def getBoxType(self, base_path):
+		box_type = None
 		e2_path = base_path + '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
 			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
 			fin,fout = os.popen4(helper + " " + e2_path + " box_type")
 			box_type = fout.read().strip()
+		return box_type
 
-			if brand_oem == "vuplus" and box_type[0:2] != "vu":
-				box_type = "vu" + box_type
-				print "OMB: buggy image, fixed box_type is %s" % box_type
+	def isCompatible(self, base_path, brand_oem, running_box_type):
 
-			print "DEBUG",base_path, running_box_type , box_type
-			return (running_box_type == box_type)
+		# fix for omb on image without branding (at your risk)
+		if not brand_oem and not running_box_type:
+			return 1
+
+		box_type = self.getBoxType(base_path)
+
+		if brand_oem == "vuplus" and box_type and box_type[0:2] != "vu":
+			box_type = "vu" + box_type
+			print "OMB: buggy image, fixed box_type is %s" % box_type
+
+		if running_box_type == box_type:
+			return 1
 
 		try:
 			archconffile = "%s/etc/opkg/arch.conf" % base_path
@@ -252,11 +263,15 @@ class OMBManagerList(Screen):
 		self.images_entries = []
 		flashimageLabel = 'Flash image'
 
+		brand_oem = self.getBrandOem(self.data_dir + '/flash')
+		box_type = self.getBoxType(self.data_dir + '/flash')
 
 		self["label2"].setText(self.currentImage())
 		
 		if os.path.exists(self.data_dir + '/.label_flash'): # use label name
 			flashimageLabel = self.imageTitleFromLabel('.label_flash') + ' (Flash)'
+		else:
+			flashimageLabel = self.guessImageTitle(self.data_dir + '/flash', "") +  '(Flash)'
 
 		self.images_entries.append({
 			'label': flashimageLabel,
@@ -266,13 +281,16 @@ class OMBManagerList(Screen):
 		self.images_list.append(self.images_entries[0]['label'])
 		if os.path.exists(self.data_dir):
 			for file_entry in os.listdir(self.data_dir):
+				if file_entry == 'flash':
+					continue
+
 				if not os.path.isdir(self.data_dir + '/' + file_entry):
 					continue
 
 				if file_entry[0] == '.':
 					continue
 				
-				if not self.isCompatible(self.data_dir + '/' + file_entry):
+				if not self.isCompatible(self.data_dir + '/' + file_entry, brand_oem, box_type):
 					continue
 
 				if os.path.exists(self.data_dir + '/.label_' + file_entry):

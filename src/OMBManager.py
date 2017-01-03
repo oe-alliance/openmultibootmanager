@@ -97,7 +97,7 @@ class OMBManagerInit:
 		if os.system('umount /dev/' + self.response.device) != 0:
 			self.error_message = _('Cannot umount the device')
 		else:
-			if os.system('/sbin/mkfs.ext4 /dev/' + self.response.device) != 0:
+			if os.system('/sbin/mkfs.ext4 -F /dev/' + self.response.device) != 0:
 				self.error_message = _('Cannot format the device')
 			else:
 				if os.system('mount /dev/' + self.response.device + ' ' + self.response.mountpoint) != 0:
