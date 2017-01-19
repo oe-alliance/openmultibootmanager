@@ -263,15 +263,19 @@ class OMBManagerList(Screen):
 		self.images_entries = []
 		flashimageLabel = 'Flash image'
 
-		brand_oem = self.getBrandOem(self.data_dir + '/flash')
-		box_type = self.getBoxType(self.data_dir + '/flash')
+		flashmountpoint = self.data_dir + '/flash'
+		if os.listdir(self.data_dir + '/flash') == []: 
+			flashmountpoint = '/'
+			
+		brand_oem = self.getBrandOem(flashmountpoint)
+		box_type = self.getBoxType(flashmountpoint)
 
 		self["label2"].setText(self.currentImage())
 		
 		if os.path.exists(self.data_dir + '/.label_flash'): # use label name
 			flashimageLabel = self.imageTitleFromLabel('.label_flash') + ' (Flash)'
 		else:
-			flashimageLabel = self.guessImageTitle(self.data_dir + '/flash', "") +  '(Flash)'
+			flashimageLabel = self.guessImageTitle(flashmountpoint, "") +  '(Flash)'
 
 		self.images_entries.append({
 			'label': flashimageLabel,
