@@ -191,6 +191,7 @@ class OMBManagerList(Screen):
 	
 
 	def isCompatible(self, base_path):
+		running_box_type = "none"
 		e2_path = '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
 			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
