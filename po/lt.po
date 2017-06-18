@@ -1,0 +1,202 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: openMultiboot\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2017-06-18 08:48+0300\n"
+"Last-Translator: Vytenis P. <vyteniui@gmail.com>\n"
+"Language-Team: Vytenis P. <vyteniui@gmail.com>\n"
+"Language: lt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 2.0.2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: src/OMBManager.py:40
+msgid "Where do you want to install openMultiboot?"
+msgstr "Kur norite įdiegti OpenMultiboot?"
+
+#: src/OMBManager.py:47
+msgid "Cancel"
+msgstr "Atšaukti"
+
+#: src/OMBManager.py:52
+msgid "No suitable devices found"
+msgstr "Tinkamų įrenginių nerasta"
+
+#: src/OMBManager.py:75
+msgid "Cannot create data folder"
+msgstr "Nepavyko sukurti duomenų katalogo"
+
+#: src/OMBManager.py:89
+msgid "Please wait while format is in progress."
+msgstr "Palaukite, kol vyksta formatavimas."
+
+#: src/OMBManager.py:98
+msgid "Cannot umount the device"
+msgstr "Nepavyko atjungti šio įrenginio"
+
+#: src/OMBManager.py:101
+msgid "Cannot format the device"
+msgstr "Šio įrenginio formatuoti nepavyko"
+
+#: src/OMBManager.py:104
+msgid "Cannot remount the device"
+msgstr "Nepavyko persieti šio įrenginio"
+
+#: src/OMBManager.py:130
+msgid ""
+"Filesystem not supported\n"
+"Do you want format your drive?"
+msgstr ""
+"Nepalaikoma failų sistema\n"
+"Ar norite formatuoti laikmeną?"
+
+#: src/OMBManager.py:141
+msgid "You need the module "
+msgstr "Jums reikia modulio "
+
+#: src/OMBManager.py:141
+msgid ""
+" to use openMultiboot\n"
+"Do you want install it?"
+msgstr ""
+" kad naudoti OpenMultiboot\n"
+"Norite jį įdiegti?"
+
+#: src/OMBManager.py:151
+msgid "Please wait while installation is in progress."
+msgstr "Palaukite, kol vyksta diegimas."
+
+#: src/OMBManager.py:160
+msgid "Cannot install "
+msgstr "Nepavyko įdiegti "
+
+#: src/OMBManagerAbout.py:45
+msgid "openMultiboot About"
+msgstr "Apie OpenMultiboot"
+
+#: src/OMBManagerInstall.py:140
+msgid "openMultiboot Install"
+msgstr "Įdiegti OpenMultiboot"
+
+#: src/OMBManagerInstall.py:149
+msgid "Choose the image to install"
+msgstr "Pasirinkite atvaizdą įdiegimui"
+
+#: src/OMBManagerInstall.py:165
+msgid ""
+"Please wait while installation is in progress.\n"
+"This operation may take a while."
+msgstr ""
+"Palaukite, kol vyksta diegimas.\n"
+"Ši operacija gali šiek tiek užtrukti."
+
+#: src/OMBManagerInstall.py:210
+#, python-format
+msgid "Cannot create main folder %s"
+msgstr "Nepavyko sukurti pirminio katalogo %s"
+
+#: src/OMBManagerInstall.py:217
+#, python-format
+msgid "Cannot create kernel folder %s"
+msgstr "Nepavyko sukurti branduolio katalogo %s"
+
+#: src/OMBManagerInstall.py:221
+#, python-format
+msgid "The folder %s already exist"
+msgstr "Aplankas %s jau yra"
+
+#: src/OMBManagerInstall.py:227 src/OMBManagerInstall.py:238
+#, python-format
+msgid "Cannot create folder %s"
+msgstr "Nepavyko sukurti katalogo %s"
+
+#: src/OMBManagerInstall.py:242
+msgid "Cannot deflate image"
+msgstr "Nepavyko išskleisti atvaizdo"
+
+#: src/OMBManagerInstall.py:248
+msgid "Cannot extract nfi image"
+msgstr "Nepavyko išskleisti NFI atvaizdo"
+
+#: src/OMBManagerInstall.py:266
+msgid "Your STB doesn't seem supported"
+msgstr "Jūsų imtuvas to nepalaiko"
+
+#: src/OMBManagerInstall.py:354
+msgid "Cannot create virtual MTD device"
+msgstr "Nepavyko sukurti virtualaus MTD prietaiso"
+
+#: src/OMBManagerList.py:159
+msgid "openMultiboot Manager"
+msgstr "OpenMultiboot valdymas"
+
+#: src/OMBManagerList.py:167
+msgid "Current Running Image:"
+msgstr "Dabartinis atvaizdas:"
+
+#: src/OMBManagerList.py:174
+msgid "Rename"
+msgstr "Pervadinti"
+
+#: src/OMBManagerList.py:176
+msgid "Menu"
+msgstr "Meniu"
+
+#: src/OMBManagerList.py:178
+msgid "Install"
+msgstr "Įdiegti"
+
+#: src/OMBManagerList.py:285
+msgid "Delete"
+msgstr "Pašalinti"
+
+#: src/OMBManagerList.py:292
+#, python-format
+msgid "Set next boot to %s ?"
+msgstr "Kitam paleidimui pasirinkti %s ?"
+
+#: src/OMBManagerList.py:304
+msgid "Do you want to reboot now ?"
+msgstr "Ar norite paleisti iš naujo?"
+
+#: src/OMBManagerList.py:312
+msgid "Open MultiBoot Menu"
+msgstr "Atverti MultiBoot meniu"
+
+#: src/OMBManagerList.py:328
+msgid "Please enter new name:"
+msgstr "Įrašykite naują pavadinimą:"
+
+#: src/OMBManagerList.py:346
+msgid "Please wait while delete is in progress."
+msgstr "Palaukite, kol vyksta šalinimas."
+
+#: src/OMBManagerList.py:367
+#, python-format
+msgid "Do you want to delete %s?"
+msgstr "Ar tikrai norite šalinti %s?"
+
+#: src/OMBManagerList.py:386
+#, python-format
+msgid "Please upload an image inside %s"
+msgstr "Įkelkite atvaizdą į %s"
+
+#: src/OMBManagerList.py:406
+msgid "Save"
+msgstr "Išsaugoti"
+
+#: src/OMBManagerList.py:418
+msgid "Enable Boot Menu"
+msgstr "Įjungti paleisties meniu"
+
+#: src/plugin.py:32
+msgid "OpenMultiboot Manager"
+msgstr "OpenMultiboot - pasirinktinės įkrovos valdymas"
+
+#~ msgid "Preferences"
+#~ msgstr "Nuostatos"
