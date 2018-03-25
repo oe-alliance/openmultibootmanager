@@ -214,20 +214,18 @@ class OMBManagerList(Screen):
 			return (running_box_type == box_type)
 
 		try:
-			running_box_type = open('/proc/stb/info/boxtype', 'r').read().strip()
+			if running_box_type is None:
+				running_box_type = open('/proc/stb/info/boxtype', 'r').read().strip()
 			archconffile = "%s/etc/opkg/arch.conf" % base_path
 			with open(archconffile, "r") as arch:
 				for line in arch:
 					box_type = line.split()[1]
-					if running_box_type == box_type:
-						return (running_box_type == box_type)
-					elif running_box_type in line:
-						running_box_type = box_type
-						return (running_box_type == box_type)
+					if running_box_type == box_type or running_box_type in line:
+						return True
 		except:
-			return 0
+			pass
 
-		return 0
+		return False
 
 	def guessImageTitle(self, base_path, identifier):
 		image_distro = ""
