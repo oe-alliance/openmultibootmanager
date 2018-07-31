@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenMultiBoot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-01 13:52+0000\n"
+"POT-Creation-Date: 2018-07-31 11:48+0200\n"
 "PO-Revision-Date: 2016-12-07 15:59+0300\n"
 "Last-Translator: Hasan Kiran <Sunder67@hotmail.com>\n"
 "Language-Team: Turkish <Sunder67@hotmail.com>\n"
@@ -20,179 +20,150 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.8.4\n"
 
-#: src/OMBManager.py:40
-msgid "Where do you want to install openMultiboot?"
-msgstr ""
-
-#: src/OMBManager.py:47
-msgid "Cancel"
-msgstr "İptal"
-
-#: src/OMBManager.py:52
-msgid "No suitable devices found"
-msgstr ""
-
-#: src/OMBManager.py:75
-msgid "Cannot create data folder"
-msgstr ""
-
-#: src/OMBManager.py:89
-msgid "Please wait while format is in progress."
-msgstr ""
-
-#: src/OMBManager.py:98
-msgid "Cannot umount the device"
-msgstr ""
-
-#: src/OMBManager.py:101
-msgid "Cannot format the device"
-msgstr ""
-
-#: src/OMBManager.py:104
-msgid "Cannot remount the device"
-msgstr ""
-
-#: src/OMBManager.py:130
-msgid ""
-"Filesystem not supported\n"
-"Do you want format your drive?"
-msgstr ""
-
-#: src/OMBManager.py:141
-msgid "You need the module "
-msgstr ""
-
-#: src/OMBManager.py:141
 msgid ""
 " to use openMultiboot\n"
 "Do you want install it?"
 msgstr ""
 
-#: src/OMBManager.py:151
-msgid "Please wait while installation is in progress."
+msgid "Cancel"
+msgstr "İptal"
+
+msgid "Cannot create data folder"
 msgstr ""
 
-#: src/OMBManager.py:160
+#, python-format
+msgid "Cannot create folder %s"
+msgstr ""
+
+#, python-format
+msgid "Cannot create kernel folder %s"
+msgstr ""
+
+#, python-format
+msgid "Cannot create main folder %s"
+msgstr ""
+
+msgid "Cannot create virtual MTD device"
+msgstr ""
+
+msgid "Cannot deflate image"
+msgstr ""
+
+msgid "Cannot extract nfi image"
+msgstr ""
+
+msgid "Cannot format the device"
+msgstr ""
+
 msgid "Cannot install "
 msgstr ""
 
-#: src/OMBManagerAbout.py:45
-msgid "openMultiboot About"
+msgid "Cannot remount the device"
 msgstr ""
 
-#: src/OMBManagerInstall.py:140
-msgid "openMultiboot Install"
+msgid "Cannot umount the device"
 msgstr ""
 
-#: src/OMBManagerInstall.py:149
 msgid "Choose the image to install"
 msgstr ""
 
-#: src/OMBManagerInstall.py:165
+msgid "Current Running Image:"
+msgstr ""
+
+msgid "Delete"
+msgstr "Sil"
+
+#, python-format
+msgid "Do you want to delete %s?"
+msgstr ""
+
+msgid "Do you want to reboot now ?"
+msgstr ""
+
+msgid "Enable Boot Menu"
+msgstr ""
+
+msgid "Error copying kernel"
+msgstr ""
+
+msgid "Error copying unpacked rootfs"
+msgstr ""
+
+msgid "Error unpacking rootfs"
+msgstr ""
+
+msgid ""
+"Filesystem not supported\n"
+"Do you want format your drive?"
+msgstr ""
+
+msgid "Generic error in unpaack process"
+msgstr ""
+
+msgid "Install"
+msgstr ""
+
+msgid "Menu"
+msgstr "Menü"
+
+msgid "No suitable devices found"
+msgstr ""
+
+msgid "Open MultiBoot Menu"
+msgstr ""
+
+msgid "OpenMultiboot Manager"
+msgstr ""
+
+msgid "Please enter new name:"
+msgstr ""
+
+#, python-format
+msgid "Please upload an image inside %s"
+msgstr ""
+
+msgid "Please wait while delete is in progress."
+msgstr ""
+
+msgid "Please wait while format is in progress."
+msgstr ""
+
+msgid "Please wait while installation is in progress."
+msgstr ""
+
 msgid ""
 "Please wait while installation is in progress.\n"
 "This operation may take a while."
 msgstr ""
 
-#: src/OMBManagerInstall.py:210
-#, python-format
-msgid "Cannot create main folder %s"
-msgstr ""
-
-#: src/OMBManagerInstall.py:217
-#, python-format
-msgid "Cannot create kernel folder %s"
-msgstr ""
-
-#: src/OMBManagerInstall.py:221
-#, python-format
-msgid "The folder %s already exist"
-msgstr ""
-
-#: src/OMBManagerInstall.py:227 src/OMBManagerInstall.py:238
-#, python-format
-msgid "Cannot create folder %s"
-msgstr ""
-
-#: src/OMBManagerInstall.py:242
-msgid "Cannot deflate image"
-msgstr ""
-
-#: src/OMBManagerInstall.py:248
-msgid "Cannot extract nfi image"
-msgstr ""
-
-#: src/OMBManagerInstall.py:266
-msgid "Your STB doesn't seem supported"
-msgstr ""
-
-#: src/OMBManagerInstall.py:354
-msgid "Cannot create virtual MTD device"
-msgstr ""
-
-#: src/OMBManagerList.py:159
-msgid "openMultiboot Manager"
-msgstr ""
-
-#: src/OMBManagerList.py:167
-msgid "Current Running Image:"
-msgstr ""
-
-#: src/OMBManagerList.py:174
 msgid "Rename"
 msgstr ""
 
-#: src/OMBManagerList.py:176
-msgid "Menu"
-msgstr "Menü"
-
-#: src/OMBManagerList.py:178
-msgid "Install"
+msgid "Save"
 msgstr ""
 
-#: src/OMBManagerList.py:285
-msgid "Delete"
-msgstr "Sil"
-
-#: src/OMBManagerList.py:292
 #, python-format
 msgid "Set next boot to %s ?"
 msgstr ""
 
-#: src/OMBManagerList.py:304
-msgid "Do you want to reboot now ?"
-msgstr ""
-
-#: src/OMBManagerList.py:312
-msgid "Open MultiBoot Menu"
-msgstr ""
-
-#: src/OMBManagerList.py:328
-msgid "Please enter new name:"
-msgstr ""
-
-#: src/OMBManagerList.py:346
-msgid "Please wait while delete is in progress."
-msgstr ""
-
-#: src/OMBManagerList.py:367
 #, python-format
-msgid "Do you want to delete %s?"
+msgid "The folder %s already exist"
 msgstr ""
 
-#: src/OMBManagerList.py:386
-#, python-format
-msgid "Please upload an image inside %s"
+msgid "Where do you want to install openMultiboot?"
 msgstr ""
 
-#: src/OMBManagerList.py:406
-msgid "Save"
+msgid "You need the module "
 msgstr ""
 
-#: src/OMBManagerList.py:418
-msgid "Enable Boot Menu"
+msgid "Your STB doesn't seem supported"
 msgstr ""
 
-#: src/plugin.py:32
-msgid "OpenMultiboot Manager"
+msgid "openMultiboot About"
+msgstr ""
+
+msgid "openMultiboot Install"
+msgstr ""
+
+msgid "openMultiboot Manager"
 msgstr ""

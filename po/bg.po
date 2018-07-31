@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-15 17:16+0100\n"
+"POT-Creation-Date: 2018-07-31 11:58+0200\n"
 "PO-Revision-Date: 2018-03-28 10:50+0300\n"
 "Last-Translator: Мартин Петков <marto74bg@yahoo.co.uk>\n"
 "Language-Team: Bulgarian\n"
@@ -20,33 +20,21 @@ msgstr ""
 " за използване на openMultiboot.\n"
 "Искате ли да го инсталирате сега?"
 
-msgid "(Folder is empty!) "
-msgstr "(Папката е празна!) "
-
-msgid "(Unpack error!) "
-msgstr "(Грешка при разархивиране!) "
-
-msgid "About"
-msgstr "Инфо"
-
-msgid "Add zip archive with image in 'open-multiboot-upload'"
-msgstr "Добави zip архив с имидж в 'open-multiboot-upload'"
-
-msgid "Alternative name image folder"
-msgstr "Алтернативно име за папката с имидж"
-
 msgid "Cancel"
 msgstr "Отказ"
 
 msgid "Cannot create data folder"
 msgstr "Не може да се създаде папка за данни"
 
+#, python-format
 msgid "Cannot create folder %s"
 msgstr "Не може да се създаде папка %s"
 
+#, python-format
 msgid "Cannot create kernel folder %s"
 msgstr "Не може да се създаде папка за ядрото %s"
 
+#, python-format
 msgid "Cannot create main folder %s"
 msgstr "Не може да се създаде главна папка %s"
 
@@ -80,41 +68,16 @@ msgstr "Текущo Зареден Имидж:"
 msgid "Delete"
 msgstr "Изтриване"
 
-msgid "Delete folder %s and all file"
-msgstr "Изтриване на папка %s и всички файлове"
-
-msgid "Disable '/sbin/open_multiboot'"
-msgstr "Спри '/sbin/open_multiboot'"
-
-msgid "Disable autoscan zip archive at mount device"
-msgstr "Спри автосканиране на zip архива при монтиране на устройство"
-
-msgid "Disable boot menu"
-msgstr "Спри зареждащото меню"
-
-msgid "Do you really want add %s with image in 'open-multiboot-upload'?"
-msgstr "Искате ли да добавите %s с имиджа в 'open-multiboot-upload'?"
-
+#, python-format
 msgid "Do you want to delete %s?"
 msgstr "Искате ли да изтриете %s?"
-
-msgid "Do you want to reboot box now ?"
-msgstr "Искате ли да рестартирате приемника сега?"
 
 msgid "Do you want to reboot now ?"
 msgstr "Искате ли да рестартирате сега?"
 
-msgid "Enable '/sbin/open_multiboot'"
-msgstr "Включи '/sbin/open_multiboot'"
-
-msgid "Enable autoscan zip archive at mount device"
-msgstr "Вкл. автосканиране на zip архива при монтиране на устройство"
-
-msgid "Enable boot menu"
+#, fuzzy
+msgid "Enable Boot Menu"
 msgstr "Включи зареждащото меню"
-
-msgid "Error adding zip archive!"
-msgstr "Грешка при добавяне на zip архива!"
 
 msgid "Error copying kernel"
 msgstr "Грешка при копиране на ядрото"
@@ -122,20 +85,8 @@ msgstr "Грешка при копиране на ядрото"
 msgid "Error copying unpacked rootfs"
 msgstr "Грешка при копиране на разархивиран rootfs"
 
-msgid "Error removing zip archive!"
-msgstr "Грешка при изтриване на zip архива!"
-
-msgid "Error set new timeout!"
-msgstr "Грешка при настройване на нов таймаут!"
-
 msgid "Error unpacking rootfs"
 msgstr "Грешка при разархивиране на rootfs"
-
-msgid "Exit"
-msgstr "Изход"
-
-msgid "Extra setup"
-msgstr "Допълнителни настройки"
 
 msgid ""
 "Filesystem not supported\n"
@@ -144,56 +95,17 @@ msgstr ""
 "Файловата система не се поддържа,\n"
 "Искате ли да форматирате вашето устройство?"
 
-msgid "Fix mount devices (for PLi)"
-msgstr "Фикс за монтирането на устройства (за PLi)"
-
-msgid "Flash image"
-msgstr "Имидж във флаша"
-
-msgid ""
-"For this reciever need only first partition muliboot image for use "
-"'openMultiboot'!\n"
-"Current partition muliboot image - %s"
-msgstr ""
-"За този приемник е необходим само първия дял от Multiboot имиджа "
-"'openMultiboot'!\n"
-"Текущ дял на Multiboot имиджа - %s"
-
 msgid "Generic error in unpaack process"
 msgstr "Обща грешка в процеса на разархивиране"
-
-msgid "Incorrect time!"
-msgstr "Неправилно време!"
 
 msgid "Install"
 msgstr "Инсталирай"
 
-msgid "Install '/sbin/open_multiboot'"
-msgstr "Инсталирай '/sbin/open_multiboot'"
-
-msgid "Install alternative '/sbin/open_multiboot'"
-msgstr "Инсталирай алтернативен '/sbin/open_multiboot'"
-
 msgid "Menu"
 msgstr "Меню"
 
-msgid "Multi boot loader for enigma2 box"
-msgstr "Multiboot за enigma2 приемник"
-
-msgid "Next boot: %s"
-msgstr "Следващо зареждане: %s"
-
 msgid "No suitable devices found"
 msgstr "Не са открити подходящи устройства"
-
-msgid "Not found boxbranding.so!"
-msgstr "Не е открит boxbranding.so!"
-
-msgid "OMB disabled."
-msgstr "OMB е спрян."
-
-msgid "OMB enabled."
-msgstr "OMB е включен."
 
 msgid "Open MultiBoot Menu"
 msgstr "Open MultiBoot Меню"
@@ -204,14 +116,9 @@ msgstr "Open MultiBoot Мениджър"
 msgid "Please enter new name:"
 msgstr "Моля въведете ново име:"
 
-msgid "Please select the necessary option..."
-msgstr "Моля изберете необходимото Ви действие..."
-
+#, python-format
 msgid "Please upload an image inside %s"
 msgstr "Моля заредете имидж (име.zip) в %s"
-
-msgid "Please wait 40 seconds, while delete is in progress."
-msgstr "Моля изчакайте 40 секунди, докато изтриването завърши."
 
 msgid "Please wait while delete is in progress."
 msgstr "Моля изчакайте, докато изтриването завърши."
@@ -229,55 +136,25 @@ msgstr ""
 "Моля изчакайте, докато инсталирането завърши.\n"
 "Тази операция може да отнеме известно време."
 
-msgid "Press OK to next boot."
-msgstr "Натиснете OK за избор на следващо зареждане."
-
-msgid "Read error current dir, sorry."
-msgstr "Извинете, грешка при четене на текущата директория."
-
-msgid "Readme"
-msgstr "Прочети ме"
-
 msgid "Rename"
 msgstr "Преименувай"
 
-msgid "Set new timeout (sec)"
-msgstr "Настройте нов таймаут (сек.)"
+msgid "Save"
+msgstr ""
 
+#, python-format
 msgid "Set next boot to %s ?"
 msgstr "Следващо зареждане на приемника с %s ?"
 
-msgid "Standard install"
-msgstr "Стандартно инсталиране"
-
+#, python-format
 msgid "The folder %s already exist"
 msgstr "Папката %s вече съществува"
-
-msgid "Timeout boot menu: next %d sec"
-msgstr "Таймаут за зареждащото меню: сега %d сек"
-
-msgid "Use altenative folder"
-msgstr "Използвай алтернативна папка"
-
-msgid ""
-"Warning!\n"
-"'/sbin/open_multiboot' not installed!"
-msgstr ""
-"Внимание!\n"
-"'/sbin/open_multiboot' не е инсталиран!"
 
 msgid "Where do you want to install openMultiboot?"
 msgstr "Къде искате да инсталирате openMultiboot?"
 
 msgid "You need the module "
 msgstr "Необходим Ви е модул "
-
-msgid ""
-"You want to install an alternative kernel-module-nandsim?\n"
-"Linux version may be different from the module!"
-msgstr ""
-"Искате ли да инсталирате алтернативен kernel-module-nandsim?\n"
-"Линукс версията може да не съвпада с модула!"
 
 msgid "Your STB doesn't seem supported"
 msgstr "Вашия приемник, изглежда не се поддържа"
@@ -290,6 +167,3 @@ msgstr "Инсталиране на openMultiboot"
 
 msgid "openMultiboot Manager"
 msgstr "openMultiboot Мениджър"
-
-msgid "zip archive was successfully added to '%s' OMB!"
-msgstr "zip архива беше успешно добавен в '%s' OMB!"
