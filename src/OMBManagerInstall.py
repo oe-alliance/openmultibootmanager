@@ -284,6 +284,8 @@ class OMBManagerInstall(Screen):
 				self.showError(_("Error copying kernel"))
 				return False
 
+		self.dirtyHack(dst_path)
+
 		return True
 
 	def installImageJFFS2(self, src_path, dst_path, kernel_dst_path, tmp_folder):
@@ -399,34 +401,11 @@ class OMBManagerInstall(Screen):
 		os.system(OMB_UBIDETACH_BIN + ' -m ' + mtd)
 		os.system(OMB_RMMOD_BIN + ' nandsim')
 
+		self.dirtyHack(dst_path)
+
 		self.afterInstallImage(dst_path)
 
 		return rc
-
-# WARNING: dirty hack by Meo
-#
-# In a perfect world all the images are perfect and do their work.
-# But this is not a perfect world and we have to help OMB to
-# prevent funny cases for non standard images.
-# My apologies to Sandro for this bad code.
-
-		if not os.path.exists('/usr/lib/python2.7/boxbranding.so'):
-			os.system("ln -s /usr/lib/enigma2/python/boxbranding.so /usr/lib/python2.7/boxbranding.so")
-		if os.path.exists(dst_path + '/usr/lib/python2.7/boxbranding.py'):
-			os.system("cp /usr/lib/enigma2/python/boxbranding.so " + dst_path + "/usr/lib/python2.7/boxbranding.so")
-			os.system("rm -f " + dst_path + '/usr/lib/python2.7/boxbranding.py')
-		if not os.path.exists(dst_path + "/usr/lib/python2.7/subprocess.pyo"):
-			os.system("cp /usr/lib/python2.7/subprocess.pyo " + dst_path + "/usr/lib/python2.7/subprocess.pyo")
-# openmultiboot installed in the multiboot image. where the init will go ?
-		if os.path.exists(dst_path + '/sbin/open_multiboot'):
-			os.system("rm -f " + dst_path + '/sbin/open_multiboot')
-			os.system("rm -f " + dst_path + '/sbin/open-multiboot-branding-helper.py')
-# We can't create the init symlink because it will be overwrited by openmultiboot
-			os.system('ln -sfn /sbin/init.sysvinit ' + dst_path + '/sbin/open_multiboot')
-
-		self.afterInstallImage(dst_path)
-
-		return True
 
 	# Based on nfi Extract by gutemine
 	def extractImageNFI(self, nfifile, extractdir):
@@ -495,6 +474,28 @@ class OMBManagerInstall(Screen):
 		print 'Extracting %s to %s Finished!' % (nfifile, extractdir)
 
 		return True
+
+	def dirtyHack(self, dst_path):
+# WARNING: dirty hack by Meo
+#
+# In a perfect world all the images are perfect and do their work.
+# But this is not a perfect world and we have to help OMB to
+# prevent funny cases for non standard images.
+# My apologies to Sandro for this bad code.
+
+		if not os.path.exists('/usr/lib/python2.7/boxbranding.so'):
+			os.system("ln -s /usr/lib/enigma2/python/boxbranding.so /usr/lib/python2.7/boxbranding.so")
+		if os.path.exists(dst_path + '/usr/lib/python2.7/boxbranding.py'):
+			os.system("cp /usr/lib/enigma2/python/boxbranding.so " + dst_path + "/usr/lib/python2.7/boxbranding.so")
+			os.system("rm -f " + dst_path + '/usr/lib/python2.7/boxbranding.py')
+		if not os.path.exists(dst_path + "/usr/lib/python2.7/subprocess.pyo"):
+			os.system("cp /usr/lib/python2.7/subprocess.pyo " + dst_path + "/usr/lib/python2.7/subprocess.pyo")
+# openmultiboot installed in the multiboot image. where the init will go ?
+		if os.path.exists(dst_path + '/sbin/open_multiboot'):
+			os.system("rm -f " + dst_path + '/sbin/open_multiboot')
+			os.system("rm -f " + dst_path + '/sbin/open-multiboot-branding-helper.py')
+# We can't create the init symlink because it will be overwrited by openmultiboot
+			os.system('ln -sfn /sbin/init.sysvinit ' + dst_path + '/sbin/open_multiboot')
 
 	def afterInstallImage(self, dst_path):
 		fix = False
