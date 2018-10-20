@@ -370,6 +370,7 @@ class OMBManagerInstall(Screen):
 			cmd = 'rm -rf ' + ubi_path
 			rc = os.system(cmd)
 			os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path)
+			self.dirtyHack(dst_path)
 			return True
 
 		virtual_mtd = tmp_folder + '/virtual_mtd'
@@ -494,6 +495,7 @@ class OMBManagerInstall(Screen):
 		if os.path.exists(dst_path + '/sbin/open_multiboot'):
 			os.system("rm -f " + dst_path + '/sbin/open_multiboot')
 			os.system("rm -f " + dst_path + '/sbin/open-multiboot-branding-helper.py')
+			os.system("rm -f " + dst_path + '/etc/ipk-postinsts/*-openmultiboot')
 # We can't create the init symlink because it will be overwrited by openmultiboot
 			os.system('ln -sfn /sbin/init.sysvinit ' + dst_path + '/sbin/open_multiboot')
 
