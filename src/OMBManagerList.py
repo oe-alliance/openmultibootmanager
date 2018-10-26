@@ -210,6 +210,11 @@ class OMBManagerList(Screen):
 				box_type = "vu" + box_type
 				print "OMB: buggy image, fixed box_type is %s" % box_type
 
+			if brand_oem == 'formuler':
+				if running_box_type != "formuler4turbo" or box_type != "formuler4turbo":
+					running_box_type = running_box_type[:9]
+					box_type = box_type[:9]
+
 			print "DEBUG",base_path, running_box_type , box_type
 			return (running_box_type == box_type)
 
