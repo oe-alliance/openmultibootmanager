@@ -31,13 +31,13 @@ dist-hook: $(LANGPO)
 
 install-data-local: $(LANGMO)
 	for lang in $(LANGS); do \
-		$(mkinstalldirs) $(DESTDIR)/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/locale/$$lang/LC_MESSAGES; \
-		$(INSTALL_DATA) $$lang.mo $(DESTDIR)/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/locale/$$lang/LC_MESSAGES/OpenMultiboot.mo; \
-		$(INSTALL_DATA) $$lang.po $(DESTDIR)/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/locale/$$lang.po; \
+		$(mkinstalldirs) $(DESTDIR)$(libdir)/enigma2/python/Plugins/Extensions/OpenMultiboot/locale/$$lang/LC_MESSAGES; \
+		$(INSTALL_DATA) $$lang.mo $(DESTDIR)$(libdir)/enigma2/python/Plugins/Extensions/OpenMultiboot/locale/$$lang/LC_MESSAGES/OpenMultiboot.mo; \
+		$(INSTALL_DATA) $$lang.po $(DESTDIR)$(libdir)/enigma2/python/Plugins/Extensions/OpenMultiboot/locale/$$lang.po; \
 	done
 
 uninstall-local:
 	for lang in $(LANGS); do \
-		$(RM) $(DESTDIR)/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/locale/$$lang/LC_MESSAGES/OpenMultiboot.mo; \
-		$(RM) $(DESTDIR)/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/locale/$$lang.po; \
+		$(RM) $(DESTDIR)$(libdir)/enigma2/python/Plugins/Extensions/OpenMultiboot/locale/$$lang/LC_MESSAGES/OpenMultiboot.mo; \
+		$(RM) $(DESTDIR)$(libdir)/enigma2/python/Plugins/Extensions/OpenMultiboot/locale/$$lang.po; \
 	done
