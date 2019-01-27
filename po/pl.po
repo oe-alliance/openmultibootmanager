@@ -102,7 +102,7 @@ msgstr ""
 "Obecny system plików jest niewspierany\n"
 "Chcesz sformatować nośnik?"
 
-msgid "Generic error in unpaack process"
+msgid "Generic error in unpack process"
 msgstr ""
 
 msgid "Install"
