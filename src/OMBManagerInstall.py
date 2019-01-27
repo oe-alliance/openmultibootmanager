@@ -330,7 +330,7 @@ class OMBManagerInstall(Screen):
 					self.showError(_("Error copying kernel"))
 					rc = False
 			else:
-				self.showError(_("Generic error in unpaack process"))
+				self.showError(_("Generic error in unpack process"))
 				rc = False
 
 			os.system(OMB_UMOUNT_BIN + ' ' + jffs2_path)
@@ -395,7 +395,7 @@ class OMBManagerInstall(Screen):
 				self.showError(_("Error copying kernel"))
 				rc = False
 		else:
-			self.showError(_("Generic error in unpaack process"))
+			self.showError(_("Generic error in unpack process"))
 			rc = False
 
 		os.system(OMB_UMOUNT_BIN + ' ' + ubi_path)
