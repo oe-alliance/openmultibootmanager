@@ -102,7 +102,7 @@ msgstr ""
 "Dateisystem wird nicht unterstützt\n"
 "Soll das Gerät formatiert werden?"
 
-msgid "Generic error in unpaack process"
+msgid "Generic error in unpack process"
 msgstr ""
 
 msgid "Install"
