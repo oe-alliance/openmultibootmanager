@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: OpenMultiboot Manager for Enigma2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-07-31 11:48+0200\n"
-"PO-Revision-Date: 2016-12-01 19:43+0000\n"
+"PO-Revision-Date: 2019-01-27 22:48+0000\n"
 "Last-Translator: nunigaia\n"
 "Language-Team: BH Team\n"
 "Language: pt_PT\n"
@@ -17,32 +17,28 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 2.2.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#, fuzzy
 msgid ""
 " to use openMultiboot\n"
 "Do you want install it?"
 msgstr ""
-"Necessita instalar o módulo 'Kernel-module-nandsim' para usar o OpenMultiboot\n"
+" para usar o OpenMultiboot\n"
 "Pretende instalá-lo?"
 
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 msgid "Cannot create data folder"
 msgstr "Não pode criar a pasta de informação"
 
-#, python-format
 msgid "Cannot create folder %s"
 msgstr "Não pode criar a pasta %s"
 
-#, python-format
 msgid "Cannot create kernel folder %s"
 msgstr "Não pode criar a pasta do kernel %s"
 
-#, fuzzy, python-format
 msgid "Cannot create main folder %s"
 msgstr "Não pode criar a pasta %s"
 
@@ -52,15 +48,14 @@ msgstr "Não pode criar um dipositivo virtual MTD"
 msgid "Cannot deflate image"
 msgstr "Não pode descomprimir a imagem"
 
-#, fuzzy
 msgid "Cannot extract nfi image"
-msgstr "Não pode descomprimir a imagem"
+msgstr "Não pode descomprimir a imagem \"nfi\""
 
 msgid "Cannot format the device"
 msgstr "Não é possível formatar o dispositivo"
 
 msgid "Cannot install "
-msgstr ""
+msgstr "Não é possível instalar "
 
 msgid "Cannot remount the device"
 msgstr "Não é possível remontar o dispositivo"
@@ -77,7 +72,6 @@ msgstr "Imagem em execução:"
 msgid "Delete"
 msgstr "Apagar"
 
-#, python-format
 msgid "Do you want to delete %s?"
 msgstr "Deseja apagar %s?"
 
@@ -88,13 +82,13 @@ msgid "Enable Boot Menu"
 msgstr "Ativar o Menu de Arranque"
 
 msgid "Error copying kernel"
-msgstr ""
+msgstr "Erro ao copiar kernel"
 
 msgid "Error copying unpacked rootfs"
-msgstr ""
+msgstr "Erro ao copiar rootfs descompactado"
 
 msgid "Error unpacking rootfs"
-msgstr ""
+msgstr "Erro ao descompactar rootfs"
 
 msgid ""
 "Filesystem not supported\n"
@@ -103,30 +97,27 @@ msgstr ""
 "Sistema de ficheiros não suportado\n"
 "Quer formatar a sua unidade?"
 
-msgid "Generic error in unpaack process"
-msgstr ""
+msgid "Generic error in unpack process"
+msgstr "Erro genérico no processo de descompactar"
 
 msgid "Install"
 msgstr "Instalar"
 
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 msgid "No suitable devices found"
 msgstr "Não foram encontrados dispositivos adequados"
 
-#, fuzzy
 msgid "Open MultiBoot Menu"
 msgstr "Gestor de OpenMultiboot"
 
-#, fuzzy
 msgid "OpenMultiboot Manager"
 msgstr "Gestor de OpenMultiboot"
 
 msgid "Please enter new name:"
 msgstr "P.F. introduza um nome novo:"
 
-#, python-format
 msgid "Please upload an image inside %s"
 msgstr "Por favor, carregue uma imagem em %s"
 
@@ -150,21 +141,19 @@ msgid "Rename"
 msgstr "Renomear"
 
 msgid "Save"
-msgstr ""
+msgstr "Salvar"
 
-#, python-format
 msgid "Set next boot to %s ?"
 msgstr "Arrancar com a imagem %s ?"
 
-#, python-format
 msgid "The folder %s already exist"
-msgstr "A pasta %s já existe."
+msgstr "A pasta %s já existe"
 
 msgid "Where do you want to install openMultiboot?"
 msgstr "Onde deseja instalar o OpenMultiboot?"
 
 msgid "You need the module "
-msgstr ""
+msgstr "Você precisa do módulo "
 
 msgid "Your STB doesn't seem supported"
 msgstr "A sus STB parece não ser suportada"
