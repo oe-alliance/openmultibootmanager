@@ -95,7 +95,7 @@ msgstr ""
 "Файловая система не поддерживается,\n"
 "хотите отформатировать Ваше устройство хранения в ext4 (все данные будут потеряны)?"
 
-msgid "Generic error in unpaack process"
+msgid "Generic error in unpack process"
 msgstr ""
 
 msgid "Install"
