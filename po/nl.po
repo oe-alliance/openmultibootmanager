@@ -103,7 +103,7 @@ msgstr ""
 "Bestandssysteem wordt niet ondersteund\n"
 "Wilt u uw schijf formatteren?"
 
-msgid "Generic error in unpaack process"
+msgid "Generic error in unpack process"
 msgstr ""
 
 msgid "Install"
