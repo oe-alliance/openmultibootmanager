@@ -99,7 +99,7 @@ msgstr ""
 "Failisüsteem ei ole toetatud\n"
 "Kas vormindada andmekandja?"
 
-msgid "Generic error in unpaack process"
+msgid "Generic error in unpack process"
 msgstr "Üldine tõrge lahtipakkimisel"
 
 msgid "Install"
