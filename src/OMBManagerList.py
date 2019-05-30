@@ -159,6 +159,7 @@ class OMBManagerList(Screen):
 		self.setTitle(_('openMultiboot Manager'))
 		
 		self.session = session
+		mount_point = mount_point.rstrip("/")
 		self.mount_point = mount_point
 		self.data_dir = mount_point + '/' + OMB_DATA_DIR
 		self.upload_dir = mount_point + '/' + OMB_UPLOAD_DIR
