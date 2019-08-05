@@ -121,7 +121,7 @@ class OMBManagerList(Screen):
 					font="Regular;18" />
 	
 			<ePixmap name="red"
-					 pixmap="skin_default/buttons/red.png"
+					 pixmap="buttons/red.png"
 					 position="0,360"
 					 size="140,40"
 					 zPosition="4"
@@ -129,7 +129,7 @@ class OMBManagerList(Screen):
 					 alphatest="on" />
 					 
 			<ePixmap name="green"
-					 pixmap="skin_default/buttons/green.png"
+					 pixmap="buttons/green.png"
 					 position="140,360"
 					 size="140,40"
 					 zPosition="4"
@@ -137,7 +137,7 @@ class OMBManagerList(Screen):
 					 alphatest="on" />
 					 
 			<ePixmap name="yellow"
-					 pixmap="skin_default/buttons/yellow.png"
+					 pixmap="buttons/yellow.png"
 					 position="280,360"
 					 size="140,40"
 					 zPosition="4"
@@ -145,7 +145,7 @@ class OMBManagerList(Screen):
 					 alphatest="on" />
 					 
 			<ePixmap name="blue"
-					 pixmap="skin_default/buttons/blue.png"
+					 pixmap="buttons/blue.png"
 					 position="420,360"
 					 size="140,40"
 					 zPosition="4"
@@ -440,7 +440,7 @@ class OMBManagerPreferences(Screen, ConfigListScreen):
 	skin = """
 	<screen position="center,center" size="800,340" title="Preferences">
 		<widget name="config" position="10,20" size="780,280" scrollbarMode="showOnDemand" />
-		<ePixmap pixmap="skin_default/buttons/red.png" position="330,270" size="140,40" alphatest="on" />
+		<ePixmap pixmap="buttons/red.png" position="330,270" size="140,40" alphatest="on" />
 		<widget name="key_red" position="330,270" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" />
 	</screen>"""
 	
