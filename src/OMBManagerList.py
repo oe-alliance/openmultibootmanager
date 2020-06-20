@@ -1,3 +1,4 @@
+from __future__ import print_function
 #############################################################################
 #
 # Copyright (C) 2014 Impex-Sat Gmbh & Co.KG
@@ -209,14 +210,14 @@ class OMBManagerList(Screen):
 
 			if brand_oem == "vuplus" and box_type[0:2] != "vu":
 				box_type = "vu" + box_type
-				print "OMB: buggy image, fixed box_type is %s" % box_type
+				print("OMB: buggy image, fixed box_type is %s" % box_type)
 
 			if brand_oem == 'formuler':
 				if running_box_type != "formuler4turbo" or box_type != "formuler4turbo":
 					running_box_type = running_box_type[:9]
 					box_type = box_type[:9]
 
-			print "DEBUG",base_path, running_box_type , box_type
+			print("DEBUG",base_path, running_box_type , box_type)
 			return (running_box_type == box_type)
 
 		try:
@@ -342,7 +343,7 @@ class OMBManagerList(Screen):
 	def confirmNextbootCB(self, ret):
 		if ret:
 			image = self.images_entries[self.select]['identifier']
-			print "[OMB] set nextboot to %s" % image
+			print("[OMB] set nextboot to %s" % image)
 			file_entry = self.data_dir + '/.nextboot'
 			f = open(file_entry, 'w')
 			f.write(image)

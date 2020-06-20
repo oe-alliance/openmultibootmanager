@@ -17,6 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #############################################################
 
+from __future__ import print_function
 import os
 import sys
 
@@ -36,7 +37,7 @@ class log():
                     f.write('%s\n' % s)
                 f.close()
             else:
-                print '%s' % s
+                print('%s' % s)
     
         if self.exit_on_except:
             sys.exit()

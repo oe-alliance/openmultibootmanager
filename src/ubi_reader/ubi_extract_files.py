@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #############################################################
+from __future__ import print_function
 import os
 import sys
 import argparse
@@ -107,7 +108,7 @@ if __name__ == '__main__':
             uubifs.log.log_to_file = log_to_file
             uubifs.log.quiet = quiet
             # Run extract all files.
-            print 'Writing to: %s' % vol_out_path
+            print('Writing to: %s' % vol_out_path)
             extract_files(uubifs, vol_out_path, perms)
 
     sys.exit(0)
