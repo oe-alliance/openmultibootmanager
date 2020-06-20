@@ -33,7 +33,7 @@ def dents(ubifs, inodes, dent_node, path='', perms=False):
                 os.mkdir(dent_path)
                 if perms:
                     set_file_perms(dent_path, inode)
-        except Exception, e:
+        except Exception as e:
             ubifs.log.write('DIR Fail: %s' % e)
 
         if 'dent' in inode:
@@ -56,14 +56,14 @@ def dents(ubifs, inodes, dent_node, path='', perms=False):
             if perms:
                 set_file_perms(dent_path, inode)
 
-        except Exception, e:
+        except Exception as e:
             ubifs.log.write('FILE Fail: %s' % e)
 
     elif dent_node.type == UBIFS_ITYPE_LNK:
         try:
             # probably will need to decompress ino data if > UBIFS_MIN_COMPR_LEN
             os.symlink('%s' % inode['ino'].data, dent_path)
-        except Exception, e:
+        except Exception as e:
             ubifs.log.write('SYMLINK Fail: %s : %s' % (inode['ino'].data, dent_path)) 
 
     elif dent_node.type in [UBIFS_ITYPE_BLK, UBIFS_ITYPE_CHR]:
@@ -79,7 +79,7 @@ def dents(ubifs, inodes, dent_node, path='', perms=False):
                 if perms:
                     set_file_perms(dent_path, inode)
                 
-        except Exception, e:
+        except Exception as e:
             ubifs.log.write('DEV Fail: %s : %s' % (dent_path, e))
 
     elif dent_node.type == UBIFS_ITYPE_FIFO:
@@ -87,7 +87,7 @@ def dents(ubifs, inodes, dent_node, path='', perms=False):
             os.mkfifo(dent_path, inode['ino'].mode)
             if perms:
                 set_file_perms(dent_path, inode)
-        except Exception, e:
+        except Exception as e:
             ubifs.log.write('FIFO Fail: %s : %s' % (dent_path, e))
 
     elif dent_node.type == UBIFS_ITYPE_SOCK:
@@ -96,7 +96,7 @@ def dents(ubifs, inodes, dent_node, path='', perms=False):
             write_reg_file(dent_path, '')
             if perms:
                 set_file_perms(dent_path, inode)
-        except Exception, e:
+        except Exception as e:
             ubifs.log.write('SOCK Fail: %s' % (dent_path))
 
 
@@ -135,7 +135,7 @@ def process_reg_file(ubifs, inode, path):
                 buf += decompress(compr_type, data.size, d)
                 last_khash = data.key['khash']
 
-    except Exception, e:
+    except Exception as e:
         raise Exception('inode num:%s :%s' % (inode['ino'].key['ino_num'], e))
     
     # Pad end of file with \x00 if needed.
