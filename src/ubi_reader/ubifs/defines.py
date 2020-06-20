@@ -160,7 +160,7 @@ UBIFS_COMPR_NONE        = 0 # No compression
 UBIFS_COMPR_LZO         = 1 # LZO compression
 UBIFS_COMPR_ZLIB        = 2 # ZLIB compression
 UBIFS_COMPR_TYPES_CNT   = 3 # Count of supported compression types
-PRINT_UBIFS_COMPR = ['none','lzo','zlib']
+PRINT_UBIFS_COMPR = ['none', 'lzo', 'zlib']
 
 # UBIFS node types
 UBIFS_INO_NODE          = 0  # Inode node

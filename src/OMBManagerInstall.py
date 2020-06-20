@@ -65,7 +65,7 @@ if BRANDING:
 	OMB_GETOEVERSION = getOEVersion()
 else:
 	OMB_GETIMAGEFILESYSTEM = "tar.bz2"
-	f=open("/proc/mounts","r")
+	f=open("/proc/mounts", "r")
 	for line in f:
 		if line.find("rootfs")>-1:
 			if line.find("ubi")>-1:
@@ -276,7 +276,7 @@ class OMBManagerInstall(Screen):
 		rootfs_path = base_path + '/' + OMB_GETMACHINEROOTFILE
 		kernel_path = base_path + '/' + OMB_GETMACHINEKERNELFILE
 
-		if os.system(OMB_TAR_BIN + ' jxf %s -C %s' % (rootfs_path,dst_path)) != 0:
+		if os.system(OMB_TAR_BIN + ' jxf %s -C %s' % (rootfs_path, dst_path)) != 0:
 			self.showError(_("Error unpacking rootfs"))
 			return False
 

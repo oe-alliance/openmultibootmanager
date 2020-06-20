@@ -223,7 +223,7 @@ def get_peb_size(path):
     file_offset = 0
     offsets = []
     f = open(path, 'rb')
-    f.seek(0,2)
+    f.seek(0, 2)
     file_size = f.tell()+1
     f.seek(0)
 
