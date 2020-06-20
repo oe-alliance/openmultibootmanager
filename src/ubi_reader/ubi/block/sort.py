@@ -1,3 +1,6 @@
+import six
+
+
 #!/usr/bin/env python
 #############################################################
 # ubi_reader/ubi
@@ -86,7 +89,7 @@ def by_leb(blocks):
 
         slist[blocks[block].leb_num] = block
     return slist
-    return sorted(blocks.iterkeys(), key=lambda x: blocks[x].leb_num)
+    return sorted(six.iterkeys(blocks), key=lambda x: blocks[x].leb_num)
 
 
 def by_vol_id(blocks, slist=None):
