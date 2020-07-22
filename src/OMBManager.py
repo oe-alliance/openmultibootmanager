@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 #############################################################################
 #
 # Copyright (C) 2014 Impex-Sat Gmbh & Co.KG
@@ -24,10 +25,10 @@ from Components.Harddisk import harddiskmanager
 
 from Screens.MessageBox import MessageBox
 
-from OMBManagerList import OMBManagerList
-from OMBManagerCommon import OMB_MAIN_DIR, OMB_DATA_DIR, OMB_UPLOAD_DIR
-from OMBManagerInstall import OMB_GETIMAGEFILESYSTEM, BRANDING, OMB_UNJFFS2_BIN
-from OMBManagerLocale import _
+from .OMBManagerList import OMBManagerList
+from .OMBManagerCommon import OMB_MAIN_DIR, OMB_DATA_DIR, OMB_UPLOAD_DIR
+from .OMBManagerInstall import OMB_GETIMAGEFILESYSTEM, BRANDING, OMB_UNJFFS2_BIN
+from .OMBManagerLocale import _
 
 from enigma import eTimer
 

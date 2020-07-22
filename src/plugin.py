@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 #############################################################################
 #
 # Copyright (C) 2014 Impex-Sat Gmbh & Co.KG
@@ -22,8 +23,8 @@
 
 from Plugins.Plugin import PluginDescriptor
 
-from OMBManager import OMBManager
-from OMBManagerLocale import _
+from .OMBManager import OMBManager
+from .OMBManagerLocale import _
 
 def Plugins(**kwargs):
 	return [

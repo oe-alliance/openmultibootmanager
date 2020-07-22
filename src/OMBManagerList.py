@@ -1,4 +1,5 @@
 from __future__ import print_function
+from __future__ import absolute_import
 #############################################################################
 #
 # Copyright (C) 2014 Impex-Sat Gmbh & Co.KG
@@ -35,10 +36,10 @@ from Components.Sources.List import List
 from Components.Label import Label
 from Components.config import getConfigListEntry, config, ConfigYesNo, NoSave
 
-from OMBManagerInstall import OMBManagerInstall, OMB_RM_BIN, BRANDING
-from OMBManagerAbout import OMBManagerAbout
-from OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR
-from OMBManagerLocale import _
+from .OMBManagerInstall import OMBManagerInstall, OMB_RM_BIN, BRANDING
+from .OMBManagerAbout import OMBManagerAbout
+from .OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR
+from .OMBManagerLocale import _
 
 from enigma import eTimer
 

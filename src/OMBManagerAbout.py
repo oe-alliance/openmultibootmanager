@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 #############################################################################
 #
 # Copyright (C) 2014 Impex-Sat Gmbh & Co.KG
@@ -26,8 +27,8 @@ from Screens.MessageBox import MessageBox
 from Components.ActionMap import ActionMap
 from Components.Label import Label
 
-from OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR, OMB_TMP_DIR, OMB_MANAGER_VERION
-from OMBManagerLocale import _
+from .OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR, OMB_TMP_DIR, OMB_MANAGER_VERION
+from .OMBManagerLocale import _
 
 class OMBManagerAbout(Screen):
 	skin = """
