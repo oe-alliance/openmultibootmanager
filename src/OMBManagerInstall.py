@@ -486,13 +486,13 @@ class OMBManagerInstall(Screen):
 # prevent funny cases for non standard images.
 # My apologies to Sandro for this bad code.
 
-		if not os.path.exists('/usr/lib/python2.7/boxbranding.so'):
-			os.system("ln -s /usr/lib/enigma2/python/boxbranding.so /usr/lib/python2.7/boxbranding.so")
-		if os.path.exists(dst_path + '/usr/lib/python2.7/boxbranding.py'):
-			os.system("cp /usr/lib/enigma2/python/boxbranding.so " + dst_path + "/usr/lib/python2.7/boxbranding.so")
-			os.system("rm -f " + dst_path + '/usr/lib/python2.7/boxbranding.py')
-		if not os.path.exists(dst_path + "/usr/lib/python2.7/subprocess.pyo"):
-			os.system("cp /usr/lib/python2.7/subprocess.pyo " + dst_path + "/usr/lib/python2.7/subprocess.pyo")
+		if not os.path.exists('/usr/lib/python3.8/boxbranding.so'):
+			os.system("ln -s /usr/lib/enigma2/python/boxbranding.so /usr/lib/python3.8/boxbranding.so")
+		if os.path.exists(dst_path + '/usr/lib/python3.8/boxbranding.py'):
+			os.system("cp /usr/lib/enigma2/python/boxbranding.so " + dst_path + "/usr/lib/python3.8/boxbranding.so")
+			os.system("rm -f " + dst_path + '/usr/lib/python3.8/boxbranding.py')
+		if not os.path.exists(dst_path + "/usr/lib/python3.8/subprocess.py"):
+			os.system("cp /usr/lib/python3.8/subprocess.py " + dst_path + "/usr/lib/python3.8/subprocess.py")
 # openmultiboot installed in the multiboot image. where the init will go ?
 		if os.path.exists(dst_path + '/sbin/open_multiboot'):
 			os.system("rm -f " + dst_path + '/sbin/open_multiboot')

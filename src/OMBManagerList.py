@@ -358,7 +358,7 @@ class OMBManagerList(Screen):
 			self.session.open(TryQuitMainloop, 2)
 
 	def showMen(self):
-		myoptions = [['Preferences', 'preferences'], ['About', 'about']]	
+		myoptions = [['Preferences', 'preferences'], ['About', 'about']]
 		self.session.openWithCallback(self.doshowMen, ChoiceBox, title=_("Open MultiBoot Menu"), list=myoptions)
 		
 	def doshowMen(self, sel):
