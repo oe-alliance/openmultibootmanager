@@ -75,8 +75,10 @@ else:
 						print open("/etc/issue").readlines()[-2].capitalize().strip()[:-6]
 					except:
 						print "undefined"
-				elif sys.argv[2] == 'image_version':
-					print ' '
+				elif sys.argv[2] == 'box_type':
+					with open("/etc/image-version", "r") as file:
+						first_line = file.readline()
+					print first_line.strip()[9:]
 				else:
 					pass
 			else:
