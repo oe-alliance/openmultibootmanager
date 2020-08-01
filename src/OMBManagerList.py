@@ -71,7 +71,7 @@ class OMBManagerList(Screen):
 					font="Regular;24" 
 					halign="center" 
 					valign="center"
-					transparent="1" />		
+					transparent="1" />
 					
 			<widget source="list"
 					render="Listbox"
@@ -198,13 +198,13 @@ class OMBManagerList(Screen):
 		running_box_type = "none"
 		e2_path = '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
+			helper = os.path.dirname("/usr/bin/python3 " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
 			fout = getoutput(helper + " " + e2_path + " box_type")
 			running_box_type = fout.strip()
 
 		e2_path = base_path + '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
+			helper = os.path.dirname("/usr/bin/python3 " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
 			fout = getoutput(helper + " " + e2_path + " brand_oem")
 			brand_oem = fout.strip()
 			fout = getoutput(helper + " " + e2_path + " box_type")
@@ -219,7 +219,6 @@ class OMBManagerList(Screen):
 					running_box_type = running_box_type[:9]
 					box_type = box_type[:9]
 
-			print("DEBUG", base_path, running_box_type, box_type)
 			return (running_box_type == box_type)
 
 		try:
@@ -283,7 +282,7 @@ class OMBManagerList(Screen):
 
 				if file_entry[0] == '.':
 					continue
-				
+
 				if not self.isCompatible(self.data_dir + '/' + file_entry):
 					continue
 
@@ -291,7 +290,7 @@ class OMBManagerList(Screen):
 					title = self.imageTitleFromLabel('.label_' + file_entry)
 				else:
 					title = self.guessImageTitle(self.data_dir + '/' + file_entry, file_entry)
-				
+
 				self.images_entries.append({
 					'label': title,
 					'identifier': file_entry,
@@ -300,7 +299,7 @@ class OMBManagerList(Screen):
 					'kernelbin': self.data_dir + '/' + '.kernels' + '/' + file_entry + '.bin'
 				})
 				self.images_list.append(title)
-					
+
 	def refresh(self):
 		self.populateImagesList()
 		self["list"].setList(self.images_list)
@@ -358,7 +357,7 @@ class OMBManagerList(Screen):
 			self.session.open(TryQuitMainloop, 2)
 
 	def showMen(self):
-		myoptions = [['Preferences', 'preferences'], ['About', 'about']]
+		myoptions = [['Preferences', 'preferences'], ['About', 'about']]	
 		self.session.openWithCallback(self.doshowMen, ChoiceBox, title=_("Open MultiBoot Menu"), list=myoptions)
 		
 	def doshowMen(self, sel):
