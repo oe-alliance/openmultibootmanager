@@ -302,10 +302,7 @@ class OMBManagerInstall(Screen):
 		jffs2_path = src_path + '/jffs2'
 
 		if os.path.exists(OMB_UNJFFS2_BIN):
-			if os.system("%s %s %s" % (OMB_UNJFFS2_BIN, rootfs_path, jffs2_path)) != 0:
-				self.showError(_("Error unpacking rootfs"))
-				rc = False
-
+		        os.system(OMB_UNJFFS2_BIN + ' ' + rootfs_path + ' ' + jffs2_path)
 			if os.path.exists(jffs2_path + '/usr/bin/enigma2'):
 				if os.system(OMB_CP_BIN + ' -rp ' + jffs2_path + '/* ' + dst_path) != 0:
 					self.showError(_("Error copying unpacked rootfs"))
