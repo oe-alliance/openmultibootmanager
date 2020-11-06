@@ -172,3 +172,9 @@ msgstr "Installo OpenMultiboot"
 
 msgid "openMultiboot Manager"
 msgstr "Gestore OpenMultiboot"
+
+msgid "Preferences"
+msgstr "Preferenze"
+
+msgid "About"
+msgstr "Informazioni su OMB"
