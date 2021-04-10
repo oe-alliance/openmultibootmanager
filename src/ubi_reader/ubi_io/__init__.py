@@ -54,7 +54,7 @@ class ubi_file(object):
         if end_offset:
             self._end_offset = end_offset
         else:
-            self._fhandle.seek(0,2)
+            self._fhandle.seek(0, 2)
             self._end_offset = self.tell() 
 
         self._block_size = block_size

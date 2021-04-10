@@ -93,7 +93,7 @@ def get_blocks_in_list(blocks, idx_list):
                      from provided list of indexes in
                      order of idx_list.
     """
-    return {i:blocks[i] for i in idx_list}
+    return {i: blocks[i] for i in idx_list}
 
 
 def extract_blocks(ubi):

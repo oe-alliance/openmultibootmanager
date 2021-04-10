@@ -54,7 +54,7 @@ class OMBManagerInit:
 			)
 
 	def getFSType(self, device):
-		fin,fout = os.popen4("mount | cut -f 1,5 -d ' '")
+		fin, fout = os.popen4("mount | cut -f 1,5 -d ' '")
 		tmp = fout.read().strip()
 		for line in tmp.split('\n'):
 			parts = line.split(' ')
@@ -148,7 +148,7 @@ class OMBManagerKernelModule:
 
 	def installCallback(self, confirmed):
 		if confirmed:
-			self.messagebox = self.session.open(MessageBox,_('Please wait while installation is in progress.'), MessageBox.TYPE_INFO, enable_input=False)
+			self.messagebox = self.session.open(MessageBox, _('Please wait while installation is in progress.'), MessageBox.TYPE_INFO, enable_input=False)
 			self.timer = eTimer()
 			self.timer.callback.append(self.installModule)
 			self.timer.start(100)

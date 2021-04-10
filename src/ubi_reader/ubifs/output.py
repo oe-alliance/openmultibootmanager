@@ -48,7 +48,7 @@ def dents(ubifs, inodes, dent_node, path='', perms=False):
                     buf = process_reg_file(ubifs, inode, dent_path)
                     write_reg_file(dent_path, buf)
                 else:
-                    os.link(inode['hlink'],dent_path)
+                    os.link(inode['hlink'], dent_path)
             else:
                 buf = process_reg_file(ubifs, inode, dent_path)
                 write_reg_file(dent_path, buf)

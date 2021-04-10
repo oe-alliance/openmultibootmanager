@@ -39,7 +39,7 @@ def vtbl_rec(vtbl_rec, buf):
     if vtbl_rec.name_len != len(vtbl_rec.name.strip('\x00')):
         likely_vtbl = False
 
-    elif vtbl_rec.vol_type not in [1,2]:
+    elif vtbl_rec.vol_type not in [1, 2]:
         likely_vtbl = False
 
     if vtbl_rec.crc != (~crc32(buf[:-4]) & 0xFFFFFFFF):

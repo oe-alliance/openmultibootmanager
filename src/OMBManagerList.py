@@ -196,15 +196,15 @@ class OMBManagerList(Screen):
 		e2_path = '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
 			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
-			fin,fout = os.popen4(helper + " " + e2_path + " box_type")
+			fin, fout = os.popen4(helper + " " + e2_path + " box_type")
 			running_box_type = fout.read().strip()
 
 		e2_path = base_path + '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
 			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
-			fin,fout = os.popen4(helper + " " + e2_path + " brand_oem")
+			fin, fout = os.popen4(helper + " " + e2_path + " brand_oem")
 			brand_oem = fout.read().strip()
-			fin,fout = os.popen4(helper + " " + e2_path + " box_type")
+			fin, fout = os.popen4(helper + " " + e2_path + " box_type")
 			box_type = fout.read().strip()
 
 			if brand_oem == "vuplus" and box_type[0:2] != "vu":
@@ -216,7 +216,7 @@ class OMBManagerList(Screen):
 					running_box_type = running_box_type[:9]
 					box_type = box_type[:9]
 
-			print "DEBUG",base_path, running_box_type, box_type
+			print "DEBUG", base_path, running_box_type, box_type
 			return (running_box_type == box_type)
 
 		try:
@@ -240,9 +240,9 @@ class OMBManagerList(Screen):
 		e2_path = base_path + '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
 			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
-			fin,fout = os.popen4(helper + " " + e2_path + " image_distro")
+			fin, fout = os.popen4(helper + " " + e2_path + " image_distro")
 			image_distro = fout.read().strip()
-			fin,fout = os.popen4(helper + " " + e2_path + " image_version")
+			fin, fout = os.popen4(helper + " " + e2_path + " image_version")
 			image_version = fout.read().strip()
 		
 		if len(image_distro) > 0:
@@ -336,7 +336,7 @@ class OMBManagerList(Screen):
 	def KeyOk(self):
 		self.select = self["list"].getIndex()
 		name = self["list"].getCurrent()
-		self.session.openWithCallback(self.confirmNextbootCB, MessageBox,_('Set next boot to %s ?') % name, MessageBox.TYPE_YESNO)
+		self.session.openWithCallback(self.confirmNextbootCB, MessageBox, _('Set next boot to %s ?') % name, MessageBox.TYPE_YESNO)
 		
 
 	def confirmNextbootCB(self, ret):
@@ -348,7 +348,7 @@ class OMBManagerList(Screen):
 			f.write(image)
 			f.close()
 
-			self.session.openWithCallback(self.confirmRebootCB, MessageBox,_('Do you want to reboot now ?'), MessageBox.TYPE_YESNO)
+			self.session.openWithCallback(self.confirmRebootCB, MessageBox, _('Do you want to reboot now ?'), MessageBox.TYPE_YESNO)
 
 	def confirmRebootCB(self, ret):
 		if ret:
@@ -356,7 +356,7 @@ class OMBManagerList(Screen):
 
 	def showMen(self):
 		myoptions = [['Preferences', 'preferences'], ['About', 'about']]	
-		self.session.openWithCallback(self.doshowMen,ChoiceBox, title=_("Open MultiBoot Menu"), list=myoptions)
+		self.session.openWithCallback(self.doshowMen, ChoiceBox, title=_("Open MultiBoot Menu"), list=myoptions)
 		
 	def doshowMen(self, sel):
 		if sel:
@@ -390,7 +390,7 @@ class OMBManagerList(Screen):
 		
 	def deleteConfirm(self, confirmed):
 		if confirmed and len(self.entry_to_delete['path']) > 1:
-			self.messagebox = self.session.open(MessageBox,_('Please wait while delete is in progress.'), MessageBox.TYPE_INFO, enable_input=False)
+			self.messagebox = self.session.open(MessageBox, _('Please wait while delete is in progress.'), MessageBox.TYPE_INFO, enable_input=False)
 			self.timer = eTimer()
 			self.timer.callback.append(self.deleteImage)
 			self.timer.start(100)
