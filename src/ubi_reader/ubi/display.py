@@ -20,8 +20,9 @@
 from __future__ import print_function
 from ubi.defines import PRINT_COMPAT_LIST, PRINT_VOL_TYPE_LIST, UBI_VTBL_AUTORESIZE_FLG
 
+
 def ubi(ubi, tab=''):
-    print('%sUBI File' % (tab)) 
+    print('%sUBI File' % (tab))
     print('%s---------------------' % (tab))
     print('\t%sMin I/O: %s' % (tab, ubi.min_io_size))
     print('\t%sLEB Size: %s' % (tab, ubi.leb_size))
@@ -51,7 +52,7 @@ def volume(volume, tab=''):
     print('\t%sBlock Count: %s' % (tab, volume.block_count))
 
     print('\n')
-    print('\t%sVolume Record' % (tab)) 
+    print('\t%sVolume Record' % (tab))
     print('\t%s---------------------' % (tab))
     vol_rec(volume.vol_rec, '\t\t%s' % tab)
 
@@ -61,7 +62,7 @@ def volume(volume, tab=''):
 def block(block, tab='\t'):
     print('%s%s' % (tab, block))
     print('%s---------------------' % (tab))
-    print('\t%sFile Offset: %s' %  (tab, block.file_offset))
+    print('\t%sFile Offset: %s' % (tab, block.file_offset))
     print('\t%sPEB #: %s' % (tab, block.peb_num))
     print('\t%sLEB #: %s' % (tab, block.leb_num))
     print('\t%sBlock Size: %s' % (tab, block.size))
@@ -76,14 +77,14 @@ def block(block, tab='\t'):
         ec_hdr(block.ec_hdr, '\t\t%s' % tab)
 
     if block.vid_hdr and not block.vid_hdr.errors:
-        print('\n')        
+        print('\n')
         print('\t%sVID Header Header' % (tab))
         print('\t%s---------------------' % (tab))
         vid_hdr(block.vid_hdr, '\t\t%s' % tab)
 
     if block.vtbl_recs:
         print('\n')
-        print('\t%sVolume Records' % (tab)) 
+        print('\t%sVolume Records' % (tab))
         print('\t%s---------------------' % (tab))
         for vol in block.vtbl_recs:
             vol_rec(vol, '\t\t%s' % tab)
@@ -111,7 +112,7 @@ def vid_hdr(vid_hdr, tab=''):
                 value = -1
 
         elif key == 'vol_type':
-            if value  < len(PRINT_VOL_TYPE_LIST):
+            if value < len(PRINT_VOL_TYPE_LIST):
                 value = PRINT_VOL_TYPE_LIST[value]
             else:
                 value = -1

@@ -86,30 +86,30 @@ UBIFS_LPT_FANOUT = 4
 UBIFS_LPT_FANOUT_SHIFT = 2
 
 # LEB Properties Tree bit field sizes.
-UBIFS_LPT_CRC_BITS  = 16
+UBIFS_LPT_CRC_BITS = 16
 UBIFS_LPT_CRC_BYTES = 2
 UBIFS_LPT_TYPE_BITS = 4
 
 # LEB Properties Tree node types.
-UBIFS_LPT_PNODE         = 0 # LPT leaf node (contains LEB Properties)
-UBIFS_LPT_NNODE         = 1 # LPT internal node
-UBIFS_LPT_LTAB          = 2 # LPT's own lprops table
-UBIFS_LPT_LSAVE         = 3 # LPT's save table (big model only)
-UBIFS_LPT_NODE_CNT      = 4 # count of LPT node types
+UBIFS_LPT_PNODE = 0 # LPT leaf node (contains LEB Properties)
+UBIFS_LPT_NNODE = 1 # LPT internal node
+UBIFS_LPT_LTAB = 2 # LPT's own lprops table
+UBIFS_LPT_LSAVE = 3 # LPT's save table (big model only)
+UBIFS_LPT_NODE_CNT = 4 # count of LPT node types
 UBIFS_LPT_NOT_A_NODE = (1 << UBIFS_LPT_TYPE_BITS) - 1 # 4 bits of 1
 
 # Inode types
-UBIFS_ITYPE_REG  = 0 # Regular file
-UBIFS_ITYPE_DIR  = 1 # Directory
-UBIFS_ITYPE_LNK  = 2 # Soft link
-UBIFS_ITYPE_BLK  = 3 # Block device node
-UBIFS_ITYPE_CHR  = 4 # Char device node
+UBIFS_ITYPE_REG = 0 # Regular file
+UBIFS_ITYPE_DIR = 1 # Directory
+UBIFS_ITYPE_LNK = 2 # Soft link
+UBIFS_ITYPE_BLK = 3 # Block device node
+UBIFS_ITYPE_CHR = 4 # Char device node
 UBIFS_ITYPE_FIFO = 5 # FIFO
 UBIFS_ITYPE_SOCK = 6 # Socket
 UBIFS_ITYPES_CNT = 7 # Support file type count
 
 # Supported key has functions
-UBIFS_KEY_HASH_R5   = 0 # R5 hash
+UBIFS_KEY_HASH_R5 = 0 # R5 hash
 UBIFS_KEY_HASH_TEST = 1 # Test hash, returns first 4 bytes of name
 PRINT_UBIFS_KEY_HASH = ['r5', 'test']
 
@@ -119,14 +119,14 @@ UBIFS_SIMPLE_KEY_FMT = 0
 # Simple key format uses 29 bits for storing UBIFS name and hash.
 UBIFS_S_KEY_BLOCK_BITS = 29
 UBIFS_S_KEY_BLOCK_MASK = 0x1FFFFFFF
-UBIFS_S_KEY_HASH_BITS  = UBIFS_S_KEY_BLOCK_BITS
-UBIFS_S_KEY_HASH_MASK  = UBIFS_S_KEY_BLOCK_MASK
+UBIFS_S_KEY_HASH_BITS = UBIFS_S_KEY_BLOCK_BITS
+UBIFS_S_KEY_HASH_MASK = UBIFS_S_KEY_BLOCK_MASK
 
 # Key types
-UBIFS_INO_KEY       = 0 # Inode node key
-UBIFS_DATA_KEY      = 1 # Data node key
-UBIFS_DENT_KEY      = 2 # Directory node key
-UBIFS_XENT_KEY      = 3 # Extended attribute entry key
+UBIFS_INO_KEY = 0 # Inode node key
+UBIFS_DATA_KEY = 1 # Data node key
+UBIFS_DENT_KEY = 2 # Directory node key
+UBIFS_XENT_KEY = 3 # Extended attribute entry key
 UBIFS_KEY_TYPES_CNT = 4 # Supported key count
 
 # Number of reserved LEBs for Superblock area
@@ -145,51 +145,51 @@ UBIFS_MST_LNUM = (UBIFS_SB_LNUM + UBIFS_SB_LEBS)
 UBIFS_LOG_LNUM = (UBIFS_MST_LNUM + UBIFS_MST_LEBS)
 
 # On-flash inode flags
-UBIFS_COMPR_FL     = 1  # Use compression for this inode
-UBIFS_SYNC_FL      = 2  # Has to be synchronous I/O
+UBIFS_COMPR_FL = 1  # Use compression for this inode
+UBIFS_SYNC_FL = 2  # Has to be synchronous I/O
 UBIFS_IMMUTABLE_FL = 4  # Inode is immutable
-UBIFS_APPEND_FL    = 8  # Writes may only append data
-UBIFS_DIRSYNC_FL   = 16 # I/O on this directory inode must be synchronous
-UBIFS_XATTR_FL     = 32 # This inode is inode for extended attributes
+UBIFS_APPEND_FL = 8  # Writes may only append data
+UBIFS_DIRSYNC_FL = 16 # I/O on this directory inode must be synchronous
+UBIFS_XATTR_FL = 32 # This inode is inode for extended attributes
 
 # Inode flag bits used by UBIFS
 UBIFS_FL_MASK = 0x0000001F
 
 # Compression alogrithms.
-UBIFS_COMPR_NONE        = 0 # No compression
-UBIFS_COMPR_LZO         = 1 # LZO compression
-UBIFS_COMPR_ZLIB        = 2 # ZLIB compression
-UBIFS_COMPR_TYPES_CNT   = 3 # Count of supported compression types
+UBIFS_COMPR_NONE = 0 # No compression
+UBIFS_COMPR_LZO = 1 # LZO compression
+UBIFS_COMPR_ZLIB = 2 # ZLIB compression
+UBIFS_COMPR_TYPES_CNT = 3 # Count of supported compression types
 PRINT_UBIFS_COMPR = ['none', 'lzo', 'zlib']
 
 # UBIFS node types
-UBIFS_INO_NODE          = 0  # Inode node
-UBIFS_DATA_NODE         = 1  # Data node
-UBIFS_DENT_NODE         = 2  # Directory entry node
-UBIFS_XENT_NODE         = 3  # Extended attribute node
-UBIFS_TRUN_NODE         = 4  # Truncation node
-UBIFS_PAD_NODE          = 5  # Padding node
-UBIFS_SB_NODE           = 6  # Superblock node
-UBIFS_MST_NODE          = 7  # Master node
-UBIFS_REF_NODE          = 8  # LEB reference node
-UBIFS_IDX_NODE          = 9  # Index node
-UBIFS_CS_NODE           = 10 # Commit start node
-UBIFS_ORPH_NODE         = 11 # Orphan node
-UBIFS_NODE_TYPES_CNT    = 12 # Count of supported node types
+UBIFS_INO_NODE = 0  # Inode node
+UBIFS_DATA_NODE = 1  # Data node
+UBIFS_DENT_NODE = 2  # Directory entry node
+UBIFS_XENT_NODE = 3  # Extended attribute node
+UBIFS_TRUN_NODE = 4  # Truncation node
+UBIFS_PAD_NODE = 5  # Padding node
+UBIFS_SB_NODE = 6  # Superblock node
+UBIFS_MST_NODE = 7  # Master node
+UBIFS_REF_NODE = 8  # LEB reference node
+UBIFS_IDX_NODE = 9  # Index node
+UBIFS_CS_NODE = 10 # Commit start node
+UBIFS_ORPH_NODE = 11 # Orphan node
+UBIFS_NODE_TYPES_CNT = 12 # Count of supported node types
 
 # Master node flags
-UBIFS_MST_DIRTY     = 1 # Rebooted uncleanly
-UBIFS_MST_NO_ORPHS  = 2 # No orphans present
-UBIFS_MST_RCVRY     = 4 # Written by recovery
+UBIFS_MST_DIRTY = 1 # Rebooted uncleanly
+UBIFS_MST_NO_ORPHS = 2 # No orphans present
+UBIFS_MST_RCVRY = 4 # Written by recovery
 
 # Node group type
-UBIFS_NO_NODE_GROUP         = 0 # This node is not part of a group
-UBIFS_IN_NODE_GROUP         = 1 # This node is part of a group
-UBIFS_LAST_OF_NODE_GROUP    = 2 # This node is the last in a group
+UBIFS_NO_NODE_GROUP = 0 # This node is not part of a group
+UBIFS_IN_NODE_GROUP = 1 # This node is part of a group
+UBIFS_LAST_OF_NODE_GROUP = 2 # This node is the last in a group
 
 # Superblock flags
-UBIFS_FLG_BIGLPT        = 2 # if 'big' LPT model is used if set.
-UBIFS_FLG_SPACE_FIXUP   = 4 # first-mount 'fixup' of free space within
+UBIFS_FLG_BIGLPT = 2 # if 'big' LPT model is used if set.
+UBIFS_FLG_SPACE_FIXUP = 4 # first-mount 'fixup' of free space within
 
 
 # Struct defines
@@ -371,4 +371,4 @@ UBIFS_IDX_NODE_FIELDS = ['child_cnt',   # Number of child index nodes.
 UBIFS_IDX_NODE_SZ = struct.calcsize(UBIFS_IDX_NODE_FORMAT)
 
 # File chunk size for reads.
-FILE_CHUNK_SZ = 5 * 1024 *1024
+FILE_CHUNK_SZ = 5 * 1024 * 1024

@@ -35,6 +35,7 @@ from enigma import eTimer
 import os
 from subprocess import getoutput
 
+
 class OMBManagerInit:
 	def __init__(self, session):
 		self.session = session
@@ -52,7 +53,7 @@ class OMBManagerInit:
 			self.session.open(
 				MessageBox,
 				_("No suitable devices found"),
-				type = MessageBox.TYPE_ERROR
+				type=MessageBox.TYPE_ERROR
 			)
 
 	def getFSType(self, device):
@@ -63,8 +64,8 @@ class OMBManagerInit:
 			if len(parts) == 2:
 				if parts[0] == '/dev/' + device:
 					return parts[1]
-		return  "none"
-		
+		return "none"
+
 	def createDir(self, partition):
 		data_dir = partition.mountpoint + '/' + OMB_DATA_DIR
 		upload_dir = partition.mountpoint + '/' + OMB_UPLOAD_DIR
@@ -75,7 +76,7 @@ class OMBManagerInit:
 			self.session.open(
 				MessageBox,
 				_("Cannot create data folder"),
-				type = MessageBox.TYPE_ERROR
+				type=MessageBox.TYPE_ERROR
 			)
 			return
 # by Meo. We are installing in flash. We can link init to open_multiboot
@@ -83,12 +84,12 @@ class OMBManagerInit:
 # In this way we will be sure to have not open_multiboot init in mb installed images.
 		if os.path.isfile('/sbin/open_multiboot'):
 			os.system("ln -sfn /sbin/open_multiboot /sbin/init")
-				
+
 		self.session.open(OMBManagerList, partition.mountpoint)
-	
+
 	def formatDevice(self, confirmed):
 		if confirmed:
-			self.messagebox = self.session.open(MessageBox, _('Please wait while format is in progress.'), MessageBox.TYPE_INFO, enable_input = False)
+			self.messagebox = self.session.open(MessageBox, _('Please wait while format is in progress.'), MessageBox.TYPE_INFO, enable_input=False)
 			self.timer = eTimer()
 			self.timer.callback.append(self.doFormatDevice)
 			self.timer.start(100)
@@ -104,23 +105,23 @@ class OMBManagerInit:
 			else:
 				if os.system('mount /dev/' + self.response.device + ' ' + self.response.mountpoint) != 0:
 					self.error_message = _('Cannot remount the device')
-				
+
 		self.messagebox.close()
 		self.timer = eTimer()
 		self.timer.callback.append(self.afterFormat)
 		self.timer.start(100)
-		
+
 	def afterFormat(self):
 		self.timer.stop()
 		if len(self.error_message) > 0:
 			self.session.open(
 				MessageBox,
 				self.error_message,
-				type = MessageBox.TYPE_ERROR
+				type=MessageBox.TYPE_ERROR
 			)
 		else:
 			self.createDir(self.response)
-			
+
 	def initCallback(self, response):
 		if response:
 			fs_type = self.getFSType(response.device)
@@ -130,10 +131,11 @@ class OMBManagerInit:
 					self.formatDevice,
 					MessageBox,
 					_("Filesystem not supported\nDo you want format your drive?"),
-					type = MessageBox.TYPE_YESNO
+					type=MessageBox.TYPE_YESNO
 				)
 			else:
 				self.createDir(response)
+
 
 class OMBManagerKernelModule:
 	def __init__(self, session, kernel_module):
@@ -150,33 +152,34 @@ class OMBManagerKernelModule:
 
 	def installCallback(self, confirmed):
 		if confirmed:
-			self.messagebox = self.session.open(MessageBox, _('Please wait while installation is in progress.'), MessageBox.TYPE_INFO, enable_input = False)
+			self.messagebox = self.session.open(MessageBox, _('Please wait while installation is in progress.'), MessageBox.TYPE_INFO, enable_input=False)
 			self.timer = eTimer()
 			self.timer.callback.append(self.installModule)
 			self.timer.start(100)
-			
+
 	def installModule(self):
 		self.timer.stop()
 		self.error_message = ''
 		if os.system('opkg update && opkg install ' + self.kernel_module) != 0:
 			self.error_message = _('Cannot install ') + self.kernel_module
-		
+
 		self.messagebox.close()
 		self.timer = eTimer()
 		self.timer.callback.append(self.afterInstall)
 		self.timer.start(100)
-			
+
 	def afterInstall(self):
 		self.timer.stop()
 		if len(self.error_message) > 0:
 			self.session.open(
 				MessageBox,
 				self.error_message,
-				type = MessageBox.TYPE_ERROR
+				type=MessageBox.TYPE_ERROR
 			)
 		else:
-			OMBManager(self.session);
-		
+			OMBManager(self.session)
+
+
 def OMBManager(session, **kwargs):
 	found = False
 
@@ -188,7 +191,7 @@ def OMBManager(session, **kwargs):
 			kernel_module = 'kernel-module-block2mtd'
 	if "tar.bz2" in OMB_GETIMAGEFILESYSTEM:
 		kernel_module = None
-	
+
 	if kernel_module and os.system('opkg list_installed | grep ' + kernel_module) != 0 and BRANDING:
 		OMBManagerKernelModule(session, kernel_module)
 		return
@@ -209,10 +212,9 @@ def OMBManager(session, **kwargs):
 					session.open(OMBManagerList, partition.mountpoint)
 					found = True
 					break
-				
+
 	if not found:
 # by meo: Allow plugin installation only for images in flash. We don't need plugin in mb installed images.
 # The postinst link creation in open_multiboot will be also disabled to avoid conflicts between init files.
 		if not os.path.ismount('/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot'):
 			OMBManagerInit(session)
-

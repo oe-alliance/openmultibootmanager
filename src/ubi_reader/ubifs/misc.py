@@ -63,7 +63,7 @@ def parse_key(key):
     khash = lkey
 
     #if key_type < UBIFS_KEY_TYPES_CNT:
-    return {'type':key_type, 'ino_num':ino_num, 'khash': khash}
+    return {'type': key_type, 'ino_num': ino_num, 'khash': khash}
 
 
 def decompress(ctype, unc_len, data):
@@ -83,5 +83,3 @@ def decompress(ctype, unc_len, data):
         return zlib.decompress(data, -11)
     else:
         return data
-
-

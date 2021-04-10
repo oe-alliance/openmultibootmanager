@@ -19,6 +19,7 @@
 
 from ubi.block import sort
 
+
 class ubi_file(object):
     """UBI image file object
 
@@ -28,7 +29,7 @@ class ubi_file(object):
     Int:start_offset -- (optional) Where to start looking in the file for
                         UBI data.
     Int:end_offset   -- (optional) Where to stop looking in the file.
-    
+
     Methods:
     seek            -- Put file head to specified byte offset.
         Int:offset
@@ -55,55 +56,48 @@ class ubi_file(object):
             self._end_offset = end_offset
         else:
             self._fhandle.seek(0, 2)
-            self._end_offset = self.tell() 
+            self._end_offset = self.tell()
 
         self._block_size = block_size
-        
+
         if start_offset >= self._end_offset:
             raise Exception('Start offset larger than file size!')
 
         self._fhandle.seek(self._start_offset)
 
-
     def _set_start(self, i):
         self._start_offset = i
+
     def _get_start(self):
         return self._start_offset
     start_offset = property(_get_start, _set_start)
 
-    
     def _get_end(self):
         return self._end_offset
     end_offset = property(_get_end)
-
 
     def _get_block_size(self):
         return self._block_size
     block_size = property(_get_block_size)
 
-        
     def seek(self, offset):
         self._fhandle.seek(offset)
-
 
     def read(self, size):
         return self._fhandle.read(size)
 
-
     def tell(self):
         return self._fhandle.tell()
 
-
     def reset(self):
         self._fhandle.seek(self.start_offset)
-
 
     def reader(self):
         self.reset()
         while True:
             cur_loc = self._fhandle.tell()
             if self.end_offset and cur_loc > self.end_offset:
-                break            
+                break
             elif self.end_offset and self.end_offset - cur_loc < self.block_size:
                 chunk_size = self.end_offset - cur_loc
             else:
@@ -115,20 +109,18 @@ class ubi_file(object):
                 break
             yield buf
 
-
     def read_block(self, block):
         """Read complete PEB data from file.
-        
+
         Argument:
         Obj:block -- Block data is desired for.
         """
         self.seek(block.file_offset)
         return self._fhandle.read(block.size)
 
-
     def read_block_data(self, block):
         """Read LEB data from file
-        
+
         Argument:
         Obj:block -- Block data is desired for.
         """
@@ -147,7 +139,6 @@ class leb_virtual_file():
         self._last_leb = -1
         self._last_buf = ''
 
-
     def read(self, i):
         buf = ''
         leb = int(self.tell() / self._ubi.leb_size)
@@ -155,33 +146,29 @@ class leb_virtual_file():
 
         if leb == self._last_leb:
             self.seek(self.tell() + i)
-            return self._last_buf[offset:offset+i]
+            return self._last_buf[offset:offset + i]
         else:
             buf = self._ubi.file.read_block_data(self._ubi.blocks[self._blocks[leb]])
             self._last_buf = buf
             self._last_leb = leb
             self.seek(self.tell() + i)
-            return buf[offset:offset+i]
-
+            return buf[offset:offset + i]
 
     def reset(self):
         self.seek(0)
 
-
     def seek(self, offset):
         self._seek = offset
 
-
     def tell(self):
         return self._seek
-
 
     def reader(self):
         last_leb = 0
         for block in self._blocks:
             while 0 != (self._ubi.blocks[block].leb_num - last_leb):
                 last_leb += 1
-                yield '\xff'*self._ubi.leb_size
+                yield '\xff' * self._ubi.leb_size
 
             last_leb += 1
             yield self._ubi.file.read_block_data(self._ubi.blocks[block])

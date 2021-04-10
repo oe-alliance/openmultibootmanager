@@ -46,6 +46,7 @@ from enigma import eTimer
 import os
 from subprocess import getoutput
 
+
 class OMBManagerList(Screen):
 	skin = """
 		<screen position="center,center" size="560,400">
@@ -54,25 +55,25 @@ class OMBManagerList(Screen):
 					position="0,0"
 					size="560,360"
 					alphatest="on" />
-					
+
 			<widget name="label1"
 					zPosition="2"
 					position="10,10"
 					size="540,30"
-					font="Regular;24" 
-					halign="center" 
+					font="Regular;24"
+					halign="center"
 					valign="center"
 					transparent="1" />
-			
+
 			<widget name="label2"
 					zPosition="2"
 					position="10,40"
 					size="540,30"
-					font="Regular;24" 
-					halign="center" 
+					font="Regular;24"
+					halign="center"
 					valign="center"
 					transparent="1" />
-					
+
 			<widget source="list"
 					render="Listbox"
 					position="10,100"
@@ -80,7 +81,7 @@ class OMBManagerList(Screen):
 					size="540,260"
 					scrollbarMode="showOnDemand"
 					transparent="1">
-					
+
 				<convert type="StringList" />
 			</widget>
 			<widget name="key_red"
@@ -92,7 +93,7 @@ class OMBManagerList(Screen):
 					transparent="1"
 					foregroundColor="white"
 					font="Regular;18" />
-					
+
 			<widget name="key_green"
 					position="140,360"
 					size="140,40"
@@ -102,7 +103,7 @@ class OMBManagerList(Screen):
 					transparent="1"
 					foregroundColor="white"
 					font="Regular;18" />
-					
+
 			<widget name="key_yellow"
 					position="280,360"
 					size="140,40"
@@ -112,7 +113,7 @@ class OMBManagerList(Screen):
 					transparent="1"
 					foregroundColor="white"
 					font="Regular;18" />
-					
+
 			<widget name="key_blue"
 					position="420,360"
 					size="140,40"
@@ -122,7 +123,7 @@ class OMBManagerList(Screen):
 					transparent="1"
 					foregroundColor="white"
 					font="Regular;18" />
-	
+
 			<ePixmap name="red"
 					 pixmap="skin_default/buttons/red.png"
 					 position="0,360"
@@ -130,7 +131,7 @@ class OMBManagerList(Screen):
 					 zPosition="4"
 					 transparent="1"
 					 alphatest="on" />
-					 
+
 			<ePixmap name="green"
 					 pixmap="skin_default/buttons/green.png"
 					 position="140,360"
@@ -138,7 +139,7 @@ class OMBManagerList(Screen):
 					 zPosition="4"
 					 transparent="1"
 					 alphatest="on" />
-					 
+
 			<ePixmap name="yellow"
 					 pixmap="skin_default/buttons/yellow.png"
 					 position="280,360"
@@ -146,7 +147,7 @@ class OMBManagerList(Screen):
 					 zPosition="4"
 					 transparent="1"
 					 alphatest="on" />
-					 
+
 			<ePixmap name="blue"
 					 pixmap="skin_default/buttons/blue.png"
 					 position="420,360"
@@ -155,12 +156,12 @@ class OMBManagerList(Screen):
 					 transparent="1"
 					 alphatest="on" />
 		</screen>"""
-		
+
 	def __init__(self, session, mount_point):
 		Screen.__init__(self, session)
-		
+
 		self.setTitle(_('openMultiboot Manager'))
-		
+
 		self.session = session
 		mount_point = mount_point.rstrip("/")
 		self.mount_point = mount_point
@@ -192,7 +193,6 @@ class OMBManagerList(Screen):
 			"ok": self.KeyOk,
 			"menu": self.showMen,
 		})
-	
 
 	def isCompatible(self, base_path):
 		running_box_type = "none"
@@ -238,7 +238,7 @@ class OMBManagerList(Screen):
 	def guessImageTitle(self, base_path, identifier):
 		image_distro = ""
 		image_version = ""
-		
+
 		e2_path = base_path + '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
 			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
@@ -246,7 +246,7 @@ class OMBManagerList(Screen):
 			image_distro = fout.strip()
 			fout = getoutput(helper + " " + e2_path + " image_version")
 			image_version = fout.strip()
-		
+
 		if len(image_distro) > 0:
 			return image_distro + " " + image_version
 		else:
@@ -257,15 +257,14 @@ class OMBManagerList(Screen):
 		label = f.readline().strip()
 		f.close()
 		return label
-		
+
 	def populateImagesList(self):
 		self.images_list = []
 		self.images_entries = []
 		flashimageLabel = 'Flash image'
 
-
 		self["label2"].setText(self.currentImage())
-		
+
 		if os.path.exists(self.data_dir + '/.label_flash'): # use label name
 			flashimageLabel = self.imageTitleFromLabel('.label_flash') + ' (Flash)'
 
@@ -303,7 +302,7 @@ class OMBManagerList(Screen):
 	def refresh(self):
 		self.populateImagesList()
 		self["list"].setList(self.images_list)
-		
+
 	def currentImage(self):
 		selected = 'Flash'
 		try:
@@ -311,22 +310,22 @@ class OMBManagerList(Screen):
 		except:
 			pass
 		return selected
-		
+
 	def canDeleteEntry(self, entry):
 		selected = 'flash'
 		try:
 			selected = open(self.data_dir + '/.selected').read()
 		except:
 			pass
-			
+
 		if entry['path'] == '/' or entry['identifier'] == selected:
 			return False
 		return True
-		
+
 	def onSelectionChanged(self):
 		if len(self.images_entries) == 0:
 			return
-			
+
 		index = self["list"].getIndex()
 		if index >= 0 and index < len(self.images_entries):
 			entry = self.images_entries[index]
@@ -334,12 +333,11 @@ class OMBManagerList(Screen):
 				self["key_yellow"].setText(_('Delete'))
 			else:
 				self["key_yellow"].setText('')
-			
+
 	def KeyOk(self):
 		self.select = self["list"].getIndex()
 		name = self["list"].getCurrent()
 		self.session.openWithCallback(self.confirmNextbootCB, MessageBox, _('Set next boot to %s ?') % name, MessageBox.TYPE_YESNO)
-		
 
 	def confirmNextbootCB(self, ret):
 		if ret:
@@ -357,9 +355,9 @@ class OMBManagerList(Screen):
 			self.session.open(TryQuitMainloop, 2)
 
 	def showMen(self):
-		myoptions = [['Preferences', 'preferences'], ['About', 'about']]	
+		myoptions = [['Preferences', 'preferences'], ['About', 'about']]
 		self.session.openWithCallback(self.doshowMen, ChoiceBox, title=_("Open MultiBoot Menu"), list=myoptions)
-		
+
 	def doshowMen(self, sel):
 		if sel:
 			if sel[1] == "preferences":
@@ -389,14 +387,14 @@ class OMBManagerList(Screen):
 			f.write(name)
 			f.close()
 			self.refresh()
-		
+
 	def deleteConfirm(self, confirmed):
 		if confirmed and len(self.entry_to_delete['path']) > 1:
-			self.messagebox = self.session.open(MessageBox, _('Please wait while delete is in progress.'), MessageBox.TYPE_INFO, enable_input = False)
+			self.messagebox = self.session.open(MessageBox, _('Please wait while delete is in progress.'), MessageBox.TYPE_INFO, enable_input=False)
 			self.timer = eTimer()
 			self.timer.callback.append(self.deleteImage)
 			self.timer.start(100)
-		
+
 	def deleteImage(self):
 		self.timer.stop()
 		os.system(OMB_RM_BIN + ' -rf ' + self.entry_to_delete['path'])
@@ -404,17 +402,17 @@ class OMBManagerList(Screen):
 		os.system(OMB_RM_BIN + ' -f ' + self.entry_to_delete['labelfile'])
 		self.messagebox.close()
 		self.refresh()
-		
+
 	def keyDelete(self):
 		if len(self.images_entries) == 0:
 			return
-			
+
 		index = self["list"].getIndex()
 		if index >= 0 and index < len(self.images_entries):
 			self.entry_to_delete = self.images_entries[index]
 			if self.canDeleteEntry(self.entry_to_delete):
 				self.session.openWithCallback(self.deleteConfirm, MessageBox, _("Do you want to delete %s?") % self.entry_to_delete['label'], MessageBox.TYPE_YESNO)
-		
+
 	def keyInstall(self):
 		if not BRANDING:
 			return
@@ -423,17 +421,17 @@ class OMBManagerList(Screen):
 			for file_entry in os.listdir(self.upload_dir):
 				if file_entry[0] == '.' or file_entry == 'flash.zip':
 					continue
-					
+
 				if len(file_entry) > 4 and file_entry[-4:] == '.zip':
 					upload_list.append(file_entry[:-4])
-		
+
 		if len(upload_list) > 0:
 			self.session.openWithCallback(self.refresh, OMBManagerInstall, self.mount_point, upload_list)
 		else:
 			self.session.open(
 				MessageBox,
 				_("Please upload an image inside %s") % self.upload_dir,
-				type = MessageBox.TYPE_ERROR
+				type=MessageBox.TYPE_ERROR
 			)
 
 
@@ -445,22 +443,22 @@ class OMBManagerPreferences(Screen, ConfigListScreen):
 		<ePixmap pixmap="skin_default/buttons/red.png" position="330,270" size="140,40" alphatest="on" />
 		<widget name="key_red" position="330,270" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" />
 	</screen>"""
-	
+
 	def __init__(self, session, data_dir):
 		Screen.__init__(self, session)
-		
+
 		self.data_dir = data_dir
 		self.list = []
 		ConfigListScreen.__init__(self, self.list)
 		self["key_red"] = Label(_("Save"))
-		
+
 		self["actions"] = ActionMap(["WizardActions", "ColorActions"],
 		{
 			"red": self.saveConf,
 			"back": self.close
 
 		})
-		
+
 		self.bootmenu_enabled = NoSave(ConfigYesNo(default=True))
 		if os.path.isfile(self.data_dir + '/.bootmenu.lock'):
 			self.bootmenu_enabled.value = False
@@ -468,15 +466,14 @@ class OMBManagerPreferences(Screen, ConfigListScreen):
 
 		self["config"].list = self.list
 		self["config"].l.setList(self.list)
-			
+
 	def saveConf(self):
 		if self.bootmenu_enabled.value == True:
 			if os.path.isfile(self.data_dir + '/.bootmenu.lock'):
 				os.remove(self.data_dir + '/.bootmenu.lock')
 		else:
-			if not os.path.isfile(self.data_dir + '/.bootmenu.lock'):	
+			if not os.path.isfile(self.data_dir + '/.bootmenu.lock'):
 				cmd = "touch " + self.data_dir + '/.bootmenu.lock'
 				os.system(cmd)
-				
-		
+
 		self.close()
