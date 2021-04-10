@@ -17,6 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #############################################################
 
+
 def list_by_list(blist, slist):
     """Sort list of block indexes, by another list.
 
@@ -33,6 +34,7 @@ def list_by_list(blist, slist):
             slist_blocks.append(block)
 
     return slist_blocks
+
 
 def by_image_seq(blocks, image_seq):
     """Sort blocks by provided image_seq number.

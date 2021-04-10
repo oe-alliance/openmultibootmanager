@@ -20,6 +20,7 @@
 from ubi import display
 from ubi.block import sort, get_blocks_in_list
 
+
 class description(object):
     """UBI Volume object
 
@@ -38,6 +39,7 @@ class description(object):
     Volume object is basically a list of block indexes and some metadata
     describing a volume found in a UBI image.
     """
+
     def __init__(self, vol_id, vol_rec, block_list):
         self._vol_id = vol_id
         self._vol_rec = vol_rec
@@ -47,35 +49,28 @@ class description(object):
     def __repr__(self):
         return 'Volume: %s' % (self.name)
 
-
     def _get_name(self):
         return self._name
     name = property(_get_name)
-
 
     def _get_vol_id(self):
         return self._vol_id
     vol_id = property(_get_vol_id)
 
-
     def _get_block_count(self):
         return len(self._block_list)
     block_count = property(_get_block_count)
-
 
     def _get_vol_rec(self):
         return self._vol_rec
     vol_rec = property(_get_vol_rec)
 
-    
     def _get_block_list(self):
         return self._block_list
     block_list = property(_get_block_list)
 
-
     def get_blocks(self, blocks):
         return get_blocks_in_list(blocks, self._block_list)
-
 
     def display(self, tab=''):
         display.volume(self, tab)

@@ -24,6 +24,8 @@ from ubi.headers import *
 
 # build block object out of data
 # takes raw data divided up by ec magic number
+
+
 class description(object):
     """UBI Block description Object
 
@@ -72,7 +74,6 @@ class description(object):
 
         self.is_vtbl = bool(self.vtbl_recs) or False 
         self.is_valid = not self.ec_hdr.errors and not self.vid_hdr.errors
-
 
     def __repr__(self):
         return 'Block: PEB# %s: LEB# %s' % (self.peb_num, self.leb_num)

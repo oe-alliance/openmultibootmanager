@@ -114,6 +114,7 @@ OMB_ECHO_BIN = '/bin/echo'
 OMB_MKNOD_BIN = '/bin/mknod'
 OMB_UNJFFS2_BIN = '/usr/bin/unjffs2'
 
+
 class OMBManagerInstall(Screen):
 	skin = """
 			<screen position="360,150" size="560,400">
@@ -168,7 +169,6 @@ class OMBManagerInstall(Screen):
 		self.timer.start(100)
 		self.error_timer = eTimer()
 		self.error_timer.callback.append(self.showErrorCallback)
-
 
 	def showErrorCallback(self):
 		self.error_timer.stop()

@@ -19,6 +19,7 @@
 
 from ubi.block import sort
 
+
 class ubi_file(object):
     """UBI image file object
 
@@ -64,39 +65,32 @@ class ubi_file(object):
 
         self._fhandle.seek(self._start_offset)
 
-
     def _set_start(self, i):
         self._start_offset = i
+
     def _get_start(self):
         return self._start_offset
     start_offset = property(_get_start, _set_start)
 
-    
     def _get_end(self):
         return self._end_offset
     end_offset = property(_get_end)
-
 
     def _get_block_size(self):
         return self._block_size
     block_size = property(_get_block_size)
 
-        
     def seek(self, offset):
         self._fhandle.seek(offset)
-
 
     def read(self, size):
         return self._fhandle.read(size)
 
-
     def tell(self):
         return self._fhandle.tell()
 
-
     def reset(self):
         self._fhandle.seek(self.start_offset)
-
 
     def reader(self):
         self.reset()
@@ -115,7 +109,6 @@ class ubi_file(object):
                 break
             yield buf
 
-
     def read_block(self, block):
         """Read complete PEB data from file.
         
@@ -124,7 +117,6 @@ class ubi_file(object):
         """
         self.seek(block.file_offset)
         return self._fhandle.read(block.size)
-
 
     def read_block_data(self, block):
         """Read LEB data from file
@@ -147,7 +139,6 @@ class leb_virtual_file():
         self._last_leb = -1
         self._last_buf = ''
 
-
     def read(self, i):
         buf = ''
         leb = int(self.tell() / self._ubi.leb_size)
@@ -163,18 +154,14 @@ class leb_virtual_file():
             self.seek(self.tell() + i)
             return buf[offset:offset + i]
 
-
     def reset(self):
         self.seek(0)
-
 
     def seek(self, offset):
         self._seek = offset
 
-
     def tell(self):
         return self._seek
-
 
     def reader(self):
         last_leb = 0

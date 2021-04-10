@@ -33,6 +33,7 @@ from enigma import eTimer
 
 import os
 
+
 class OMBManagerInit:
 	def __init__(self, session):
 		self.session = session
@@ -133,6 +134,7 @@ class OMBManagerInit:
 			else:
 				self.createDir(response)
 
+
 class OMBManagerKernelModule:
 	def __init__(self, session, kernel_module):
 		self.session = session
@@ -175,6 +177,7 @@ class OMBManagerKernelModule:
 		else:
 			OMBManager(self.session)
 		
+
 def OMBManager(session, **kwargs):
 	found = False
 

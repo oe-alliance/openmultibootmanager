@@ -20,6 +20,7 @@
 from ubifs import extract
 from ubifs.defines import *
 
+
 def index(ubifs, lnum, offset, inodes={}):
     """Walk the index gathering Inode, Dir Entry, and File nodes.
 

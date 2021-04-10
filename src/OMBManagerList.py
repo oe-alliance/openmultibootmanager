@@ -43,6 +43,7 @@ from enigma import eTimer
 
 import os
 
+
 class OMBManagerList(Screen):
 	skin = """
 		<screen position="center,center" size="560,400">
@@ -190,7 +191,6 @@ class OMBManagerList(Screen):
 			"menu": self.showMen,
 		})
 	
-
 	def isCompatible(self, base_path):
 		running_box_type = "none"
 		e2_path = '/usr/lib/enigma2/python'
@@ -260,7 +260,6 @@ class OMBManagerList(Screen):
 		self.images_list = []
 		self.images_entries = []
 		flashimageLabel = 'Flash image'
-
 
 		self["label2"].setText(self.currentImage())
 		
@@ -338,7 +337,6 @@ class OMBManagerList(Screen):
 		name = self["list"].getCurrent()
 		self.session.openWithCallback(self.confirmNextbootCB, MessageBox, _('Set next boot to %s ?') % name, MessageBox.TYPE_YESNO)
 		
-
 	def confirmNextbootCB(self, ret):
 		if ret:
 			image = self.images_entries[self.select]['identifier']
@@ -476,5 +474,4 @@ class OMBManagerPreferences(Screen, ConfigListScreen):
 				cmd = "touch " + self.data_dir + '/.bootmenu.lock'
 				os.system(cmd)
 				
-		
 		self.close()
