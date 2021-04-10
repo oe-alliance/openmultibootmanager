@@ -56,24 +56,24 @@ def get_ubi_params(ubi):
     Returns:
     Dict       -- Dict keyed to volume with Dict of args and flags.
     """
-    ubi_flags = {'min_io_size':'-m',
-                    'max_bud_bytes':'-j',
-                    'leb_size':'-e',
-                    'default_compr':'-x',
-                    'sub_page_size':'-s',
-                    'fanout':'-f',
-                    'key_hash':'-k',
-                    'orph_lebs':'-p',
-                    'log_lebs':'-l',
+    ubi_flags = {'min_io_size': '-m',
+                    'max_bud_bytes': '-j',
+                    'leb_size': '-e',
+                    'default_compr': '-x',
+                    'sub_page_size': '-s',
+                    'fanout': '-f',
+                    'key_hash': '-k',
+                    'orph_lebs': '-p',
+                    'log_lebs': '-l',
                     'max_leb_cnt': '-c',
-                    'peb_size':'-p',
-                    'sub_page_size':'-s',
-                    'vid_hdr_offset':'-O',
-                    'version':'-x',
-                    'image_seq':'-Q',
-                    'alignment':'-a',
-                    'vol_id':'-n',
-                    'name':'-N'}
+                    'peb_size': '-p',
+                    'sub_page_size': '-s',
+                    'vid_hdr_offset': '-O',
+                    'version': '-x',
+                    'image_seq': '-Q',
+                    'alignment': '-a',
+                    'vol_id': '-n',
+                    'name': '-N'}
 
     ubi_params = {}
     ubi_args = {}
@@ -129,6 +129,6 @@ def get_ubi_params(ubi):
             ubi_args[img_seq][volume]['peb_size'] = ubi.peb_size
             ubi_args[img_seq][volume]['vol_id'] = image.volumes[volume].vol_id
 
-            ubi_params[img_seq][volume] = {'flags':ubi_flags, 'args':ubi_args[img_seq][volume], 'ini':ini_params[img_seq][volume]}
+            ubi_params[img_seq][volume] = {'flags': ubi_flags, 'args': ubi_args[img_seq][volume], 'ini': ini_params[img_seq][volume]}
 
     return ubi_params
