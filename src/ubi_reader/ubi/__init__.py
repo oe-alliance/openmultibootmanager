@@ -30,8 +30,8 @@ class ubi():
     """UBI object
 
     Arguments:
-    Obj:image       -- UBI image object 
-    
+    Obj:image       -- UBI image object
+
     Attributes:
     Int:leb_size       -- Size of Logical Erase Blocks.
     Int:peb_size       -- Size of Physical Erase Blocks.
@@ -61,7 +61,7 @@ class ubi():
         self._data_blocks_list = data_list
         self._int_vol_blocks_list = int_vol_list
         self._unknown_blocks_list = unknown_list
-        
+
         arbitrary_block = self.blocks.itervalues().next()
         self._min_io_size = arbitrary_block.ec_hdr.vid_hdr_offset
         self._leb_size = self.file.block_size - arbitrary_block.ec_hdr.data_offset
@@ -91,8 +91,8 @@ class ubi():
         List -- Of volume objects groupled by image.
         """
         return self._images
-    images = property(_get_images)           
- 
+    images = property(_get_images)
+
     def _get_data_blocks_list(self):
         """Get all UBI blocks found in file that are data blocks.
 
@@ -116,7 +116,7 @@ class ubi():
 
         Returns:
         List -- List of block objects.
-        
+
         This does not include layout blocks.
         """
         return self._int_vol_blocks_list
@@ -145,7 +145,7 @@ class ubi():
 
     def _get_first_peb_num(self):
         """First Physical Erase Block with UBI data
-        
+
         Returns:
         Int -- Number of the first PEB.
         """
@@ -191,7 +191,7 @@ class ubi():
 
     def display(self, tab=''):
         """Print information about this object.
-        
+
         Argument:
         Str:tab    -- '\t' for spacing this object.
         """
@@ -203,11 +203,11 @@ def get_peb_size(path):
 
     Arguments:
     Str:path    -- Path to file.
-    
+
     Returns:
     Int         -- PEB size.
-    
-    Searches file for Magic Number, picks most 
+
+    Searches file for Magic Number, picks most
         common length between them.
     """
     file_offset = 0

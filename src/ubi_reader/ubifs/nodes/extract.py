@@ -19,7 +19,7 @@
 
 from ubifs import nodes
 from ubifs.defines import *
-    
+
 
 def common_hdr(ubifs, lnum, offset=0):
     """Get common header at given LEB number + offset.
@@ -67,7 +67,7 @@ def mst_node(ubifs, lnum, offset=0):
     """
     ubifs.file.seek((ubifs.leb_size * lnum) + offset)
     return nodes.mst_node(ubifs.file.read(UBIFS_MST_NODE_SZ))
-    
+
 
 def sb_node(ubifs, offset=0):
     """Get superblock node at given LEB number + offset.
@@ -136,4 +136,3 @@ def idx_node(ubifs, lnum, offset=0):
         idxn.branches.append(nodes.branch(ubifs.file.read(UBIFS_BRANCH_SZ)))
 
     return idxn
-    

@@ -29,7 +29,7 @@ def ec_hdr(ec_hdr, buf):
 
 def vid_hdr(vid_hdr, buf):
     vid_hdr.errors = []
-        
+
     if vid_hdr.hdr_crc != (~crc32(buf[:-4]) & 0xFFFFFFFF):
         vid_hdr.errors.append('crc')
 
@@ -50,5 +50,5 @@ def vtbl_rec(vtbl_rec, buf):
 
     if not likely_vtbl:
         vtbl_rec.errors = ['False']
-        
+
     return vtbl_rec

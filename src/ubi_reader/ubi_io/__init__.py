@@ -29,7 +29,7 @@ class ubi_file(object):
     Int:start_offset -- (optional) Where to start looking in the file for
                         UBI data.
     Int:end_offset   -- (optional) Where to stop looking in the file.
-    
+
     Methods:
     seek            -- Put file head to specified byte offset.
         Int:offset
@@ -56,10 +56,10 @@ class ubi_file(object):
             self._end_offset = end_offset
         else:
             self._fhandle.seek(0, 2)
-            self._end_offset = self.tell() 
+            self._end_offset = self.tell()
 
         self._block_size = block_size
-        
+
         if start_offset >= self._end_offset:
             raise Exception('Start offset larger than file size!')
 
@@ -97,7 +97,7 @@ class ubi_file(object):
         while True:
             cur_loc = self._fhandle.tell()
             if self.end_offset and cur_loc > self.end_offset:
-                break            
+                break
             elif self.end_offset and self.end_offset - cur_loc < self.block_size:
                 chunk_size = self.end_offset - cur_loc
             else:
@@ -111,7 +111,7 @@ class ubi_file(object):
 
     def read_block(self, block):
         """Read complete PEB data from file.
-        
+
         Argument:
         Obj:block -- Block data is desired for.
         """
@@ -120,7 +120,7 @@ class ubi_file(object):
 
     def read_block_data(self, block):
         """Read LEB data from file
-        
+
         Argument:
         Obj:block -- Block data is desired for.
         """

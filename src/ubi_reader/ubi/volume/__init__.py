@@ -108,6 +108,5 @@ def get_volumes(blocks, layout_info):
         if vol_rec.rec_index not in vol_blocks_lists:
             vol_blocks_lists[vol_rec.rec_index] = []
         volumes[vol_name] = description(vol_rec.rec_index, vol_rec, vol_blocks_lists[vol_rec.rec_index])
-            
-    return volumes
 
+    return volumes

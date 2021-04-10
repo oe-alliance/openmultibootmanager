@@ -74,7 +74,7 @@ class vtbl_rec(object):
 def extract_ec_hdr(buf):
     ec_hdr_buf = buf
     ec_hdr_ret = ec_hdr(ec_hdr_buf)
-    
+
     errors.ec_hdr(ec_hdr_ret, ec_hdr_buf)
     return ec_hdr_ret
 
@@ -93,10 +93,10 @@ def extract_vtbl_rec(buf):
     vtbl_recs = []
     vtbl_rec_ret = ''
 
-    for i in range(0, UBI_MAX_VOLUMES):    
+    for i in range(0, UBI_MAX_VOLUMES):
         offset = i * UBI_VTBL_REC_SZ
         vtbl_rec_buf = data_buf[offset:offset + UBI_VTBL_REC_SZ]
-        
+
         if len(vtbl_rec_buf) == UBI_VTBL_REC_SZ:
             vtbl_rec_ret = vtbl_rec(vtbl_rec_buf)
             errors.vtbl_rec(vtbl_rec_ret, vtbl_rec_buf)

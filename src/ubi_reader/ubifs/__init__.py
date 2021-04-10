@@ -29,8 +29,8 @@ class ubifs():
     """UBIFS object
 
     Arguments:
-    Str:path           -- File path to UBIFS image. 
-    
+    Str:path           -- File path to UBIFS image.
+
     Attributes:
     Int:leb_size       -- Size of Logical Erase Blocks.
     Int:min_io         -- Size of min I/O from vid_hdr_offset.
@@ -107,10 +107,10 @@ def get_leb_size(path):
 
     Arguments:
     Str:path    -- Path to file.
-    
+
     Returns:
     Int         -- LEB size.
-    
+
     Searches file superblock and retrieves leb size.
     """
 
