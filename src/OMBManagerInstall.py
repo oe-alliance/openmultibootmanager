@@ -452,7 +452,7 @@ class OMBManagerInstall(Screen):
 		while nfidata.tell() < total_size:
 			(size, ) = struct.unpack('!L', nfidata.read(4))
 			print 'Processing partition # %d size %d Bytes' % (part, size)
-			output_names = { 2: 'kernel.bin', 3: 'rootfs.bin' }
+			output_names = {2: 'kernel.bin', 3: 'rootfs.bin'}
 			if part not in output_names:
 				nfidata.seek(size, 1)
 				print 'Skipping %d data...' % size

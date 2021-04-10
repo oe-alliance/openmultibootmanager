@@ -216,7 +216,7 @@ class OMBManagerList(Screen):
 					running_box_type = running_box_type[:9]
 					box_type = box_type[:9]
 
-			print "DEBUG",base_path, running_box_type , box_type
+			print "DEBUG",base_path, running_box_type, box_type
 			return (running_box_type == box_type)
 
 		try:
