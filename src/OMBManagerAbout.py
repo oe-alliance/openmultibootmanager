@@ -30,6 +30,7 @@ from Components.Label import Label
 from .OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR, OMB_TMP_DIR, OMB_MANAGER_VERION
 from .OMBManagerLocale import _
 
+
 class OMBManagerAbout(Screen):
 	skin = """
 			<screen position="center,center" size="560,400">

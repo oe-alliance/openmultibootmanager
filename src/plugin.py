@@ -26,6 +26,7 @@ from Plugins.Plugin import PluginDescriptor
 from .OMBManager import OMBManager
 from .OMBManagerLocale import _
 
+
 def Plugins(**kwargs):
 	return [
 		PluginDescriptor(

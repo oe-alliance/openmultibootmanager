@@ -37,6 +37,7 @@ def list_by_list(blist, slist):
 
     return slist_blocks
 
+
 def by_image_seq(blocks, image_seq):
     """Sort blocks by provided image_seq number.
 

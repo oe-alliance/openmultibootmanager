@@ -21,6 +21,7 @@ import struct
 from ubifs.defines import *
 from ubifs.misc import parse_key
 
+
 class common_hdr(object):
     def __init__(self, buf):
         fields = dict(zip(UBIFS_COMMON_HDR_FIELDS, struct.unpack(UBIFS_COMMON_HDR_FORMAT, buf)))
@@ -112,6 +113,7 @@ class idx_node(object):
         for key in fields:
             setattr(self, key, fields[key])
         setattr(self, 'branches', [])
+
     def __repr__(self):
         return 'UBIFS Index Node'
 

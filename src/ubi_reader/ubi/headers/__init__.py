@@ -21,6 +21,7 @@ import struct
 from ubi.defines import *
 from ubi.headers import errors
 
+
 class ec_hdr(object):
     def __init__(self, buf):
         fields = dict(zip(EC_HDR_FIELDS, struct.unpack(EC_HDR_FORMAT, buf)))

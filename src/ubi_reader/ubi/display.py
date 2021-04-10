@@ -20,6 +20,7 @@
 from __future__ import print_function
 from ubi.defines import PRINT_COMPAT_LIST, PRINT_VOL_TYPE_LIST, UBI_VTBL_AUTORESIZE_FLG
 
+
 def ubi(ubi, tab=''):
     print('%sUBI File' % (tab)) 
     print('%s---------------------' % (tab))

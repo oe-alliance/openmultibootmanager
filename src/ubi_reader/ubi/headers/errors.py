@@ -19,11 +19,13 @@
 from zlib import crc32
 from ubi.defines import *
 
+
 def ec_hdr(ec_hdr, buf):
     if ec_hdr.hdr_crc != (~crc32(buf[:-4]) & 0xFFFFFFFF):
         ec_hdr.errors.append('crc')
 
     return ec_hdr
+
 
 def vid_hdr(vid_hdr, buf):
     vid_hdr.errors = []
@@ -32,6 +34,7 @@ def vid_hdr(vid_hdr, buf):
         vid_hdr.errors.append('crc')
 
     return vid_hdr
+
 
 def vtbl_rec(vtbl_rec, buf):
     likely_vtbl = True

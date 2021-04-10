@@ -48,6 +48,7 @@ class ubi():
     Dict:blocks               -- Dict keyed by PEB number of all blocks.
     * More research into these is needed.
     """
+
     def __init__(self, ubi_file):
         self._file = ubi_file
         self._first_peb_num = 0
@@ -86,7 +87,6 @@ class ubi():
         return self._file
     file = property(_get_file)
 
-
     def _get_images(self):
         """Get UBI images.
 
@@ -96,7 +96,6 @@ class ubi():
         return self._images
     images = property(_get_images)           
  
-
     def _get_data_blocks_list(self):
         """Get all UBI blocks found in file that are data blocks.
 
@@ -106,7 +105,6 @@ class ubi():
         return self._data_blocks_list
     data_blocks_list = property(_get_data_blocks_list)
 
-
     def _get_layout_blocks_list(self):
         """Get all UBI blocks found in file that are layout volume blocks.
 
@@ -115,7 +113,6 @@ class ubi():
         """
         return self._layout_blocks_list
     layout_blocks_list = property(_get_layout_blocks_list)
-
 
     def _get_int_vol_blocks_list(self):
         """Get all UBI blocks found in file that are internal volume blocks.
@@ -128,7 +125,6 @@ class ubi():
         return self._int_vol_blocks_list
     int_vol_blocks_list = property(_get_int_vol_blocks_list)
 
-
     def _get_unknown_blocks_list(self):
         """Get all UBI blocks found in file of unknown type..
 
@@ -137,7 +133,6 @@ class ubi():
         """
         return self._unknown_blocks_list
     unknown_blocks_list = property(_get_unknown_blocks_list)
-
 
     def _get_block_count(self):
         """Total amount of UBI blocks in file.
@@ -148,9 +143,9 @@ class ubi():
         return self._block_count
     block_count = property(_get_block_count)
 
-
     def _set_first_peb_num(self, i):
         self._first_peb_num = i
+
     def _get_first_peb_num(self):
         """First Physical Erase Block with UBI data
         
@@ -159,7 +154,6 @@ class ubi():
         """
         return self._first_peb_num
     first_peb_num = property(_get_first_peb_num, _set_first_peb_num)
-
 
     def _get_leb_size(self):
         """LEB size of UBI blocks in file.
@@ -170,7 +164,6 @@ class ubi():
         return self._leb_size
     leb_size = property(_get_leb_size)
 
-
     def _get_peb_size(self):
         """PEB size of UBI blocks in file.
 
@@ -180,7 +173,6 @@ class ubi():
         return self.file.block_size
     peb_size = property(_get_peb_size)
 
-
     def _get_min_io_size(self):
         """Min I/O Size
 
@@ -189,7 +181,6 @@ class ubi():
         """
         return self._min_io_size
     min_io_size = property(_get_min_io_size)
-
 
     def _get_blocks(self):
         """Main Dict of UBI Blocks
@@ -201,7 +192,6 @@ class ubi():
         return self._blocks
     blocks = property(_get_blocks)
 
-    
     def display(self, tab=''):
         """Print information about this object.
         
