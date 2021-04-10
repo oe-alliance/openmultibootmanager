@@ -64,13 +64,13 @@ if BRANDING:
 	OMB_GETOEVERSION = getOEVersion()
 else:
 	OMB_GETIMAGEFILESYSTEM = "tar.bz2"
-	f=open("/proc/mounts","r")
+	f = open("/proc/mounts", "r")
 	for line in f:
-		if line.find("rootfs")>-1:
-			if line.find("ubi")>-1:
+		if line.find("rootfs") > -1:
+			if line.find("ubi") > -1:
 				OMB_GETIMAGEFILESYSTEM = "ubi"
 				break
-			if line.find("jffs2")>-1:
+			if line.find("jffs2") > -1:
 				OMB_GETIMAGEFILESYSTEM = "jffs2"
 				break
 
@@ -96,7 +96,7 @@ else:
 # getImageDistro=openmips<
 # getImageFolder=gigablue/quadplus<
 # getImageFileSystem=ubi<
-# 
+#
 
 OMB_DD_BIN = '/bin/dd'
 OMB_CP_BIN = '/bin/cp'
@@ -114,6 +114,7 @@ OMB_ECHO_BIN = '/bin/echo'
 OMB_MKNOD_BIN = '/bin/mknod'
 OMB_UNJFFS2_BIN = '/usr/bin/unjffs2'
 
+
 class OMBManagerInstall(Screen):
 	skin = """
 			<screen position="360,150" size="560,400">
@@ -129,14 +130,14 @@ class OMBManagerInstall(Screen):
 						size="540,330"
 						scrollbarMode="showOnDemand"
 						transparent="1" >
-						
+
 					<convert type="StringList" />
 				</widget>
 			</screen>"""
-			
+
 	def __init__(self, session, mount_point, upload_list):
 		Screen.__init__(self, session)
-		
+
 		self.setTitle(_('openMultiboot Install'))
 
 		self.session = session
@@ -162,17 +163,16 @@ class OMBManagerInstall(Screen):
 		if not self.selected_image:
 			return
 
-		self.messagebox = self.session.open(MessageBox, _('Please wait while installation is in progress.\nThis operation may take a while.'), MessageBox.TYPE_INFO, enable_input = False)
+		self.messagebox = self.session.open(MessageBox, _('Please wait while installation is in progress.\nThis operation may take a while.'), MessageBox.TYPE_INFO, enable_input=False)
 		self.timer = eTimer()
 		self.timer.callback.append(self.installPrepare)
 		self.timer.start(100)
 		self.error_timer = eTimer()
 		self.error_timer.callback.append(self.showErrorCallback)
 
-
 	def showErrorCallback(self):
 		self.error_timer.stop()
-		self.session.open(MessageBox, self.error_message, type = MessageBox.TYPE_ERROR)
+		self.session.open(MessageBox, self.error_message, type=MessageBox.TYPE_ERROR)
 		self.close()
 
 	def showError(self, error_message):
@@ -275,7 +275,7 @@ class OMBManagerInstall(Screen):
 		rootfs_path = base_path + '/' + OMB_GETMACHINEROOTFILE
 		kernel_path = base_path + '/' + OMB_GETMACHINEKERNELFILE
 
-		if os.system(OMB_TAR_BIN + ' jxf %s -C %s' % (rootfs_path,dst_path)) != 0:
+		if os.system(OMB_TAR_BIN + ' jxf %s -C %s' % (rootfs_path, dst_path)) != 0:
 			self.showError(_("Error unpacking rootfs"))
 			return False
 
@@ -359,7 +359,7 @@ class OMBManagerInstall(Screen):
 				ubifile = "/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.py"
 			else:
 				ubifile = "/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.pyo"
-			cmd= "chmod 755 " + ubifile
+			cmd = "chmod 755 " + ubifile
 			rc = os.system(cmd)
 			cmd = "python " + ubifile + " " + rootfs_path + " -o " + ubi_path
 			rc = os.system(cmd)
@@ -417,7 +417,7 @@ class OMBManagerInstall(Screen):
 			nfidata.close()
 			return False
 		else:
-			machine_type = header[4:4+header[4:].find('\0')]
+			machine_type = header[4:4 + header[4:].find('\0')]
 			if header[:4] == 'NFI3':
 				machine_type = 'dm7020hdv2'
 
@@ -452,7 +452,7 @@ class OMBManagerInstall(Screen):
 		while nfidata.tell() < total_size:
 			(size, ) = struct.unpack('!L', nfidata.read(4))
 			print 'Processing partition # %d size %d Bytes' % (part, size)
-			output_names = { 2: 'kernel.bin', 3: 'rootfs.bin' }
+			output_names = {2: 'kernel.bin', 3: 'rootfs.bin'}
 			if part not in output_names:
 				nfidata.seek(size, 1)
 				print 'Skipping %d data...' % size

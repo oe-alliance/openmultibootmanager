@@ -21,9 +21,10 @@ import struct
 from ubi.defines import *
 from ubi.headers import errors
 
+
 class ec_hdr(object):
     def __init__(self, buf):
-        fields = dict(zip(EC_HDR_FIELDS, struct.unpack(EC_HDR_FORMAT,buf)))
+        fields = dict(zip(EC_HDR_FIELDS, struct.unpack(EC_HDR_FORMAT, buf)))
         for key in fields:
             setattr(self, key, fields[key])
         setattr(self, 'errors', [])
@@ -39,7 +40,7 @@ class ec_hdr(object):
 
 class vid_hdr(object):
     def __init__(self, buf):
-        fields = dict(zip(VID_HDR_FIELDS, struct.unpack(VID_HDR_FORMAT,buf)))
+        fields = dict(zip(VID_HDR_FIELDS, struct.unpack(VID_HDR_FORMAT, buf)))
         for key in fields:
             setattr(self, key, fields[key])
         setattr(self, 'errors', [])
@@ -55,7 +56,7 @@ class vid_hdr(object):
 
 class vtbl_rec(object):
     def __init__(self, buf):
-        fields = dict(zip(VTBL_REC_FIELDS, struct.unpack(VTBL_REC_FORMAT,buf)))
+        fields = dict(zip(VTBL_REC_FIELDS, struct.unpack(VTBL_REC_FORMAT, buf)))
         for key in fields:
             setattr(self, key, fields[key])
         setattr(self, 'errors', [])
@@ -73,7 +74,7 @@ class vtbl_rec(object):
 def extract_ec_hdr(buf):
     ec_hdr_buf = buf
     ec_hdr_ret = ec_hdr(ec_hdr_buf)
-    
+
     errors.ec_hdr(ec_hdr_ret, ec_hdr_buf)
     return ec_hdr_ret
 
@@ -92,10 +93,10 @@ def extract_vtbl_rec(buf):
     vtbl_recs = []
     vtbl_rec_ret = ''
 
-    for i in range(0, UBI_MAX_VOLUMES):    
-        offset = i*UBI_VTBL_REC_SZ
-        vtbl_rec_buf = data_buf[offset:offset+UBI_VTBL_REC_SZ]
-        
+    for i in range(0, UBI_MAX_VOLUMES):
+        offset = i * UBI_VTBL_REC_SZ
+        vtbl_rec_buf = data_buf[offset:offset + UBI_VTBL_REC_SZ]
+
         if len(vtbl_rec_buf) == UBI_VTBL_REC_SZ:
             vtbl_rec_ret = vtbl_rec(vtbl_rec_buf)
             errors.vtbl_rec(vtbl_rec_ret, vtbl_rec_buf)

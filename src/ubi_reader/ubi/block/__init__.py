@@ -24,6 +24,8 @@ from ubi.headers import *
 
 # build block object out of data
 # takes raw data divided up by ec magic number
+
+
 class description(object):
     """UBI Block description Object
 
@@ -47,7 +49,7 @@ class description(object):
     """
 
     def __init__(self, block_buf):
- 
+
         self.file_offset = -1
         self.peb_num = -1
         self.leb_num = -1
@@ -61,7 +63,7 @@ class description(object):
         self.ec_hdr = extract_ec_hdr(block_buf[0:UBI_EC_HDR_SZ])
 
         if not self.ec_hdr.errors:
-            self.vid_hdr = extract_vid_hdr(block_buf[self.ec_hdr.vid_hdr_offset:self.ec_hdr.vid_hdr_offset+UBI_VID_HDR_SZ])
+            self.vid_hdr = extract_vid_hdr(block_buf[self.ec_hdr.vid_hdr_offset:self.ec_hdr.vid_hdr_offset + UBI_VID_HDR_SZ])
 
             self.is_internal_vol = self.vid_hdr.vol_id >= UBI_INTERNAL_VOL_START
 
@@ -70,9 +72,8 @@ class description(object):
 
             self.leb_num = self.vid_hdr.lnum
 
-        self.is_vtbl = bool(self.vtbl_recs) or False 
+        self.is_vtbl = bool(self.vtbl_recs) or False
         self.is_valid = not self.ec_hdr.errors and not self.vid_hdr.errors
-
 
     def __repr__(self):
         return 'Block: PEB# %s: LEB# %s' % (self.peb_num, self.leb_num)
@@ -93,7 +94,7 @@ def get_blocks_in_list(blocks, idx_list):
                      from provided list of indexes in
                      order of idx_list.
     """
-    return {i:blocks[i] for i in idx_list}
+    return {i: blocks[i] for i in idx_list}
 
 
 def extract_blocks(ubi):
@@ -101,7 +102,7 @@ def extract_blocks(ubi):
 
     Arguments:.
     Obj:ubi    -- UBI object.
-    
+
     Returns:
     Dict -- Of block objects keyed by PEB number.
     """
@@ -120,12 +121,10 @@ def extract_blocks(ubi):
             blk.peb_num = ubi.first_peb_num + peb_count
             blk.size = ubi.file.block_size
             blocks[blk.peb_num] = blk
-            peb_count += 1            
+            peb_count += 1
         else:
             cur_offset += ubi.file.block_size
-            ubi.first_peb_num = cur_offset/ubi.file.block_size
+            ubi.first_peb_num = cur_offset / ubi.file.block_size
             ubi.file.start_offset = cur_offset
 
     return blocks
-
-

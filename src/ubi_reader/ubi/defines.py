@@ -59,7 +59,7 @@ EC_HDR_FIELDS = ['magic',           # Magic string UBI#
 UBI_EC_HDR_SZ = struct.calcsize(EC_HDR_FORMAT) # 64
 
 # Volume ID header.
-UBI_VID_HDR_MAGIC ='\x55\x42\x49\x21' # UBI!
+UBI_VID_HDR_MAGIC = '\x55\x42\x49\x21' # UBI!
 VID_HDR_FORMAT = '>4sBBBBII4sIIII4sQ12sI'
 VID_HDR_FIELDS = ['magic',      # Magic string UBI!
                   'version',    # UBI version meant to accept this image.
@@ -100,16 +100,16 @@ UBI_VTBL_REC_SZ = struct.calcsize(VTBL_REC_FORMAT) # 172
 
 # Volume Identifier Header
 UBI_VID_DYNAMIC = 1 # Volume can be resized.
-UBI_VID_STATIC  = 2 # Volume can not be resized.
+UBI_VID_STATIC = 2 # Volume can not be resized.
 PRINT_VOL_TYPE_LIST = [0, 'dynamic', 'static']
 
 # Volume table record
 UBI_VTBL_AUTORESIZE_FLG = 1
 
-UBI_COMPAT_DELETE   = 1 # Delete this internal volume before anything written.
-UBI_COMPAT_RO       = 2 # Attach this device in read-only mode.
+UBI_COMPAT_DELETE = 1 # Delete this internal volume before anything written.
+UBI_COMPAT_RO = 2 # Attach this device in read-only mode.
 UBI_COMPAT_PRESERVE = 4 # Preserve this internal volume - touch nothing.
-UBI_COMPAT_REJECT   = 5 # Reject this UBI image
+UBI_COMPAT_REJECT = 5 # Reject this UBI image
 PRINT_COMPAT_LIST = [0, 'Delete', 'Read Only', 0, 'Preserve', 'Reject']
 
 # File chunk size for reads.

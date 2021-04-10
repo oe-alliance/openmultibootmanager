@@ -21,9 +21,10 @@ import struct
 from ubifs.defines import *
 from ubifs.misc import parse_key
 
+
 class common_hdr(object):
     def __init__(self, buf):
-        fields = dict(zip(UBIFS_COMMON_HDR_FIELDS, struct.unpack(UBIFS_COMMON_HDR_FORMAT,buf)))
+        fields = dict(zip(UBIFS_COMMON_HDR_FIELDS, struct.unpack(UBIFS_COMMON_HDR_FORMAT, buf)))
         for key in fields:
             setattr(self, key, fields[key])
         setattr(self, 'errors', [])
@@ -39,7 +40,7 @@ class common_hdr(object):
 
 class sb_node(object):
     def __init__(self, buf):
-        fields = dict(zip(UBIFS_SB_NODE_FIELDS, struct.unpack(UBIFS_SB_NODE_FORMAT,buf)))
+        fields = dict(zip(UBIFS_SB_NODE_FIELDS, struct.unpack(UBIFS_SB_NODE_FORMAT, buf)))
         for key in fields:
             setattr(self, key, fields[key])
 
@@ -54,7 +55,7 @@ class sb_node(object):
 
 class mst_node(object):
     def __init__(self, buf):
-        fields = dict(zip(UBIFS_MST_NODE_FIELDS, struct.unpack(UBIFS_MST_NODE_FORMAT,buf)))
+        fields = dict(zip(UBIFS_MST_NODE_FIELDS, struct.unpack(UBIFS_MST_NODE_FORMAT, buf)))
         for key in fields:
             setattr(self, key, fields[key])
 
@@ -69,7 +70,7 @@ class mst_node(object):
 
 class dent_node(object):
     def __init__(self, buf):
-        fields = dict(zip(UBIFS_DENT_NODE_FIELDS, struct.unpack(UBIFS_DENT_NODE_FORMAT,buf)))
+        fields = dict(zip(UBIFS_DENT_NODE_FIELDS, struct.unpack(UBIFS_DENT_NODE_FORMAT, buf)))
         for key in fields:
             if key == 'key':
                 setattr(self, key, parse_key(fields[key]))
@@ -88,7 +89,7 @@ class dent_node(object):
 
 class data_node(object):
     def __init__(self, buf):
-        fields = dict(zip(UBIFS_DATA_NODE_FIELDS, struct.unpack(UBIFS_DATA_NODE_FORMAT,buf)))
+        fields = dict(zip(UBIFS_DATA_NODE_FIELDS, struct.unpack(UBIFS_DATA_NODE_FORMAT, buf)))
         for key in fields:
             if key == 'key':
                 setattr(self, key, parse_key(fields[key]))
@@ -108,10 +109,11 @@ class data_node(object):
 
 class idx_node(object):
     def __init__(self, buf):
-        fields = dict(zip(UBIFS_IDX_NODE_FIELDS, struct.unpack(UBIFS_IDX_NODE_FORMAT,buf)))
+        fields = dict(zip(UBIFS_IDX_NODE_FIELDS, struct.unpack(UBIFS_IDX_NODE_FORMAT, buf)))
         for key in fields:
             setattr(self, key, fields[key])
         setattr(self, 'branches', [])
+
     def __repr__(self):
         return 'UBIFS Index Node'
 
@@ -123,7 +125,7 @@ class idx_node(object):
 
 class ino_node(object):
     def __init__(self, buf):
-        fields = dict(zip(UBIFS_INO_NODE_FIELDS, struct.unpack(UBIFS_INO_NODE_FORMAT,buf)))
+        fields = dict(zip(UBIFS_INO_NODE_FIELDS, struct.unpack(UBIFS_INO_NODE_FORMAT, buf)))
         for key in fields:
             if key == 'key':
                 setattr(self, key, parse_key(fields[key]))
@@ -142,7 +144,7 @@ class ino_node(object):
 
 class branch(object):
     def __init__(self, buf):
-        fields = dict(zip(UBIFS_BRANCH_FIELDS, struct.unpack(UBIFS_BRANCH_FORMAT,buf)))
+        fields = dict(zip(UBIFS_BRANCH_FIELDS, struct.unpack(UBIFS_BRANCH_FORMAT, buf)))
         for key in fields:
             setattr(self, key, fields[key])
 
