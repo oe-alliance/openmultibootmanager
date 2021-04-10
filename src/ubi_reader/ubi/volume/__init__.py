@@ -86,7 +86,7 @@ class description(object):
             if block == 'x':
             #while 0 != (ubi.blocks[block].leb_num - last_leb):
                 last_leb += 1
-                yield '\xff'*ubi.leb_size
+                yield '\xff' * ubi.leb_size
             else:
                 last_leb += 1
                 yield ubi.file.read_block_data(ubi.blocks[block])

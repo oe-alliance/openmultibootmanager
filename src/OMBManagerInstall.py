@@ -64,13 +64,13 @@ if BRANDING:
 	OMB_GETOEVERSION = getOEVersion()
 else:
 	OMB_GETIMAGEFILESYSTEM = "tar.bz2"
-	f=open("/proc/mounts","r")
+	f = open("/proc/mounts","r")
 	for line in f:
-		if line.find("rootfs")>-1:
-			if line.find("ubi")>-1:
+		if line.find("rootfs") > -1:
+			if line.find("ubi") > -1:
 				OMB_GETIMAGEFILESYSTEM = "ubi"
 				break
-			if line.find("jffs2")>-1:
+			if line.find("jffs2") > -1:
 				OMB_GETIMAGEFILESYSTEM = "jffs2"
 				break
 
@@ -359,7 +359,7 @@ class OMBManagerInstall(Screen):
 				ubifile = "/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.py"
 			else:
 				ubifile = "/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.pyo"
-			cmd= "chmod 755 " + ubifile
+			cmd = "chmod 755 " + ubifile
 			rc = os.system(cmd)
 			cmd = "python " + ubifile + " " + rootfs_path + " -o " + ubi_path
 			rc = os.system(cmd)
@@ -417,7 +417,7 @@ class OMBManagerInstall(Screen):
 			nfidata.close()
 			return False
 		else:
-			machine_type = header[4:4+header[4:].find('\0')]
+			machine_type = header[4:4 + header[4:].find('\0')]
 			if header[:4] == 'NFI3':
 				machine_type = 'dm7020hdv2'
 

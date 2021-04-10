@@ -61,7 +61,7 @@ class OMBManagerInit:
 			if len(parts) == 2:
 				if parts[0] == '/dev/' + device:
 					return parts[1]
-		return  "none"
+		return "none"
 		
 	def createDir(self, partition):
 		data_dir = partition.mountpoint + '/' + OMB_DATA_DIR

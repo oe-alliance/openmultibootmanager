@@ -60,7 +60,7 @@ def volume(volume, tab=''):
 def block(block, tab='\t'):
     print '%s%s' % (tab, block)
     print '%s---------------------' % (tab)
-    print '\t%sFile Offset: %s' %  (tab, block.file_offset)
+    print '\t%sFile Offset: %s' % (tab, block.file_offset)
     print '\t%sPEB #: %s' % (tab, block.peb_num)
     print '\t%sLEB #: %s' % (tab, block.leb_num)
     print '\t%sBlock Size: %s' % (tab, block.size)
@@ -110,7 +110,7 @@ def vid_hdr(vid_hdr, tab=''):
                 value = -1
 
         elif key == 'vol_type':
-            if value  < len(PRINT_VOL_TYPE_LIST):
+            if value < len(PRINT_VOL_TYPE_LIST):
                 value = PRINT_VOL_TYPE_LIST[value]
             else:
                 value = -1

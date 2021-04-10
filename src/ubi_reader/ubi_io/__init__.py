@@ -155,13 +155,13 @@ class leb_virtual_file():
 
         if leb == self._last_leb:
             self.seek(self.tell() + i)
-            return self._last_buf[offset:offset+i]
+            return self._last_buf[offset:offset + i]
         else:
             buf = self._ubi.file.read_block_data(self._ubi.blocks[self._blocks[leb]])
             self._last_buf = buf
             self._last_leb = leb
             self.seek(self.tell() + i)
-            return buf[offset:offset+i]
+            return buf[offset:offset + i]
 
 
     def reset(self):
@@ -181,7 +181,7 @@ class leb_virtual_file():
         for block in self._blocks:
             while 0 != (self._ubi.blocks[block].leb_num - last_leb):
                 last_leb += 1
-                yield '\xff'*self._ubi.leb_size
+                yield '\xff' * self._ubi.leb_size
 
             last_leb += 1
             yield self._ubi.file.read_block_data(self._ubi.blocks[block])

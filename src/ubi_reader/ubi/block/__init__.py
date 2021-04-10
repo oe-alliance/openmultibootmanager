@@ -61,7 +61,7 @@ class description(object):
         self.ec_hdr = extract_ec_hdr(block_buf[0:UBI_EC_HDR_SZ])
 
         if not self.ec_hdr.errors:
-            self.vid_hdr = extract_vid_hdr(block_buf[self.ec_hdr.vid_hdr_offset:self.ec_hdr.vid_hdr_offset+UBI_VID_HDR_SZ])
+            self.vid_hdr = extract_vid_hdr(block_buf[self.ec_hdr.vid_hdr_offset:self.ec_hdr.vid_hdr_offset + UBI_VID_HDR_SZ])
 
             self.is_internal_vol = self.vid_hdr.vol_id >= UBI_INTERNAL_VOL_START
 
@@ -123,7 +123,7 @@ def extract_blocks(ubi):
             peb_count += 1            
         else:
             cur_offset += ubi.file.block_size
-            ubi.first_peb_num = cur_offset/ubi.file.block_size
+            ubi.first_peb_num = cur_offset / ubi.file.block_size
             ubi.file.start_offset = cur_offset
 
     return blocks
