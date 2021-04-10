@@ -113,7 +113,7 @@ def get_ubi_params(ubi):
 
                 if key in ubi_flags:
                     ubi_args[img_seq][volume][key] = value
-            
+
             for key, value in image.volumes[volume].vol_rec:
                 if key == 'name':
                     value = value.rstrip('\x00')

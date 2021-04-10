@@ -39,10 +39,10 @@ if __name__ == '__main__':
 
     parser.add_argument('-q', '--quiet', action='store_true', dest='quiet',
                       help='Suppress warnings and non-fatal errors. (default: False)')
-    
+
     parser.add_argument('-p', '--peb-size', type=int, dest='block_size',
                         help='Specify PEB size.')
-    
+
     parser.add_argument('-o', '--output-dir', dest='output_path',
                         help='Specify output directory path.')
 
@@ -51,7 +51,7 @@ if __name__ == '__main__':
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit()
-    
+
     args = parser.parse_args()
 
     if args.filepath:

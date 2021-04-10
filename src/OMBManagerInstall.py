@@ -98,7 +98,7 @@ else:
 # getImageDistro=openmips<
 # getImageFolder=gigablue/quadplus<
 # getImageFileSystem=ubi<
-# 
+#
 
 OMB_DD_BIN = '/bin/dd'
 OMB_CP_BIN = '/bin/cp'
@@ -132,14 +132,14 @@ class OMBManagerInstall(Screen):
 						size="540,330"
 						scrollbarMode="showOnDemand"
 						transparent="1" >
-						
+
 					<convert type="StringList" />
 				</widget>
 			</screen>"""
-			
+
 	def __init__(self, session, mount_point, upload_list):
 		Screen.__init__(self, session)
-		
+
 		self.setTitle(_('openMultiboot Install'))
 
 		self.session = session

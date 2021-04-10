@@ -22,7 +22,7 @@ from ubi.defines import PRINT_COMPAT_LIST, PRINT_VOL_TYPE_LIST, UBI_VTBL_AUTORES
 
 
 def ubi(ubi, tab=''):
-    print('%sUBI File' % (tab)) 
+    print('%sUBI File' % (tab))
     print('%s---------------------' % (tab))
     print('\t%sMin I/O: %s' % (tab, ubi.min_io_size))
     print('\t%sLEB Size: %s' % (tab, ubi.leb_size))
@@ -52,7 +52,7 @@ def volume(volume, tab=''):
     print('\t%sBlock Count: %s' % (tab, volume.block_count))
 
     print('\n')
-    print('\t%sVolume Record' % (tab)) 
+    print('\t%sVolume Record' % (tab))
     print('\t%s---------------------' % (tab))
     vol_rec(volume.vol_rec, '\t\t%s' % tab)
 
@@ -77,14 +77,14 @@ def block(block, tab='\t'):
         ec_hdr(block.ec_hdr, '\t\t%s' % tab)
 
     if block.vid_hdr and not block.vid_hdr.errors:
-        print('\n')        
+        print('\n')
         print('\t%sVID Header Header' % (tab))
         print('\t%s---------------------' % (tab))
         vid_hdr(block.vid_hdr, '\t\t%s' % tab)
 
     if block.vtbl_recs:
         print('\n')
-        print('\t%sVolume Records' % (tab)) 
+        print('\t%sVolume Records' % (tab))
         print('\t%s---------------------' % (tab))
         for vol in block.vtbl_recs:
             vol_rec(vol, '\t\t%s' % tab)
