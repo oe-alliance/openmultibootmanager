@@ -52,7 +52,7 @@ class OMBManagerInit:
 			self.session.open(
 				MessageBox,
 				_("No suitable devices found"),
-				type = MessageBox.TYPE_ERROR
+				type=MessageBox.TYPE_ERROR
 			)
 
 	def getFSType(self, device):
@@ -75,7 +75,7 @@ class OMBManagerInit:
 			self.session.open(
 				MessageBox,
 				_("Cannot create data folder"),
-				type = MessageBox.TYPE_ERROR
+				type=MessageBox.TYPE_ERROR
 			)
 			return
 # by Meo. We are installing in flash. We can link init to open_multiboot
@@ -88,7 +88,7 @@ class OMBManagerInit:
 	
 	def formatDevice(self, confirmed):
 		if confirmed:
-			self.messagebox = self.session.open(MessageBox, _('Please wait while format is in progress.'), MessageBox.TYPE_INFO, enable_input = False)
+			self.messagebox = self.session.open(MessageBox, _('Please wait while format is in progress.'), MessageBox.TYPE_INFO, enable_input=False)
 			self.timer = eTimer()
 			self.timer.callback.append(self.doFormatDevice)
 			self.timer.start(100)
@@ -116,7 +116,7 @@ class OMBManagerInit:
 			self.session.open(
 				MessageBox,
 				self.error_message,
-				type = MessageBox.TYPE_ERROR
+				type=MessageBox.TYPE_ERROR
 			)
 		else:
 			self.createDir(self.response)
@@ -130,7 +130,7 @@ class OMBManagerInit:
 					self.formatDevice,
 					MessageBox,
 					_("Filesystem not supported\nDo you want format your drive?"),
-					type = MessageBox.TYPE_YESNO
+					type=MessageBox.TYPE_YESNO
 				)
 			else:
 				self.createDir(response)
@@ -150,7 +150,7 @@ class OMBManagerKernelModule:
 
 	def installCallback(self, confirmed):
 		if confirmed:
-			self.messagebox = self.session.open(MessageBox, _('Please wait while installation is in progress.'), MessageBox.TYPE_INFO, enable_input = False)
+			self.messagebox = self.session.open(MessageBox, _('Please wait while installation is in progress.'), MessageBox.TYPE_INFO, enable_input=False)
 			self.timer = eTimer()
 			self.timer.callback.append(self.installModule)
 			self.timer.start(100)
@@ -172,7 +172,7 @@ class OMBManagerKernelModule:
 			self.session.open(
 				MessageBox,
 				self.error_message,
-				type = MessageBox.TYPE_ERROR
+				type=MessageBox.TYPE_ERROR
 			)
 		else:
 			OMBManager(self.session)

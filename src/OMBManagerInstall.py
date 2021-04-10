@@ -164,7 +164,7 @@ class OMBManagerInstall(Screen):
 		if not self.selected_image:
 			return
 
-		self.messagebox = self.session.open(MessageBox, _('Please wait while installation is in progress.\nThis operation may take a while.'), MessageBox.TYPE_INFO, enable_input = False)
+		self.messagebox = self.session.open(MessageBox, _('Please wait while installation is in progress.\nThis operation may take a while.'), MessageBox.TYPE_INFO, enable_input=False)
 		self.timer = eTimer()
 		self.timer.callback.append(self.installPrepare)
 		self.timer.start(100)
@@ -174,7 +174,7 @@ class OMBManagerInstall(Screen):
 
 	def showErrorCallback(self):
 		self.error_timer.stop()
-		self.session.open(MessageBox, self.error_message, type = MessageBox.TYPE_ERROR)
+		self.session.open(MessageBox, self.error_message, type=MessageBox.TYPE_ERROR)
 		self.close()
 
 	def showError(self, error_message):
