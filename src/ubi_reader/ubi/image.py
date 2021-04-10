@@ -35,7 +35,7 @@ class description(object):
 
 
     def get_blocks(self, blocks):
-        return get_blocks_in_list(blocks, range(self._start_peb, self._end_peb+1))
+        return get_blocks_in_list(blocks, range(self._start_peb, self._end_peb + 1))
 
 
     def _get_peb_range(self):

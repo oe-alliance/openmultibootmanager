@@ -227,7 +227,7 @@ def get_peb_size(path):
     offsets = []
     f = open(path, 'rb')
     f.seek(0, 2)
-    file_size = f.tell()+1
+    file_size = f.tell() + 1
     f.seek(0)
 
     for i in range(0, file_size, FILE_CHUNK_SZ):
@@ -239,7 +239,7 @@ def get_peb_size(path):
                 file_offset = start
                 idx = start
             else:
-                idx = start+file_offset
+                idx = start + file_offset
 
             offsets.append(idx)
 
@@ -249,7 +249,7 @@ def get_peb_size(path):
     occurances = {}
     for i in range(0, len(offsets)):
         try:
-            diff = offsets[i] - offsets[i-1]
+            diff = offsets[i] - offsets[i - 1]
         except:
             diff = offsets[i]
 

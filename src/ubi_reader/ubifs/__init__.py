@@ -120,7 +120,7 @@ def get_leb_size(path):
 
     f = open(path, 'rb')
     f.seek(0, 2)
-    file_size = f.tell()+1
+    file_size = f.tell() + 1
     f.seek(0)
     block_size = 0
 
@@ -129,7 +129,7 @@ def get_leb_size(path):
 
         for m in re.finditer(UBIFS_NODE_MAGIC, buf):
             start = m.start()
-            chdr = nodes.common_hdr(buf[start:start+UBIFS_COMMON_HDR_SZ])
+            chdr = nodes.common_hdr(buf[start:start + UBIFS_COMMON_HDR_SZ])
 
             if chdr and chdr.node_type == UBIFS_SB_NODE:
                 sb_start = start + UBIFS_COMMON_HDR_SZ

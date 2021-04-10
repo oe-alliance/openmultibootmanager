@@ -93,8 +93,8 @@ def extract_vtbl_rec(buf):
     vtbl_rec_ret = ''
 
     for i in range(0, UBI_MAX_VOLUMES):    
-        offset = i*UBI_VTBL_REC_SZ
-        vtbl_rec_buf = data_buf[offset:offset+UBI_VTBL_REC_SZ]
+        offset = i * UBI_VTBL_REC_SZ
+        vtbl_rec_buf = data_buf[offset:offset + UBI_VTBL_REC_SZ]
         
         if len(vtbl_rec_buf) == UBI_VTBL_REC_SZ:
             vtbl_rec_ret = vtbl_rec(vtbl_rec_buf)
