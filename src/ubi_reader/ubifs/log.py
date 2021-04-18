@@ -22,10 +22,11 @@ import sys
 
 import ui
 
+
 class log():
     def __init__(self):
         self.log_to_file = False
-        self.log_file = 'ubifs_output.log' 
+        self.log_file = 'ubifs_output.log'
         self.exit_on_except = False
         self.quiet = False
 
@@ -36,8 +37,8 @@ class log():
                     f.write('%s\n' % s)
                 f.close()
             else:
-                print '%s' % s
-    
+                print('%s' % s)
+
         if self.exit_on_except:
             sys.exit()
 

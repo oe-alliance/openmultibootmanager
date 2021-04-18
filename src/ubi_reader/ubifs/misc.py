@@ -16,15 +16,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #############################################################
-import lzo
+from . import lzo
 import struct
 import zlib
 from ubifs.defines import *
 
 # For happy printing
-ino_types = ['file', 'dir','lnk','blk','chr','fifo','sock']
-node_types = ['ino','data','dent','xent','trun','pad','sb','mst','ref','idx','cs','orph']
-key_types = ['ino','data','dent','xent']
+ino_types = ['file', 'dir', 'lnk', 'blk', 'chr', 'fifo', 'sock']
+node_types = ['ino', 'data', 'dent', 'xent', 'trun', 'pad', 'sb', 'mst', 'ref', 'idx', 'cs', 'orph']
+key_types = ['ino', 'data', 'dent', 'xent']
 
 
 def parse_key(key):
@@ -38,13 +38,13 @@ def parse_key(key):
     Int:ino_num    -- Inode number.
     Int:khash      -- Key hash.
     """
-    hkey, lkey = struct.unpack('<II',key[0:UBIFS_SK_LEN])
+    hkey, lkey = struct.unpack('<II', key[0:UBIFS_SK_LEN])
     ino_num = hkey & UBIFS_S_KEY_HASH_MASK
     key_type = lkey >> UBIFS_S_KEY_BLOCK_BITS
     khash = lkey
 
     #if key_type < UBIFS_KEY_TYPES_CNT:
-    return {'type':key_type, 'ino_num':ino_num, 'khash': khash}
+    return {'type': key_type, 'ino_num': ino_num, 'khash': khash}
 
 
 def decompress(ctype, unc_len, data):
@@ -64,5 +64,3 @@ def decompress(ctype, unc_len, data):
         return zlib.decompress(data, -11)
     else:
         return data
-
-
