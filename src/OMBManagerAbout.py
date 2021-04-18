@@ -26,8 +26,9 @@ from Screens.MessageBox import MessageBox
 from Components.ActionMap import ActionMap
 from Components.Label import Label
 
-from OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR, OMB_TMP_DIR, OMB_MANAGER_VERION
-from OMBManagerLocale import _
+from .OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR, OMB_TMP_DIR, OMB_MANAGER_VERION
+from .OMBManagerLocale import _
+
 
 class OMBManagerAbout(Screen):
 	skin = """
@@ -38,22 +39,21 @@ class OMBManagerAbout(Screen):
 						font="Regular;22"
 						zPosition="1" />
 			</screen>"""
-			
+
 	def __init__(self, session):
 		Screen.__init__(self, session)
-		
+
 		self.setTitle(_('openMultiboot About'))
-		
+
 		about = "openMultiboot Manager " + OMB_MANAGER_VERION + "\n"
 		about += "(c) 2014 Impex-Sat Gmbh & Co.KG\n\n"
 		about += "Written by Sandro Cavazzoni <sandro@skanetwork.com>"
-		
+
 		self['about'] = Label(about)
 		self["actions"] = ActionMap(["SetupActions"],
 		{
 			"cancel": self.keyCancel
 		})
-		
+
 	def keyCancel(self):
 		self.close()
-		

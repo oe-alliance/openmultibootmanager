@@ -22,16 +22,17 @@
 
 from Plugins.Plugin import PluginDescriptor
 
-from OMBManager import OMBManager
-from OMBManagerLocale import _
+from .OMBManager import OMBManager
+from .OMBManagerLocale import _
+
 
 def Plugins(**kwargs):
 	return [
 		PluginDescriptor(
-			name = "OpenMultiboot",
-			description = _("OpenMultiboot Manager"),
+			name="OpenMultiboot",
+			description=_("OpenMultiboot Manager"),
 			icon='plugin.png',
-			where = [PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU],
-			fnc = OMBManager
+			where=[PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU],
+			fnc=OMBManager
 		)
 	]

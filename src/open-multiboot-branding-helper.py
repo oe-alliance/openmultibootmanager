@@ -45,13 +45,14 @@ KEYS_FNC_MAP = {
 }
 
 def print_help():
-	print 'Syntax:'
-	print sys.argv[0] + ' enigma2_dir key'
-	print ''
-	print 'Valid keys:'
-	for key in KEYS_FNC_MAP.keys():
-		print ' * ' + key
-	print ' * all'
+	print('Syntax:')
+	print(sys.argv[0] + ' enigma2_dir key')
+	print('')
+	print('Valid keys:')
+	for key in list(KEYS_FNC_MAP.keys()):
+		print(' * ' + key)
+	print(' * all')
+
 
 if len(sys.argv) != 3:
 	print_help()
@@ -66,20 +67,27 @@ else:
 		print_help()
 	else:
 		if sys.argv[2] == 'all':
-			for key in KEYS_FNC_MAP.keys():
-				print key + ' = ' + eval(KEYS_FNC_MAP[key])
+			for key in list(KEYS_FNC_MAP.keys()):
+				print(key + ' = ' + eval(KEYS_FNC_MAP[key]))
 		else:
-			if WORKAROUND:
+			if WORKAROUND or (sys.argv[2] == 'image_distro' or sys.argv[2] == 'image_version'):
 				if sys.argv[2] == 'image_distro':
 					try:
-						print open("/etc/issue").readlines()[-2].capitalize().strip()[:-6]
+						print(open("/etc/issue").readlines()[-2].capitalize().strip()[:-6])
 					except:
-						print "undefined"
+						print("undefined")
+				elif sys.argv[2] == 'image_version':
+					print(" ")
+				elif sys.argv[2] == 'brand_oem':
+					try:
+						print(open("/etc/brand_oem").readline().strip())
+					except:
+						print(" ")
 				elif sys.argv[2] == 'box_type':
 					with open("/etc/image-version", "r") as file:
 						first_line = file.readline()
-					print first_line.strip()[9:]
+					print(first_line.strip()[9:])
 				else:
 					pass
 			else:
-				print eval(KEYS_FNC_MAP[sys.argv[2]])
+				print(eval(KEYS_FNC_MAP[sys.argv[2]]))
