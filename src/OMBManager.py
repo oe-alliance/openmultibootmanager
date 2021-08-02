@@ -33,7 +33,7 @@ from .OMBManagerLocale import _
 from enigma import eTimer
 
 import os
-from subprocess import getoutput
+from subprocess import Popen, PIPE, STDOUT
 
 
 class OMBManagerInit:
@@ -57,8 +57,8 @@ class OMBManagerInit:
 			)
 
 	def getFSType(self, device):
-		fout = getoutput("mount | cut -f 1,5 -d ' '")
-		tmp = fout.strip()
+		p = Popen("mount | cut -f 1,5 -d ' '", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True)
+		tmp = p.stdout.read().strip()
 		for line in tmp.split('\n'):
 			parts = line.split(' ')
 			if len(parts) == 2:

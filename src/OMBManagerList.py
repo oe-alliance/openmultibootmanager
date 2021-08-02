@@ -44,7 +44,7 @@ from .OMBManagerLocale import _
 from enigma import eTimer
 
 import os
-from subprocess import getoutput
+from subprocess import Popen, PIPE, STDOUT
 
 
 class OMBManagerList(Screen):
@@ -198,17 +198,17 @@ class OMBManagerList(Screen):
 		running_box_type = "none"
 		e2_path = '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = os.path.dirname("/usr/bin/python3 " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
-			fout = getoutput(helper + " " + e2_path + " box_type")
-			running_box_type = fout.strip()
+			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
+			p = Popen(helper + " " + e2_path + " box_type", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
+			running_box_type = p.stdout.read().strip()
 
 		e2_path = base_path + '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = os.path.dirname("/usr/bin/python3 " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
-			fout = getoutput(helper + " " + e2_path + " brand_oem")
-			brand_oem = fout.strip()
-			fout = getoutput(helper + " " + e2_path + " box_type")
-			box_type = fout.strip()
+			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
+			p = Popen(helper + " " + e2_path + " brand_oem", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
+			brand_oem = p.stdout.read().strip()
+			p = Popen(helper + " " + e2_path + " box_type", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
+			box_type = p.stdout.read().strip()
 
 			if brand_oem == "vuplus" and box_type[0:2] != "vu":
 				box_type = "vu" + box_type
@@ -242,10 +242,10 @@ class OMBManagerList(Screen):
 		e2_path = base_path + '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
 			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
-			fout = getoutput(helper + " " + e2_path + " image_distro")
-			image_distro = fout.strip()
-			fout = getoutput(helper + " " + e2_path + " image_version")
-			image_version = fout.strip()
+			p = Popen(helper + " " + e2_path + " image_distro", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
+			image_distro = p.stdout.read().strip()
+			p = Popen(helper + " " + e2_path + " image_distro", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
+			image_version = p.stdout.read().strip()
 
 		if len(image_distro) > 0:
 			return image_distro + " " + image_version
