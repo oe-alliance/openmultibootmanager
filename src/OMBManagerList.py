@@ -211,14 +211,8 @@ class OMBManagerList(Screen):
 			return True
 
 		try:
-			if running_box_type is None:
-				running_box_type = open('/proc/stb/info/boxtype', 'r').read().strip()
-			archconffile = "%s/etc/opkg/arch.conf" % base_path
-			with open(archconffile, "r") as arch:
-				for line in arch:
-					box_type = line.split()[1]
-					if running_box_type == box_type or running_box_type in line:
-						return True
+			if self.running_box_type is None:
+				self.running_box_type = open('/proc/stb/info/boxtype', 'r').read().strip()
 		except:
 			pass
 
@@ -227,7 +221,7 @@ class OMBManagerList(Screen):
 	def isCompatible(self, base_path):
 		e2_path = base_path + '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = "LD_LIBRARY_PATH=" + base_path + "/lib:" + base_path + "/usr/lib "  + self.dynamic_loader + " " + base_path + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
+			helper = "LC_ALL=C LD_LIBRARY_PATH=" + base_path + "/lib:" + base_path + "/usr/lib "  + self.dynamic_loader + " " + base_path + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
 			p = Popen(helper + " " + e2_path + " brand_oem", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
 			brand_oem = p.stdout.read().strip()
 			p = Popen(helper + " " + e2_path + " box_type", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
@@ -243,6 +237,17 @@ class OMBManagerList(Screen):
 					box_type = box_type[:9]
 
 			return (self.running_box_type == box_type)
+
+		try:
+			archconffile = "%s/etc/opkg/arch.conf" % base_path
+			with open(archconffile, "r") as arch:
+				for line in arch:
+					box_type = line.split()[1]
+					if self.running_box_type == box_type or self.running_box_type in line:
+						return True
+		except:
+			pass
+
 		return False
 
 	def guessImageTitle(self, base_path, identifier):
@@ -252,7 +257,7 @@ class OMBManagerList(Screen):
 		e2_path = base_path + '/usr/lib/enigma2/python'
 
 		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = "LD_LIBRARY_PATH=" + base_path + "/lib:" + base_path + "/usr/lib "  + self.dynamic_loader + " " + base_path + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
+			helper = "LC_ALL=C LD_LIBRARY_PATH=" + base_path + "/lib:" + base_path + "/usr/lib "  + self.dynamic_loader + " " + base_path + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
 			p = Popen(helper + " " + e2_path + " image_distro", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
 			image_distro = p.stdout.read().strip()
 			p = Popen(helper + " " + e2_path + " image_version", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
