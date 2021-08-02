@@ -244,7 +244,7 @@ class OMBManagerList(Screen):
 			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
 			p = Popen(helper + " " + e2_path + " image_distro", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
 			image_distro = p.stdout.read().strip()
-			p = Popen(helper + " " + e2_path + " image_distro", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
+			p = Popen(helper + " " + e2_path + " image_version", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
 			image_version = p.stdout.read().strip()
 
 		if len(image_distro) > 0:
