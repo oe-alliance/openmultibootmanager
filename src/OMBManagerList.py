@@ -169,6 +169,7 @@ class OMBManagerList(Screen):
 		self.upload_dir = mount_point + '/' + OMB_UPLOAD_DIR
 		self.select = None
 		self.dynamic_loader = None
+		self.running_box_type = None
 
 		self["label1"] = Label(_("Current Running Image:"))
 		self["label2"] = Label("")
@@ -201,32 +202,13 @@ class OMBManagerList(Screen):
 		#print ("DYNAMIC_LOADER:", target_dynamic_loader)
 		self.dynamic_loader = target_dynamic_loader
 
-	def isCompatible(self, base_path):
-		running_box_type = "none"
+	def setRunningBoxType(self):
 		e2_path = '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
 			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
 			p = Popen(helper + " " + e2_path + " box_type", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
-			running_box_type = p.stdout.read().strip()
-
-		e2_path = base_path + '/usr/lib/enigma2/python'
-		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = "LD_LIBRARY_PATH=" + base_path + "/lib:" + base_path + "/usr/lib "  + self.dynamic_loader + " " + base_path + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
-			p = Popen(helper + " " + e2_path + " brand_oem", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
-			brand_oem = p.stdout.read().strip()
-			p = Popen(helper + " " + e2_path + " box_type", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
-			box_type = p.stdout.read().strip()
-
-			if brand_oem == "vuplus" and box_type[0:2] != "vu":
-				box_type = "vu" + box_type
-				print("OMB: buggy image, fixed box_type is %s" % box_type)
-
-			if brand_oem == 'formuler':
-				if running_box_type != "formuler4turbo" or box_type != "formuler4turbo":
-					running_box_type = running_box_type[:9]
-					box_type = box_type[:9]
-
-			return (running_box_type == box_type)
+			self.running_box_type = p.stdout.read().strip()
+			return True
 
 		try:
 			if running_box_type is None:
@@ -240,6 +222,27 @@ class OMBManagerList(Screen):
 		except:
 			pass
 
+		return False
+
+	def isCompatible(self, base_path):
+		e2_path = base_path + '/usr/lib/enigma2/python'
+		if os.path.exists(e2_path + '/boxbranding.so'):
+			helper = "LD_LIBRARY_PATH=" + base_path + "/lib:" + base_path + "/usr/lib "  + self.dynamic_loader + " " + base_path + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
+			p = Popen(helper + " " + e2_path + " brand_oem", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
+			brand_oem = p.stdout.read().strip()
+			p = Popen(helper + " " + e2_path + " box_type", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
+			box_type = p.stdout.read().strip()
+
+			if brand_oem == "vuplus" and box_type[0:2] != "vu":
+				box_type = "vu" + box_type
+				print("OMB: buggy image, fixed box_type is %s" % box_type)
+
+			if brand_oem == 'formuler':
+				if self.running_box_type != "formuler4turbo" or box_type != "formuler4turbo":
+					self.running_box_type = self.running_box_type[:9]
+					box_type = box_type[:9]
+
+			return (self.running_box_type == box_type)
 		return False
 
 	def guessImageTitle(self, base_path, identifier):
@@ -282,6 +285,9 @@ class OMBManagerList(Screen):
 			'path': '/'
 		})
 		self.images_list.append(self.images_entries[0]['label'])
+
+		self.setRunningBoxType()
+
 		if os.path.exists(self.data_dir):
 			for file_entry in os.listdir(self.data_dir):
 				if not os.path.isdir(self.data_dir + '/' + file_entry):
