@@ -52,13 +52,19 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 
 			distro_name = None
 			distro_version = None
-			try:
-				issue = "%s/etc/issue" % root
-				(distro_name,distro_version) = open(issue, "r").readlines()[0].split(" ")[0:2]
+			
+			if os.path.exists(root + "/etc/vtiversion.info"):
+				(distro_name, distro_dummy1, distro_dummy2, distro_version) = open(root + "/etc/vtiversion.info", "r").readlines()[0].split(" ")
 				lines.append("distro=" + distro_name)
 				lines.append("imageversion=" + distro_version)
-			except:
-				pass
+			else:
+				try:
+					issue = "%s/etc/issue" % root
+					(distro_name,distro_version) = open(issue, "r").readlines()[0].split(" ")[0:2]
+					lines.append("distro=" + distro_name)
+					lines.append("imageversion=" + distro_version)
+				except:
+					pass
 
 			try:
 				archconffile = "%s/etc/opkg/arch.conf" % root
