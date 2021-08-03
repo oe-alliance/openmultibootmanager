@@ -39,12 +39,15 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 				dynamic_loader = root + p.stdout.read().split("\n")[0].strip()
 
 				# hack to fix loading of branding for image with different libc then the main one
-				helper = "LC_ALL=C LD_LIBRARY_PATH=" + root + "/lib:" + root + "/usr/lib "  + dynamic_loader + " " + root + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
-				p = Popen(helper + " " + root + e2_path + " all", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
+				cmd = "LD_PRELOAD= LC_ALL=C LD_LIBRARY_PATH=" + root + "/lib:" + root + "/usr/lib "  + dynamic_loader + " " + root + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py " + root + e2_path + " all"
+				# print ("OMBDEBUG:", cmd)
+				p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
 				rc = p.wait()
 				print ("[BoxConfig(OMB)]: rc=%d" % rc)
 				if rc == 0:
 					lines = p.stdout.readlines()
+				# else:
+				#	print ("OMBDEBUG:", "\n".join(p.stdout.readlines()))
 
 		if not lines:
 			lines = []
@@ -60,10 +63,11 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 			else:
 				try:
 					issue = "%s/etc/issue" % root
-					(distro_name,distro_version) = open(issue, "r").readlines()[0].split(" ")[0:2]
+					(distro_name,distro_version) = open(issue, "r").readlines()[-2].split(" ")[0:2]
 					lines.append("distro=" + distro_name)
 					lines.append("imageversion=" + distro_version)
-				except:
+				except Exception as e:
+					print ("OMBDEBUG:",e)
 					pass
 
 			try:

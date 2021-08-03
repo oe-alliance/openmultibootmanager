@@ -200,12 +200,12 @@ class OMBManagerList(Screen):
 
 
 	def guessImageTitle(self, boxinfo, identifier):
-		# for i in boxinfo.getItemsList():
-		#	print ("DEBUG:", i,boxinfo.getItem(i))
+		for i in boxinfo.getItemsList():
+			print ("DEBUG:", i,boxinfo.getItem(i))
 
 		try:
-			# print (boxinfo.getItem("distro"))
-			# print (boxinfo.getItem("imageversion"))
+			print (boxinfo.getItem("distro"))
+			print (boxinfo.getItem("imageversion"))
 			return boxinfo.getItem("distro") + " " + str(boxinfo.getItem("imageversion"))
 		except Exception as e:
 			print ("OMB: ERROR %s" % e)
