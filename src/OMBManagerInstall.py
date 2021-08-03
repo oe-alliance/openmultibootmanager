@@ -486,13 +486,15 @@ class OMBManagerInstall(Screen):
 # prevent funny cases for non standard images.
 # My apologies to Sandro for this bad code.
 
-		if not os.path.exists('/usr/lib/python3.8/boxbranding.so'):
-			os.system("ln -s /usr/lib/enigma2/python/boxbranding.so /usr/lib/python3.8/boxbranding.so")
-		if os.path.exists(dst_path + '/usr/lib/python3.8/boxbranding.py'):
-			os.system("cp /usr/lib/enigma2/python/boxbranding.so " + dst_path + "/usr/lib/python3.8/boxbranding.so")
-			os.system("rm -f " + dst_path + '/usr/lib/python3.8/boxbranding.py')
-		if not os.path.exists(dst_path + "/usr/lib/python3.8/subprocess.py"):
-			os.system("cp /usr/lib/python3.8/subprocess.py " + dst_path + "/usr/lib/python3.8/subprocess.py")
+		for pyver in [ "2.7", "3.8", "3.9"]:
+			if os.path.exists('/usr/lib/python' + pyver  + '/boxbranding.so'):
+				if not os.path.exists('/usr/lib/python' + pyver  + '/boxbranding.so'):
+					os.system("ln -s /usr/lib/enigma2/python/boxbranding.so /usr/lib/python' + pyver  + '/boxbranding.so")
+				if os.path.exists(dst_path + '/usr/lib/python' + pyver  + '/boxbranding.py'):
+					os.system("cp /usr/lib/enigma2/python/boxbranding.so " + dst_path + "/usr/lib/python' + pyver  + '/boxbranding.so")
+					os.system("rm -f " + dst_path + '/usr/lib/python' + pyver  + '/boxbranding.py')
+				if not os.path.exists(dst_path + "/usr/lib/python" + pyver  + "/subprocess.py"):
+					os.system("cp /usr/lib/python" + pyver  + "/subprocess.py " + dst_path + "/usr/lib/python" + pyver  + "/subprocess.py")
 # openmultiboot installed in the multiboot image. where the init will go ?
 		if os.path.exists(dst_path + '/sbin/open_multiboot'):
 			os.system("rm -f " + dst_path + '/sbin/open_multiboot')
