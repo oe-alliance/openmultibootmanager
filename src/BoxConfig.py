@@ -6,14 +6,6 @@ import errno
 import os
 from subprocess import Popen, PIPE, STDOUT
 
-transmap = {
-    "brand_oem" : "brand",
-    "machine_kernel_file": "kernelfile",
-    "box_type": "model",
-    "image_distro": "distro",
-    "image_version": "imageversion"
-}
-
 e2_path = '/usr/lib/enigma2/python'
 
 class BoxConfig:  # To maintain data integrity class variables should not be accessed from outside of this class!
@@ -46,7 +38,7 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 				print ("[BoxConfig(OMB)]: rc=%d" % rc)
 				if rc == 0:
 					lines = p.stdout.readlines()
-				# else:
+				#else:
 				#	print ("OMBDEBUG:", "\n".join(p.stdout.readlines()))
 
 		if not lines:
@@ -57,7 +49,7 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 			distro_version = None
 			
 			if os.path.exists(root + "/etc/vtiversion.info"):
-				(distro_name, distro_dummy1, distro_dummy2, distro_version) = open(root + "/etc/vtiversion.info", "r").readlines()[0].split(" ")
+				(distro_name, distro_dummy1, distro_dummy2, distro_version) = open(root + "/etc/vtiversion.info", "r").readlines()[0].strip().split(" ")
 				lines.append("distro=" + distro_name)
 				lines.append("imageversion=" + distro_version)
 			else:
@@ -95,9 +87,6 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 				if "=" in line:
 					item, value = [x.strip() for x in line.split("=", 1)]
 					if item:
-						if item in transmap.keys():
-							item = transmap[item]
-
 						self.procList.append(item)
 						self.boxInfo[item] = self.processValue(value)
 			self.procList = sorted(self.procList)
@@ -114,7 +103,7 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 			# print("[BoxConfig] ProcList = %s." % self.procList)
 			# print("[BoxConfig] BoxInfo = %s." % self.boxInfo)
 		else:
-			print("[BoxConfig] ERROR: Information file is not available!  The system is unlikely to boot or operate correctly.")
+			print("[BoxConfig] ERROR: Information file is not available!  The system is unlikely to boot or operate correctly. (%s)" % root)
 
 
 	def processValue(self, value):

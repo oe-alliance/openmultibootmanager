@@ -24,25 +24,26 @@ from __future__ import print_function
 import sys
 
 KEYS_FNC_MAP = {
-	'machine_build': 'boxbranding.getMachineBuild()',
-	'machine_proc_model': 'boxbranding.getMachineProcModel()',
-	'machine_brand': 'boxbranding.getMachineBrand()',
-	'machine_name': 'boxbranding.getMachineName()',
-	'machine_mtd_kernel': 'boxbranding.getMachineMtdKernel()',
-	'machine_kernel_file': 'boxbranding.getMachineKernelFile()',
-	'machine_mtd_root': 'boxbranding.getMachineMtdRoot()',
-	'machine_root_file': 'boxbranding.getMachineRootFile()',
-	'machine_mkubifs': 'boxbranding.getMachineMKUBIFS()',
-	'machine_ubinize': 'boxbranding.getMachineUBINIZE()',
-	'box_type': 'boxbranding.getBoxType()',
-	'brand_oem': 'boxbranding.getBrandOEM()',
-	'oe_version': 'boxbranding.getOEVersion()',
-	'driver_date': 'boxbranding.getDriverDate()',
-	'image_version': 'boxbranding.getImageVersion()',
-	'image_build': 'boxbranding.getImageBuild()',
-	'image_distro': 'boxbranding.getImageDistro()',
-	'image_folder': 'boxbranding.getImageFolder()',
-	'image_file_system': 'boxbranding.getImageFileSystem()'
+	'model': 'boxbranding.getMachineBuild()',
+	'displaybrand': 'boxbranding.getMachineBrand()',
+	'displaymodel': 'boxbranding.getMachineName()',
+	'mtdkernel': 'boxbranding.getMachineMtdKernel()',
+	'kernelfile': 'boxbranding.getMachineKernelFile()',
+	'mtdrootfs': 'boxbranding.getMachineMtdRoot()',
+	'rootfile': 'boxbranding.getMachineRootFile()',
+	'mkubifs': 'boxbranding.getMachineMKUBIFS()',
+	'ubinize': 'boxbranding.getMachineUBINIZE()',
+	'brand': 'boxbranding.getBrandOEM()',
+	'oe': 'boxbranding.getOEVersion()',
+	'imageversion': 'boxbranding.getImageVersion()',
+	'imagebuild': 'boxbranding.getImageBuild()',
+	'distro': 'boxbranding.getImageDistro()',
+	'imagedir': 'boxbranding.getImageFolder()',
+	'imagefs': 'boxbranding.getImageFileSystem()'
+#unsupported by boxconfig
+#	'model': 'boxbranding.getBoxType()',
+#	'driver_date': 'boxbranding.getDriverDate()',
+#	'machine_proc_model': 'boxbranding.getMachineProcModel()',
 }
 
 

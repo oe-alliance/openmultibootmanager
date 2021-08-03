@@ -200,12 +200,12 @@ class OMBManagerList(Screen):
 
 
 	def guessImageTitle(self, boxinfo, identifier):
-		for i in boxinfo.getItemsList():
-			print ("DEBUG:", i,boxinfo.getItem(i))
+		# for i in boxinfo.getItemsList():
+		# 	print ("DEBUG:", i,boxinfo.getItem(i))
 
 		try:
-			print (boxinfo.getItem("distro"))
-			print (boxinfo.getItem("imageversion"))
+			# print (boxinfo.getItem("distro"))
+			# print (boxinfo.getItem("imageversion"))
 			return boxinfo.getItem("distro") + " " + str(boxinfo.getItem("imageversion"))
 		except Exception as e:
 			print ("OMB: ERROR %s" % e)
@@ -247,7 +247,7 @@ class OMBManagerList(Screen):
 				TargetBoxInfo = BoxConfig(root = self.data_dir + '/' + file_entry)
 
 				# with following check you can switch back to your image in flash and  move your stick between different boxes.
-				print ("OMB: Compare flash model with target model %s %s" % (BoxInfo.getItem("model"), TargetBoxInfo.getItem("model")))
+				# print ("OMB: Compare flash model with target model %s %s" % (BoxInfo.getItem("model"), TargetBoxInfo.getItem("model")))
 				if BoxInfo.getItem("model") != TargetBoxInfo.getItem("model"):
 					continue
 
