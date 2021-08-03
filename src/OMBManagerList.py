@@ -41,6 +41,8 @@ from .OMBManagerAbout import OMBManagerAbout
 from .OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR
 from .OMBManagerLocale import _
 
+from .BoxConfig import BoxConfig
+
 from enigma import eTimer
 
 import os
@@ -196,76 +198,16 @@ class OMBManagerList(Screen):
 			"menu": self.showMen,
 		})
 
-	def getDynamicLoader(self, base_path):
-		p = Popen("/usr/bin/strings " + base_path + "/bin/echo", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
-		target_dynamic_loader = base_path + p.stdout.read().split("\n")[0].strip()
-		#print ("DYNAMIC_LOADER:", target_dynamic_loader)
-		self.dynamic_loader = target_dynamic_loader
 
-	def setRunningBoxType(self):
-		e2_path = '/usr/lib/enigma2/python'
-		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
-			p = Popen(helper + " " + e2_path + " box_type", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
-			self.running_box_type = p.stdout.read().strip()
-			return True
+	def guessImageTitle(self, boxinfo, identifier):
+		image_distro = None
+		image_version = None
 
 		try:
-			if self.running_box_type is None:
-				self.running_box_type = open('/proc/stb/info/boxtype', 'r').read().strip()
-		except:
-			pass
-
-		return False
-
-	def isCompatible(self, base_path):
-		e2_path = base_path + '/usr/lib/enigma2/python'
-		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = "LC_ALL=C LD_LIBRARY_PATH=" + base_path + "/lib:" + base_path + "/usr/lib "  + self.dynamic_loader + " " + base_path + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
-			p = Popen(helper + " " + e2_path + " brand_oem", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
-			brand_oem = p.stdout.read().strip()
-			p = Popen(helper + " " + e2_path + " box_type", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
-			box_type = p.stdout.read().strip()
-
-			if brand_oem == "vuplus" and box_type[0:2] != "vu":
-				box_type = "vu" + box_type
-				print("OMB: buggy image, fixed box_type is %s" % box_type)
-
-			if brand_oem == 'formuler':
-				if self.running_box_type != "formuler4turbo" or box_type != "formuler4turbo":
-					self.running_box_type = self.running_box_type[:9]
-					box_type = box_type[:9]
-
-			return (self.running_box_type == box_type)
-
-		try:
-			archconffile = "%s/etc/opkg/arch.conf" % base_path
-			with open(archconffile, "r") as arch:
-				for line in arch:
-					box_type = line.split()[1]
-					if self.running_box_type == box_type or self.running_box_type in line:
-						return True
-		except:
-			pass
-
-		return False
-
-	def guessImageTitle(self, base_path, identifier):
-		image_distro = ""
-		image_version = ""
-
-		e2_path = base_path + '/usr/lib/enigma2/python'
-
-		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = "LC_ALL=C LD_LIBRARY_PATH=" + base_path + "/lib:" + base_path + "/usr/lib "  + self.dynamic_loader + " " + base_path + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
-			p = Popen(helper + " " + e2_path + " image_distro", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
-			image_distro = p.stdout.read().strip()
-			p = Popen(helper + " " + e2_path + " image_version", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
-			image_version = p.stdout.read().strip()
-
-		if len(image_distro) > 0:
+			boxinfo.getItem("distro")
+			boxinfo.getItem("version")
 			return image_distro + " " + image_version
-		else:
+		except:
 			return identifier
 
 	def imageTitleFromLabel(self, file_entry):
@@ -291,7 +233,7 @@ class OMBManagerList(Screen):
 		})
 		self.images_list.append(self.images_entries[0]['label'])
 
-		self.setRunningBoxType()
+		BoxInfo = BoxConfig()
 
 		if os.path.exists(self.data_dir):
 			for file_entry in os.listdir(self.data_dir):
@@ -301,15 +243,17 @@ class OMBManagerList(Screen):
 				if file_entry[0] == '.':
 					continue
 
-				self.getDynamicLoader(self.data_dir + '/' + file_entry)
+				TargetBoxInfo = BoxConfig(root = self.data_dir + '/' + file_entry)
 
-				if not self.isCompatible(self.data_dir + '/' + file_entry):
+				# with following check you can switch back to your image in flash and  move your stick between different boxes.
+				# print ("OMB: Compare flash model with target model %s %s" % (BoxInfo.getItem("model"), TargetBoxInfo.getItem("model")))
+				if BoxInfo.getItem("model") != TargetBoxInfo.getItem("model"):
 					continue
 
 				if os.path.exists(self.data_dir + '/.label_' + file_entry):
 					title = self.imageTitleFromLabel('.label_' + file_entry)
 				else:
-					title = self.guessImageTitle(self.data_dir + '/' + file_entry, file_entry)
+					title = self.guessImageTitle(BoxInfo, file_entry)
 
 				self.images_entries.append({
 					'label': title,
