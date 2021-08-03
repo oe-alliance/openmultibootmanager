@@ -41,6 +41,8 @@ from .OMBManagerAbout import OMBManagerAbout
 from .OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR
 from .OMBManagerLocale import _
 
+from .OMBList import OMBList
+
 from .BoxConfig import BoxConfig
 
 from enigma import eTimer
@@ -198,84 +200,20 @@ class OMBManagerList(Screen):
 			"menu": self.showMen,
 		})
 
-
-	def guessImageTitle(self, boxinfo, identifier):
-		# for i in boxinfo.getItemsList():
-		# 	print ("DEBUG:", i,boxinfo.getItem(i))
-
-		try:
-			# print (boxinfo.getItem("distro"))
-			# print (boxinfo.getItem("imageversion"))
-			return boxinfo.getItem("distro") + " " + str(boxinfo.getItem("imageversion"))
-		except Exception as e:
-			print ("OMB: ERROR %s" % e)
-			return identifier
-
-	def imageTitleFromLabel(self, file_entry):
-		f = open(self.data_dir + '/' + file_entry)
-		label = f.readline().strip()
-		f.close()
-		return label
-
 	def populateImagesList(self):
-		self.images_list = []
-		self.images_entries = []
-		flashimageLabel = 'Flash image'
 
-		self["label2"].setText(self.currentImage())
+		omblist = OMBList(self.mount_point)
 
-		if os.path.exists(self.data_dir + '/.label_flash'): # use label name
-			flashimageLabel = self.imageTitleFromLabel('.label_flash') + ' (Flash)'
+		self["label2"].setText(omblist.currentImage())
 
-		self.images_entries.append({
-			'label': flashimageLabel,
-			'identifier': 'flash',
-			'path': '/'
-		})
-		self.images_list.append(self.images_entries[0]['label'])
+		omblist.populateImagesList()
 
-		BoxInfo = BoxConfig()
-
-		if os.path.exists(self.data_dir):
-			for file_entry in os.listdir(self.data_dir):
-				if not os.path.isdir(self.data_dir + '/' + file_entry):
-					continue
-
-				if file_entry[0] == '.':
-					continue
-
-				TargetBoxInfo = BoxConfig(root = self.data_dir + '/' + file_entry)
-
-				# with following check you can switch back to your image in flash and  move your stick between different boxes.
-				# print ("OMB: Compare flash model with target model %s %s" % (BoxInfo.getItem("model"), TargetBoxInfo.getItem("model")))
-				if BoxInfo.getItem("model") != TargetBoxInfo.getItem("model"):
-					continue
-
-				if os.path.exists(self.data_dir + '/.label_' + file_entry):
-					title = self.imageTitleFromLabel('.label_' + file_entry)
-				else:
-					title = self.guessImageTitle(TargetBoxInfo, file_entry)
-
-				self.images_entries.append({
-					'label': title,
-					'identifier': file_entry,
-					'path': self.data_dir + '/' + file_entry,
-					'labelfile': self.data_dir + '/' + '.label_' + file_entry,
-					'kernelbin': self.data_dir + '/' + '.kernels' + '/' + file_entry + '.bin'
-				})
-				self.images_list.append(title)
+		self.images_list = omblist.getImagesList()
+		self.images_entries = omblist.getImagesEntries()
 
 	def refresh(self):
 		self.populateImagesList()
 		self["list"].setList(self.images_list)
-
-	def currentImage(self):
-		selected = 'Flash'
-		try:
-			selected = open(self.data_dir + '/.selected').read()
-		except:
-			pass
-		return selected
 
 	def canDeleteEntry(self, entry):
 		selected = 'flash'
