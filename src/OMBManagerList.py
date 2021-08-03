@@ -200,14 +200,15 @@ class OMBManagerList(Screen):
 
 
 	def guessImageTitle(self, boxinfo, identifier):
-		image_distro = None
-		image_version = None
+		# for i in boxinfo.getItemsList():
+		#	print ("DEBUG:", i,boxinfo.getItem(i))
 
 		try:
-			boxinfo.getItem("distro")
-			boxinfo.getItem("version")
-			return image_distro + " " + image_version
-		except:
+			# print (boxinfo.getItem("distro"))
+			# print (boxinfo.getItem("imageversion"))
+			return boxinfo.getItem("distro") + " " + str(boxinfo.getItem("imageversion"))
+		except Exception as e:
+			print ("OMB: ERROR %s" % e)
 			return identifier
 
 	def imageTitleFromLabel(self, file_entry):
@@ -246,14 +247,14 @@ class OMBManagerList(Screen):
 				TargetBoxInfo = BoxConfig(root = self.data_dir + '/' + file_entry)
 
 				# with following check you can switch back to your image in flash and  move your stick between different boxes.
-				# print ("OMB: Compare flash model with target model %s %s" % (BoxInfo.getItem("model"), TargetBoxInfo.getItem("model")))
+				print ("OMB: Compare flash model with target model %s %s" % (BoxInfo.getItem("model"), TargetBoxInfo.getItem("model")))
 				if BoxInfo.getItem("model") != TargetBoxInfo.getItem("model"):
 					continue
 
 				if os.path.exists(self.data_dir + '/.label_' + file_entry):
 					title = self.imageTitleFromLabel('.label_' + file_entry)
 				else:
-					title = self.guessImageTitle(BoxInfo, file_entry)
+					title = self.guessImageTitle(TargetBoxInfo, file_entry)
 
 				self.images_entries.append({
 					'label': title,

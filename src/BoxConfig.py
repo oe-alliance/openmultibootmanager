@@ -28,6 +28,7 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 		try:
 			with open(path, "r") as fd:
 				lines = fd.read().splitlines()
+			print ("[BoxConfig(OMB)]: BoxConfig (%s)" % root)
 		except (IOError, OSError) as err:
 			if err.errno != errno.ENOENT:  # ENOENT - No such file or directory.
 				print("[BoxConfig] Error %d: Unable to read lines from file '%s'! (%s)" % (err.errno, path, err.strerror))
@@ -47,20 +48,10 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 
 		if not lines:
 			lines = []
-			print ("[BoxConfig(OMB)]: fallback Alternate")
+			print ("[BoxConfig(OMB)]: fallback Alternate (%s)" % root)
 
-			try:
-				archconffile = "%s/etc/opkg/arch.conf" % root
-				box_type = None
-				with open(archconffile, "r") as arch:
-					for line in arch:
-						archinfo = line.strip().split()
-						if archinfo[2] == "21":
-							box_type = archinfo[1]
-					lines.append("model=" + box_type)
-			except:
-				pass
-
+			distro_name = None
+			distro_version = None
 			try:
 				issue = "%s/etc/issue" % root
 				(distro_name,distro_version) = open(issue, "r").readlines()[0].split(" ")[0:2]
@@ -68,8 +59,24 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 				lines.append("imageversion=" + distro_version)
 			except:
 				pass
+
+			try:
+				archconffile = "%s/etc/opkg/arch.conf" % root
+				box_type = None
+				with open(archconffile, "r") as arch:
+					for line in arch:
+						archinfo = line.strip().split()
+						if (distro_name == "openpli" and archinfo[2] == "41" or
+						    distro_name != "openpli" and archinfo[2] == "21" ):
+							box_type = archinfo[1]
+					lines.append("model=" + box_type)
+			except:
+				pass
+
 			if len(lines) != 3:
 				lines = None
+			else:
+				print ("[BoxConfig(OMB)]: Alternate [%s]" % ", ".join(lines))
 
 		if lines:
 			for line in lines:
