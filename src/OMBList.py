@@ -96,5 +96,5 @@ class OMBList():
 		return self.images_entries
 
 	def getJson(self):
-		parsed = { 'currentimage': self.currentImage(), 'images_entries': self.images_entries, 'images_list': self.images_list }
+		parsed = { 'currentimage': self.currentImage(), 'images_entries': self.images_entries }
 		return json.dumps(parsed, indent=4)
