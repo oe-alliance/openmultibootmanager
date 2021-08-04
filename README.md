@@ -10,6 +10,12 @@
 
 (c) 2014 Impex-Sat GmbH & Co. KG - http://www.gigablue.de
 
+# This branch have some improvements to the original OMB:
+- Supports py2 and py3 images.
+- Supports enigma.info.
+- Supports moving of the exteran between different boxes. Just jump to flash image before disconnecting. Omb will show you on the menu just the image for current box.
+- Menu load faster by calling external binary (boxbranding helper ) just one time for each image.
+- New bootmenu helper that produce a json. @devs, You can use this new helper to preview the image list output.
 
 ## Notes: ##
 - < device > has to be formated in ext4
