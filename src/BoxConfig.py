@@ -9,25 +9,27 @@ from subprocess import Popen, PIPE, STDOUT
 e2_path = '/usr/lib/enigma2/python'
 
 class BoxConfig:  # To maintain data integrity class variables should not be accessed from outside of this class!
-	def __init__(self, root=""):
+	def __init__(self, root="", debug=True):
 		self.procList = []
 		self.boxInfo = {}
 		path = "%s/usr/lib/enigma.info" % root
 		# print("[BoxConfig] BoxConfig Info path = %s." % path)
 		lines = None
-		mode = "BoxConfig"
 
 		try:
 			with open(path, "r") as fd:
 				lines = fd.read().splitlines()
-			print ("[BoxConfig(OMB)]: BoxConfig (%s)" % root)
+				lines.append("probemode=boxconfig")
+			if debug:
+				print ("[BoxConfig(OMB)]: BoxConfig (%s)" % root)
 		except (IOError, OSError) as err:
 			if err.errno != errno.ENOENT:  # ENOENT - No such file or directory.
 				print("[BoxConfig] Error %d: Unable to read lines from file '%s'! (%s)" % (err.errno, path, err.strerror))
 			elif os.path.exists(root + e2_path + '/boxbranding.so'):
-				print ("[BoxConfig(OMB)]: fallback BoxBranding (%s)" % (root + e2_path))
+				if debug:
+					print ("[BoxConfig(OMB)]: fallback BoxBranding (%s)" % (root + e2_path))
 				# retrieve dynamic_loader for target path
-				p = Popen("/usr/bin/strings " + root + "/bin/echo", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
+				p = Popen("/usr/bin/strings " + root + "/usr/bin/enigma2 | grep '^/'", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
 				dynamic_loader = root + p.stdout.read().split("\n")[0].strip()
 
 				# hack to fix loading of branding for image with different libc then the main one
@@ -35,15 +37,19 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 				# print ("OMBDEBUG:", cmd)
 				p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
 				rc = p.wait()
-				print ("[BoxConfig(OMB)]: rc=%d" % rc)
+				if debug:
+					print ("[BoxConfig(OMB)]: rc=%d" % rc)
 				if rc == 0:
 					lines = p.stdout.readlines()
-				#else:
+					lines.append("probemode=boxbranding")
+				else:
 				#	print ("OMBDEBUG:", "\n".join(p.stdout.readlines()))
+					lines = [ "dynamic_loader="+dynamic_loader , "boxbranding_stdout="+"\n".join(p.stdout.readlines()) ]
 
 		if not lines:
 			lines = []
-			print ("[BoxConfig(OMB)]: fallback Alternate (%s)" % root)
+			if debug:
+				print ("[BoxConfig(OMB)]: fallback Alternate (%s)" % root)
 
 			distro_name = None
 			distro_version = None
@@ -78,9 +84,12 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 			if len(lines) != 3:
 				lines = None
 			else:
-				print ("[BoxConfig(OMB)]: Alternate [%s]" % ", ".join(lines))
+				lines.append("probemode=alernate")
+				if debug:
+					print ("[BoxConfig(OMB)]: Alternate [%s]" % ", ".join(lines))
 
 		if lines:
+			lines.append("ombroot=%s" % root)
 			for line in lines:
 				if line.startswith("#") or line.strip() == "":
 					continue
@@ -93,7 +102,8 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 
 			if "brand" in self.boxInfo.keys() and self.boxInfo["brand"] == "vuplus" and self.boxInfo["model"][0:2] != "vu" and self.boxInfo["model"] != "bm750":
 				self.boxInfo["model"] = "vu" + self.boxInfo["model"]
-				print("[BoxConfig(OMB)]: buggy image, fixed model is %s" % self.boxInfo["model"])
+				if debug:
+					print("[BoxConfig(OMB)]: buggy image, fixed model is %s" % self.boxInfo["model"])
 
 			if "brand" in self.boxInfo.keys() and self.boxInfo["brand"] == 'formuler':
 				if self.boxInfo["model"] != "formuler4turbo":
@@ -166,3 +176,6 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 			del self.boxInfo[item]
 			return True
 		return False
+
+	def getItemsDict(self):
+		return self.boxInfo

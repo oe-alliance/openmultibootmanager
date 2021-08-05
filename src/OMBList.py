@@ -14,6 +14,7 @@ class OMBList():
 		self.mount_point = mount_point
 		self.data_dir = mount_point + '/' + OMB_DATA_DIR
 		self.debug = debug
+		self.debug_boxconfig = []
 		self.images_list = []
 		self.images_entries = []
 
@@ -60,6 +61,8 @@ class OMBList():
 
 		BoxInfo = BoxConfig(debug=self.debug)
 
+		self.debug_boxconfig.append(BoxInfo.getItemsDict())
+
 		if os.path.exists(self.data_dir):
 			for file_entry in os.listdir(self.data_dir):
 				if not os.path.isdir(self.data_dir + '/' + file_entry):
@@ -70,10 +73,13 @@ class OMBList():
 
 				TargetBoxInfo = BoxConfig(root = self.data_dir + '/' + file_entry, debug=self.debug)
 
+				self.debug_boxconfig.append(TargetBoxInfo.getItemsDict())
+
 				# with following check you can switch back to your image in flash and  move your stick between different boxes.
 				# print ("OMB: Compare flash model with target model %s %s" % (BoxInfo.getItem("model"), TargetBoxInfo.getItem("model")))
 				if BoxInfo.getItem("model") != TargetBoxInfo.getItem("model"):
 					continue
+
 
 				if os.path.exists(self.data_dir + '/.label_' + file_entry):
 					title = self.imageTitleFromLabel('.label_' + file_entry)
@@ -96,5 +102,5 @@ class OMBList():
 		return self.images_entries
 
 	def getJson(self):
-		parsed = { 'currentimage': self.currentImage(), 'images_entries': self.images_entries }
+		parsed = { 'currentimage': self.currentImage(), 'images_entries': self.images_entries, 'debug_boxconfig': self.debug_boxconfig }
 		return json.dumps(parsed, indent=4)
