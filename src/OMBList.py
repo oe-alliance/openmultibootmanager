@@ -58,7 +58,8 @@ class OMBList():
 		self.images_entries.append({
 			'label': title + ' (Flash)',
 			'identifier': 'flash',
-			'path': '/'
+			'path': '/',
+			'background': '/usr/share/bootlogo.mvi'
 		})
 		self.images_list.append(self.images_entries[0]['label'])
 
@@ -84,12 +85,17 @@ class OMBList():
 				else:
 					title = self.guessImageTitle(TargetBoxInfo, file_entry)
 
+				background = "/usr/share/bootlogo.mvi"
+				if not os.path.exists(self.data_dir + '/' + file_entry + '/usr/share/bootlogo.mvi'):
+					background = '/usr/share/' + BoxInfo.getItem("brand") + '-bootlogo/bootlogo.mvi'
+
 				self.images_entries.append({
 					'label': title,
 					'identifier': file_entry,
 					'path': self.data_dir + '/' + file_entry,
 					'labelfile': self.data_dir + '/' + '.label_' + file_entry,
-					'kernelbin': self.data_dir + '/' + '.kernels' + '/' + file_entry + '.bin'
+					'kernelbin': self.data_dir + '/' + '.kernels' + '/' + file_entry + '.bin',
+					'background': background
 				})
 				self.images_list.append(title)
 
