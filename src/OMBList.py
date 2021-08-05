@@ -46,7 +46,13 @@ class OMBList():
 
 	def populateImagesList(self):
 
-		BoxInfo = BoxConfig(debug=self.debug)
+		flashroot = "/"
+		f = open("/proc/mounts", "r")
+		for line in f:
+			if line.find(self.data_dir + "/flash") > -1:
+				flashroot = self.data_dir + "/flash"
+
+		BoxInfo = BoxConfig(debug=self.debug, root = flashroot)
 		self.debug_boxconfig.append(BoxInfo.getItemsDict())
 
 		file_entry = "flash"
@@ -58,7 +64,7 @@ class OMBList():
 		self.images_entries.append({
 			'label': title + ' (Flash)',
 			'identifier': 'flash',
-			'path': '/',
+			'path': flashroot,
 			'background': '/usr/share/bootlogo.mvi'
 		})
 		self.images_list.append(self.images_entries[0]['label'])
@@ -69,6 +75,9 @@ class OMBList():
 					continue
 
 				if file_entry[0] == '.':
+					continue
+
+				if file_entry == "flash":
 					continue
 
 				TargetBoxInfo = BoxConfig(root = self.data_dir + '/' + file_entry, debug=self.debug)
