@@ -45,23 +45,22 @@ class OMBList():
 			return identifier
 
 	def populateImagesList(self):
-		flashimageLabel = 'Flash image'
 
-		#self["label2"].setText(self.currentImage())
+		BoxInfo = BoxConfig(debug=self.debug)
+		self.debug_boxconfig.append(BoxInfo.getItemsDict())
 
-		if os.path.exists(self.data_dir + '/.label_flash'): # use label name
-			flashimageLabel = self.imageTitleFromLabel('.label_flash') + ' (Flash)'
+		file_entry = "flash"
+		if os.path.exists(self.data_dir + '/.label_' + file_entry):
+			title = self.imageTitleFromLabel('.label_' + file_entry)
+		else:
+			title = self.guessImageTitle(BoxInfo, file_entry)
 
 		self.images_entries.append({
-			'label': flashimageLabel,
+			'label': title + ' (Flash)',
 			'identifier': 'flash',
 			'path': '/'
 		})
 		self.images_list.append(self.images_entries[0]['label'])
-
-		BoxInfo = BoxConfig(debug=self.debug)
-
-		self.debug_boxconfig.append(BoxInfo.getItemsDict())
 
 		if os.path.exists(self.data_dir):
 			for file_entry in os.listdir(self.data_dir):
@@ -79,7 +78,6 @@ class OMBList():
 				# print ("OMB: Compare flash model with target model %s %s" % (BoxInfo.getItem("model"), TargetBoxInfo.getItem("model")))
 				if BoxInfo.getItem("model") != TargetBoxInfo.getItem("model"):
 					continue
-
 
 				if os.path.exists(self.data_dir + '/.label_' + file_entry):
 					title = self.imageTitleFromLabel('.label_' + file_entry)
