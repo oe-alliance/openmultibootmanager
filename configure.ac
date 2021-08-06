@@ -48,4 +48,11 @@ src/ubi_reader/ubi_io/Makefile
 src/ubi_reader/ubifs/Makefile
 src/ubi_reader/ubifs/nodes/Makefile
 src/ubi_reader/ui/Makefile
+src/elftools/construct/Makefile
+src/elftools/construct/lib/Makefile
+src/elftools/ehabi/Makefile
+src/elftools/Makefile
+src/elftools/common/Makefile
+src/elftools/elf/Makefile
+src/elftools/dwarf/Makefile
 ])
