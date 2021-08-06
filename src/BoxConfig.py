@@ -5,8 +5,8 @@
 import errno
 import os
 from subprocess import Popen, PIPE, STDOUT
-from elftools.elf.elffile import ELFFile
-from elftools.elf.segments import InterpSegment
+from .elftools.elf.elffile import ELFFile
+from .elftools.elf.segments import InterpSegment
 
 e2_path = '/usr/lib/enigma2/python'
 
