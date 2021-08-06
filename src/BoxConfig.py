@@ -5,6 +5,8 @@
 import errno
 import os
 from subprocess import Popen, PIPE, STDOUT
+from elftools.elf.elffile import ELFFile
+from elftools.elf.segments import InterpSegment
 
 e2_path = '/usr/lib/enigma2/python'
 
@@ -29,8 +31,14 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 				if debug:
 					print ("[BoxConfig(OMB)]: fallback BoxBranding (%s)" % (root + e2_path))
 				# retrieve dynamic_loader for target path
-				p = Popen("/usr/bin/strings " + root + "/usr/bin/enigma2 | grep '^/'", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
-				dynamic_loader = root + p.stdout.read().split("\n")[0].strip()
+				dynamic_loader = None
+				header = None
+				with open(root + "/usr/bin/enigma2", 'rb') as file:
+					elffile = ELFFile(file)
+					header = elffile.header
+					for segment in elffile.iter_segments():
+						if isinstance(segment, InterpSegment):
+							dynamic_loader = segment.get_interp_name()
 
 				# hack to fix loading of branding for image with different libc then the main one
 				cmd = "LD_PRELOAD= LC_ALL=C LD_LIBRARY_PATH=" + root + "/lib:" + root + "/usr/lib "  + dynamic_loader + " " + root + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py " + root + e2_path + " all"
@@ -44,7 +52,7 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 					lines.append("probemode=boxbranding")
 				else:
 				#	print ("OMBDEBUG:", "\n".join(p.stdout.readlines()))
-					lines = [ "dynamic_loader="+dynamic_loader , "boxbranding_stdout="+"\n".join(p.stdout.readlines()) ]
+					lines = [ "dynamic_loader="+dynamic_loader , "boxbranding_stdout="+"\n".join(p.stdout.readlines()), "elf_machine=" + header['e_machine'] ]
 
 		if not lines:
 			lines = []
