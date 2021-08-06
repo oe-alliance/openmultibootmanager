@@ -41,7 +41,7 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 							dynamic_loader = segment.get_interp_name()
 
 				# hack to fix loading of branding for image with different libc then the main one
-				cmd = "LD_PRELOAD= LC_ALL=C LD_LIBRARY_PATH=" + root + "/lib:" + root + "/usr/lib "  + dynamic_loader + " " + root + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py " + root + e2_path + " all"
+				cmd = "LD_PRELOAD= LC_ALL=C LD_LIBRARY_PATH=" + root + "/lib:" + root + "/usr/lib " + root + dynamic_loader + " " + root + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py " + root + e2_path + " all"
 				# print ("OMBDEBUG:", cmd)
 				p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
 				rc = p.wait()
@@ -52,7 +52,7 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 					lines.append("probemode=boxbranding")
 				else:
 				#	print ("OMBDEBUG:", "\n".join(p.stdout.readlines()))
-					lines = [ "dynamic_loader="+dynamic_loader , "boxbranding_stdout="+"\n".join(p.stdout.readlines()), "elf_machine=" + header['e_machine'] ]
+					lines = [ "dynamic_loader="+dynamic_loader , "boxbranding_cmd="+cmd, "boxbranding_stdout="+"\n".join(p.stdout.readlines()), "elf_machine=" + header['e_machine'] ]
 
 		if not lines:
 			lines = []
