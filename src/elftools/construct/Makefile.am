@@ -3,4 +3,4 @@ installdir = $(libdir)/enigma2/python/Plugins/Extensions/OpenMultiboot/elftools/
 SUBDIRS = lib
 
 install_PYTHON = \
-	adapters.py core.py debug.py __init__.py macros.py
+	adapters.py core.py debug.py __init__.py macros.py pdb.py bdb.py
