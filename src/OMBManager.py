@@ -59,8 +59,8 @@ class OMBManagerInit:
 	def getFSType(self, device):
 		p = Popen("mount | cut -f 1,5 -d ' '", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True)
 		tmp = p.stdout.read().strip()
-		for line in tmp.split('\n'):
-			parts = line.split(' ')
+		for line in tmp.split(b'\n'):
+			parts = line.split(b' ')
 			if len(parts) == 2:
 				if parts[0] == '/dev/' + device:
 					return parts[1]
