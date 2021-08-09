@@ -62,7 +62,7 @@ class OMBManagerInit:
 		for line in tmp.split(b'\n'):
 			parts = line.split(b' ')
 			if len(parts) == 2:
-				if parts[0] == '/dev/' + device:
+				if parts[0].decode() == '/dev/' + device:
 					return parts[1]
 		return "none"
 
@@ -125,7 +125,7 @@ class OMBManagerInit:
 	def initCallback(self, response):
 		if response:
 			fs_type = self.getFSType(response.device)
-			if fs_type not in ['ext3', 'ext4']:
+			if fs_type not in [b'ext3', b'ext4']:
 				self.response = response
 				self.session.openWithCallback(
 					self.formatDevice,
