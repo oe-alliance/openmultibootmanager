@@ -121,8 +121,11 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 			# print("[BoxConfig] ProcList = %s." % self.procList)
 			# print("[BoxConfig] BoxInfo = %s." % self.boxInfo)
 		else:
-			print("[BoxConfig] ERROR: Information file is not available!  The system is unlikely to boot or operate correctly. (%s)" % root)
-
+			# print("[BoxConfig] ERROR: Information file is not available!  The system is unlikely to boot or operate correctly. (%s)" % root)
+			self.procList.append("ombroot")
+			self.procList.append("error")
+			self.boxInfo["ombroot"] = root
+			self.boxInfo["error"] = "Information file is not available!, maybe %s is empty or corrupted" % root
 
 	def processValue(self, value):
 		if value is None:
