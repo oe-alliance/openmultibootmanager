@@ -105,7 +105,7 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 					item, value = [x.strip() for x in line.split("=", 1)]
 					if item:
 						self.procList.append(item)
-						self.boxInfo[item] = self.processValue(value.decode("utf-8","replace").encode("ascii","replace"))
+						self.boxInfo[item] = self.processValue(value)
 			self.procList = sorted(self.procList)
 
 			if "brand" in self.boxInfo.keys() and self.boxInfo["brand"] == "vuplus" and self.boxInfo["model"][0:2] != "vu" and self.boxInfo["model"] != "bm750":
