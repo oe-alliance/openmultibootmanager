@@ -114,6 +114,8 @@ class OMBList():
 	def getImagesEntries(self):
 		return self.images_entries
 
-	def getJson(self):
-		parsed = { 'currentimage': self.currentImage(), 'images_entries': self.images_entries, 'debug_boxconfig': self.debug_boxconfig }
+	def getJson(self, debug = None):
+		parsed = { 'currentimage': self.currentImage(), 'images_entries': self.images_entries}
+		if debug:
+			parsed['debug_boxconfig'] = self.debug_boxconfig
 		return json.dumps(parsed, indent=4)
