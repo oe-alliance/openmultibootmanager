@@ -26,7 +26,7 @@ import sys
 KEYS_FNC_MAP = {
 	'model': 'boxbranding.getMachineBuild()',
 	'displaybrand': 'boxbranding.getMachineBrand()',
-	'displaymodel': 'boxbranding.getMachineName()',
+	'displaymodel': 'boxbranding.getMachineName().decode("utf-8","replace").encode("ascii","replace")',
 	'mtdkernel': 'boxbranding.getMachineMtdKernel()',
 	'kernelfile': 'boxbranding.getMachineKernelFile()',
 	'mtdrootfs': 'boxbranding.getMachineMtdRoot()',
