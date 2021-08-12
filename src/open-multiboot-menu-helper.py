@@ -11,7 +11,7 @@ if __name__ == "__main__":
 	debug = None
 	ombdir = "/omb"
 
-	if len(sys.argv) == 2:
+	if len(sys.argv) >= 2:
 		ombdir = sys.argv[1]
 	
 	if len(sys.argv) == 3 and sys.argv[2].upper() == "DEBUG":
