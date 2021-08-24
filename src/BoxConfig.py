@@ -95,7 +95,7 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 			if len(lines) != 3:
 				lines = None
 			else:
-				lines.append("probemode=alernate")
+				lines.append("probemode=alternate")
 				if debug:
 					print ("[BoxConfig(OMB)]: Alternate [%s]" % ", ".join(lines))
 
