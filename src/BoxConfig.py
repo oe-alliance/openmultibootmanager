@@ -33,12 +33,15 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 				# retrieve dynamic_loader for target path
 				dynamic_loader = None
 				header = None
-				with open(root + "/usr/bin/enigma2", 'rb') as file:
-					elffile = ELFFile(file)
-					header = elffile.header
-					for segment in elffile.iter_segments():
-						if isinstance(segment, InterpSegment):
-							dynamic_loader = segment.get_interp_name()
+				for pgm in [ "/usr/bin/enigma2", "/usr/sbin/crond"]:
+					with open(root + pgm, 'rb') as file:
+						elffile = ELFFile(file)
+						header = elffile.header
+						for segment in elffile.iter_segments():
+							if isinstance(segment, InterpSegment):
+								dynamic_loader = segment.get_interp_name()
+					if dynamic_loader:
+						break
 
 				# hack to fix loading of branding for image with different libc then the main one
 				cmd = "LD_PRELOAD= LC_ALL=C LD_LIBRARY_PATH=" + root + "/lib:" + root + "/usr/lib " + root + dynamic_loader + " " + root + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py " + root + e2_path + " all"
@@ -108,10 +111,15 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 						self.boxInfo[item] = self.processValue(value)
 			self.procList = sorted(self.procList)
 
-			if "brand" in self.boxInfo.keys() and self.boxInfo["brand"] == "vuplus" and self.boxInfo["model"][0:2] != "vu" and self.boxInfo["model"] != "bm750":
-				self.boxInfo["model"] = "vu" + self.boxInfo["model"]
-				if debug:
-					print("[BoxConfig(OMB)]: buggy image, fixed model is %s" % self.boxInfo["model"])
+			if "brand" in self.boxInfo.keys() and self.boxInfo["brand"] == "vuplus":
+				if self.boxInfo["model"][0:2] != "vu" and self.boxInfo["model"] != "bm750":
+					self.boxInfo["model"] = "vu" + self.boxInfo["model"]
+					if debug:
+						print("[BoxConfig(OMB)]: buggy image, fixed model is %s" % self.boxInfo["model"])
+				if self.boxInfo["model"] == "bm750":
+					self.boxInfo["model"] = "vuduo"
+					if debug:
+						print("[BoxConfig(OMB)]: legacy vuduo model name, fixed model is %s" % self.boxInfo["model"])
 
 			if "brand" in self.boxInfo.keys() and self.boxInfo["brand"] == 'formuler':
 				if self.boxInfo["model"] != "formuler4turbo":
