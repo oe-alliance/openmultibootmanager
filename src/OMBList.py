@@ -69,7 +69,7 @@ class OMBList():
 		self.images_entries.append({
 			'label': title + ' (Flash)',
 			'identifier': 'flash',
-			'path': flashroot,
+			'path': self.flashroot,
 			'background': '/usr/share/bootlogo.mvi'
 		})
 		self.images_list.append(self.images_entries[0]['label'])
