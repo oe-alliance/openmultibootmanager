@@ -58,13 +58,13 @@ class OMBList():
 
 	def populateImagesList(self):
 
-		self.debug_boxconfig.append(BoxInfo.getItemsDict())
+		self.debug_boxconfig.append(self.boxinfo.getItemsDict())
 
 		file_entry = "flash"
 		if os.path.exists(self.data_dir + '/.label_' + file_entry):
 			title = self.imageTitleFromLabel('.label_' + file_entry)
 		else:
-			title = self.guessImageTitle(BoxInfo, file_entry)
+			title = self.guessImageTitle(self.boxinfo, file_entry)
 
 		self.images_entries.append({
 			'label': title + ' (Flash)',
