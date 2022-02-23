@@ -68,7 +68,7 @@ class OMBList():
 
 		self.images_entries.append({
 			'label': title + ' (Flash)',
-			'identifier': 'flash',
+			'identifier': omb_legacy and 'flash' or '%s-flash' % self.boxinfo.getItem("model"),
 			'path': self.flashroot,
 			'background': '/usr/share/bootlogo.mvi'
 		})
