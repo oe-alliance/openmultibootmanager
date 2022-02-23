@@ -7,6 +7,7 @@ import json
 from .BoxConfig import BoxConfig
 
 from .OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR
+from .OMBConfig import omb_legacy
 
 class OMBList():
 	def __init__(self, mount_point, debug = True):
@@ -18,6 +19,17 @@ class OMBList():
 		self.images_list = []
 		self.images_entries = []
 
+		flashroot = "/"
+		f = open("/proc/mounts", "r")
+		for line in f:
+			if line.find(self.data_dir + "/flash") > -1:
+				flashroot = self.data_dir + "/flash"
+		self.flashroot = flashroot
+		self.boxinfo = BoxConfig(debug=self.debug, root = flashroot)
+
+	def getBoxInfo(self):
+		return self.boxinfo
+
 	def imageTitleFromLabel(self, file_entry):
 		f = open(self.data_dir + '/' + file_entry)
 		label = f.readline().strip()
@@ -27,7 +39,7 @@ class OMBList():
 	def currentImage(self):
 		selected = 'Flash'
 		try:
-			selected = open(self.data_dir + '/.selected').read()
+			selected = open(omb_legacy and self.data_dir + '/.selected' or '%s/.%s-selected' % self.data_dir, self.boxinfo.getItem("model")).read()
 		except:
 			pass
 		return selected
@@ -46,13 +58,6 @@ class OMBList():
 
 	def populateImagesList(self):
 
-		flashroot = "/"
-		f = open("/proc/mounts", "r")
-		for line in f:
-			if line.find(self.data_dir + "/flash") > -1:
-				flashroot = self.data_dir + "/flash"
-
-		BoxInfo = BoxConfig(debug=self.debug, root = flashroot)
 		self.debug_boxconfig.append(BoxInfo.getItemsDict())
 
 		file_entry = "flash"
@@ -77,7 +82,7 @@ class OMBList():
 				if file_entry[0] == '.':
 					continue
 
-				if file_entry == "flash":
+				if file_entry == "flash" or file_entry == '%s-flash' % self.boxinfo.getItem("model"):
 					continue
 
 				TargetBoxInfo = BoxConfig(root = self.data_dir + '/' + file_entry, debug=self.debug)
@@ -85,8 +90,8 @@ class OMBList():
 				self.debug_boxconfig.append(TargetBoxInfo.getItemsDict())
 
 				# with following check you can switch back to your image in flash and  move your stick between different boxes.
-				# print ("OMB: Compare flash model with target model %s %s" % (BoxInfo.getItem("model"), TargetBoxInfo.getItem("model")))
-				if BoxInfo.getItem("model") != TargetBoxInfo.getItem("model"):
+				# print ("OMB: Compare flash model with target model %s %s" % (self.boxinfo.getItem("model"), TargetBoxInfo.getItem("model")))
+				if self.boxinfo.getItem("model") != TargetBoxInfo.getItem("model"):
 					continue
 
 				if os.path.exists(self.data_dir + '/.label_' + file_entry):
@@ -96,7 +101,7 @@ class OMBList():
 
 				background = "/usr/share/bootlogo.mvi"
 				if not os.path.exists(self.data_dir + '/' + file_entry + '/usr/share/bootlogo.mvi'):
-					background = '/usr/share/' + BoxInfo.getItem("brand") + '-bootlogo/bootlogo.mvi'
+					background = '/usr/share/' + self.boxinfo.getItem("brand") + '-bootlogo/bootlogo.mvi'
 
 				self.images_entries.append({
 					'label': title,

@@ -40,8 +40,8 @@ from .OMBManagerInstall import OMBManagerInstall, OMB_RM_BIN, BRANDING
 from .OMBManagerAbout import OMBManagerAbout
 from .OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR
 from .OMBManagerLocale import _
-
 from .OMBList import OMBList
+from .OMBConfig import omb_legacy
 
 from .BoxConfig import BoxConfig
 
@@ -210,6 +210,7 @@ class OMBManagerList(Screen):
 
 		self.images_list = omblist.getImagesList()
 		self.images_entries = omblist.getImagesEntries()
+		self.boxinfo = omblist.getBoxInfo()
 
 	def refresh(self):
 		self.populateImagesList()
@@ -218,7 +219,7 @@ class OMBManagerList(Screen):
 	def canDeleteEntry(self, entry):
 		selected = 'flash'
 		try:
-			selected = open(self.data_dir + '/.selected').read()
+			selected = open(omb_legacy and self.data_dir + '/.selected' or '%s/.%s-selected' % (self.data_dir, self.boxinfo.getItem("model"))).read()
 		except:
 			pass
 
@@ -247,7 +248,7 @@ class OMBManagerList(Screen):
 		if ret:
 			image = self.images_entries[self.select]['identifier']
 			print("[OMB] set nextboot to %s" % image)
-			file_entry = self.data_dir + '/.nextboot'
+			file_entry = omb_legacy and self.data_dir + '/.nextboot' or '%s/.%s-nextboot' % (self.data_dir, self.boxinfo.getItem("model"))
 			f = open(file_entry, 'w')
 			f.write(image)
 			f.close()
