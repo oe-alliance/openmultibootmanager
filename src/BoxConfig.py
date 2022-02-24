@@ -51,8 +51,11 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 				if debug:
 					print ("[BoxConfig(OMB)]: rc=%d" % rc)
 				if rc == 0:
-					lines = p.stdout.readlines()
-					lines.append("probemode=boxbranding")
+					try:
+						lines = p.stdout.readlines()
+						lines.append("probemode=boxbranding")
+					except:
+						pass
 				else:
 				#	print ("OMBDEBUG:", "\n".join(p.stdout.readlines()))
 					lines = [ "dynamic_loader="+dynamic_loader , "boxbranding_cmd="+cmd, "boxbranding_stdout="+"\n".join(p.stdout.readlines()), "elf_machine=" + header['e_machine'] ]
@@ -86,6 +89,7 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 					for line in arch:
 						archinfo = line.strip().split()
 						if (distro_name == "openpli" and archinfo[2] == "41" or
+						    distro_name == "openpli" and archinfo[2] == "26" or
 						    distro_name != "openpli" and archinfo[2] == "21" ):
 							box_type = archinfo[1]
 					lines.append("model=" + box_type)
