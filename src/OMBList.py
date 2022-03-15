@@ -39,7 +39,7 @@ class OMBList():
 	def currentImage(self):
 		selected = 'Flash'
 		try:
-			selected = open(omb_legacy and self.data_dir + '/.selected' or '%s/.%s-selected' % self.data_dir, self.boxinfo.getItem("model")).read()
+			selected = open(omb_legacy and self.data_dir + '/.selected' or '%s/.%s-selected' % (self.data_dir, self.boxinfo.getItem("model"))).read()
 		except:
 			pass
 		return selected
