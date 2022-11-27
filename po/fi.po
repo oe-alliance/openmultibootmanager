@@ -1,0 +1,198 @@
+# Finnish translations for OpenMultiboot.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Sandro Cavazzoni <sandro@skanetwork.com>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: openMultiboot\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-12 20:35+0300\n"
+"PO-Revision-Date: 2022-05-12 20:59+0300\n"
+"Last-Translator: Orlandox\n"
+"Language-Team: Orlandox\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: .\n"
+
+msgid ""
+" to use openMultiboot\n"
+"Do you want install it?"
+msgstr ""
+" käyttääksesi OpenMultiboot:a\n"
+"Haluatko asentaa sen?"
+
+msgid "Cancel"
+msgstr "Peruuta"
+
+msgid "Cannot create data folder"
+msgstr "Data-hakemistoa ei voi luoda"
+
+#, python-format
+msgid "Cannot create folder %s"
+msgstr "Hakemistoa %s ei voi luoda"
+
+#, python-format
+msgid "Cannot create kernel folder %s"
+msgstr "Kernel-hakemistoa %s ei voi luoda"
+
+#, python-format
+msgid "Cannot create main folder %s"
+msgstr "Päähakemistoa %s ei voi luoda"
+
+msgid "Cannot create virtual MTD device"
+msgstr "Virtuaalista MTD-laitetta ei voi luoda"
+
+msgid "Cannot deflate image"
+msgstr "Imagea ei voi tyhjentää"
+
+msgid "Cannot extract nfi image"
+msgstr "NFI-imagea ei voi erottaa"
+
+msgid "Cannot format the device"
+msgstr "Laitetta ei voi formatoida"
+
+msgid "Cannot install "
+msgstr "Ei voi asentaa "
+
+msgid "Cannot remount the device"
+msgstr "Laitetta ei voi uudelleen liittää"
+
+msgid "Cannot umount the device"
+msgstr "Laitteen liitosta ei voi poistaa"
+
+msgid "Choose the image to install"
+msgstr "Valitse asennettava image"
+
+msgid "Current Running Image:"
+msgstr "Nykyinen Image:"
+
+msgid "Delete"
+msgstr "Poista"
+
+#, python-format
+msgid "Do you want to delete %s?"
+msgstr "Haluatko poistaa %s?"
+
+msgid "Do you want to reboot now ?"
+msgstr "Käynnistetäänkö uudelleen nyt ?"
+
+msgid "Enable Boot Menu"
+msgstr "Aktivoi Bootti-menu"
+
+msgid "Error copying kernel"
+msgstr "Kernelin kopionnissa virhe"
+
+msgid "Error copying unpacked rootfs"
+msgstr "Pakaamattoman rootfs:n kopioinnissa virhe"
+
+msgid "Error unpacking rootfs"
+msgstr "Rootfs:n purkamisessa virhe"
+
+msgid ""
+"Filesystem not supported\n"
+"Do you want format your drive?"
+msgstr ""
+"Tiedostojärjestelmä ei ole tuettu\n"
+"Haluatko alustaa aseman?"
+
+msgid "Generic error in unpack process"
+msgstr "Purkamisprosessissa geneerinen virhe"
+
+msgid "Install"
+msgstr "Asenna"
+
+msgid "Menu"
+msgstr "Menu"
+
+msgid "No suitable devices found"
+msgstr "Sopivia laitteita ei löydy"
+
+msgid "Open MultiBoot Menu"
+msgstr "OpenMultiBoot Menu"
+
+msgid "OpenMultiboot Manager"
+msgstr "OpenMultiboot:n hallinnointi"
+
+msgid "Please enter new name:"
+msgstr "Syötä uusi nimi:"
+
+#, python-format
+msgid "Please upload an image inside %s"
+msgstr "Tallenna image kansioon %s"
+
+msgid "Please wait while delete is in progress."
+msgstr "Odota, poistaminen menossa."
+
+msgid "Please wait while format is in progress."
+msgstr "Odota, alustus menossa."
+
+msgid "Please wait while installation is in progress."
+msgstr "Odota, asennus menossa."
+
+msgid ""
+"Please wait while installation is in progress.\n"
+"This operation may take a while."
+msgstr ""
+"Odota, asennus menossa.\n"
+"Tämä voi kestää hetken."
+
+msgid "Rename"
+msgstr "Uudelleennimeä"
+
+msgid "Save"
+msgstr "Tallenna"
+
+#, python-format
+msgid "Set next boot to %s ?"
+msgstr "Aseta seuraava bootti -> %s ?"
+
+#, python-format
+msgid "The folder %s already exist"
+msgstr "Hakemisto %s on jo olemassa"
+
+msgid "Where do you want to install openMultiboot?"
+msgstr "Minne haluat OpenMultibootin asentaa?"
+
+msgid "You need the module "
+msgstr "Tarvitset moduulin "
+
+msgid "Your STB doesn't seem supported"
+msgstr "Vastaanottimesi ei ole tuettu"
+
+msgid "openMultiboot About"
+msgstr "Tietoja OpenMultiboot:sta"
+
+msgid "openMultiboot Install"
+msgstr "OpenMultiboot asennus"
+
+msgid "openMultiboot Manager"
+msgstr "OpenMultiboot:n hallinta"
+
+msgid "Preferences"
+msgstr "Asetukset"
+
+msgid "About"
+msgstr "Tietoja"
+
+msgid "Do you want to copy settings from the current image?"
+msgstr "Haluatko kopioida asetukset nykyisestä imagesta?"
+
+msgid "Close"
+msgstr "Sulje"
+
+msgid ""
+"You need the module kernel-module-nandsim to use openMultiboot\n"
+"Do you want install it?"
+msgstr ""
+"Käyttääksesi OpenMultiboot:a tarvitset Kernel-moduuli-NANDSIM:n\n"
+"Haluatko asentaa sen?"
+
+msgid "Cannot install kernel-module-nandsim"
+msgstr "EI voi asentaa Kernel-moduuli-NANDSIM:a"
