@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenMultiboot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-31 11:48+0200\n"
+"POT-Creation-Date: 2022-11-30 13:12+0000\n"
 "PO-Revision-Date: 2018-12-02 13:33+0300\n"
 "Last-Translator: mosad - مساعد الجعيد <abo-mishal@hotmail.com>\n"
 "Language-Team: mosad - مساعد الجعيد\n"
@@ -13,6 +13,7 @@ msgstr ""
 "X-Generator: Poedit 2.2\n"
 "Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
 
+#: ../src/OMBManager.py:145
 msgid ""
 " to use openMultiboot\n"
 "Do you want install it?"
@@ -20,69 +21,101 @@ msgstr ""
 " لا تستخدم الملتيبوت المفتوح\n"
 "هل تريد تثبيته؟"
 
+#: ../src/OMBManagerList.py:263
+msgid "About"
+msgstr "حول"
+
+#: ../src/OMBManager.py:50
 msgid "Cancel"
 msgstr "إلغاء"
 
+#: ../src/OMBManager.py:78
 msgid "Cannot create data folder"
 msgstr "لا يمكن إنشاء مجلد بيانات"
 
+#: ../src/OMBManagerInstall.py:229 ../src/OMBManagerInstall.py:240
+#, python-format
 msgid "Cannot create folder %s"
 msgstr "لا يمكن إنشاء المجلد %s"
 
+#: ../src/OMBManagerInstall.py:219
+#, python-format
 msgid "Cannot create kernel folder %s"
 msgstr "لا يمكن إنشاء مجلد نواة %s"
 
+#: ../src/OMBManagerInstall.py:212
+#, python-format
 msgid "Cannot create main folder %s"
 msgstr "لا يمكن إنشاء المجلد الرئيسي %s"
 
+#: ../src/OMBManagerInstall.py:382
 msgid "Cannot create virtual MTD device"
 msgstr "لا يمكن إنشاء الجهاز الظاهري"
 
+#: ../src/OMBManagerInstall.py:244
 msgid "Cannot deflate image"
 msgstr "لا يمكن إفراغ الصورة"
 
+#: ../src/OMBManagerInstall.py:250
 msgid "Cannot extract nfi image"
 msgstr "لا يمكن استخراج صورة nfi"
 
+#: ../src/OMBManager.py:104
 msgid "Cannot format the device"
 msgstr "لا يمكن تهيئه الجهاز"
 
+#: ../src/OMBManager.py:164
 msgid "Cannot install "
 msgstr "لا يمكن التثبيت"
 
+#: ../src/OMBManager.py:107
 msgid "Cannot remount the device"
 msgstr "لا يمكن أعاده ربط الجهاز"
 
+#: ../src/OMBManager.py:101
 msgid "Cannot umount the device"
 msgstr "لا يمكن ربط الجهاز"
 
+#: ../src/OMBManagerInstall.py:152
 msgid "Choose the image to install"
 msgstr "اختر الصورة التي سيتم تثبيتها"
 
+#: ../src/OMBManagerList.py:178
 msgid "Current Running Image:"
 msgstr "تعمل الصورة الحالية:"
 
+#: ../src/OMBManagerList.py:238
 msgid "Delete"
 msgstr "حذف"
 
+#: ../src/OMBManagerList.py:319
+#, python-format
 msgid "Do you want to delete %s?"
 msgstr "هل تريد حذف %s ؟"
 
+#: ../src/OMBManagerList.py:256
 msgid "Do you want to reboot now ?"
 msgstr "هل تريد أعاده التشغيل الآن ؟"
 
+#: ../src/OMBManagerList.py:370
 msgid "Enable Boot Menu"
 msgstr "تمكين قائمة الإقلاع"
 
+#: ../src/OMBManagerInstall.py:286 ../src/OMBManagerInstall.py:316
+#: ../src/OMBManagerInstall.py:332 ../src/OMBManagerInstall.py:397
 msgid "Error copying kernel"
 msgstr "خطاء نسخ النواة"
 
+#: ../src/OMBManagerInstall.py:313 ../src/OMBManagerInstall.py:329
+#: ../src/OMBManagerInstall.py:394
 msgid "Error copying unpacked rootfs"
 msgstr "حدث خطاء أثناء نسخ الجذر الذي تم فك حزمته"
 
+#: ../src/OMBManagerInstall.py:281 ../src/OMBManagerInstall.py:308
 msgid "Error unpacking rootfs"
 msgstr "خطا في إستخراج الجذر"
 
+#: ../src/OMBManager.py:133
 msgid ""
 "Filesystem not supported\n"
 "Do you want format your drive?"
@@ -90,39 +123,53 @@ msgstr ""
 "نظام الملفات غير معتمد\n"
 "هل تريد تهئية محرك الاقراص الخاص بك ؟"
 
-msgid "Generic error in unpaack process"
+#: ../src/OMBManagerInstall.py:335 ../src/OMBManagerInstall.py:400
+#, fuzzy
+msgid "Generic error in unpack process"
 msgstr "خطاء عام في عملية فتح الملف المضغوط"
 
+#: ../src/OMBManagerList.py:189
 msgid "Install"
 msgstr "تثبيت"
 
+#: ../src/OMBManagerList.py:187
 msgid "Menu"
 msgstr "قائمة"
 
+#: ../src/OMBManager.py:55
 msgid "No suitable devices found"
 msgstr "لم يتم العثور علي أجهزه مناسبة"
 
+#: ../src/OMBManagerList.py:264
 msgid "Open MultiBoot Menu"
 msgstr "قائمة الملتيبوت المفتوح"
 
+#: ../src/plugin.py:34
 msgid "OpenMultiboot Manager"
 msgstr "إدارة الملتيبوت المفتوح"
 
+#: ../src/OMBManagerList.py:280
 msgid "Please enter new name:"
 msgstr "الرجاء إدخال اسم جديد:"
 
+#: ../src/OMBManagerList.py:338
+#, python-format
 msgid "Please upload an image inside %s"
 msgstr "من فضلك أرفع صورة في الداخل %s"
 
+#: ../src/OMBManagerList.py:298
 msgid "Please wait while delete is in progress."
 msgstr "الرجاء الانتظار أثناء الحذف قيد التقدم."
 
+#: ../src/OMBManager.py:92
 msgid "Please wait while format is in progress."
 msgstr "الرجاء الانتظار بينما تكون التهئية قيد التقدم."
 
+#: ../src/OMBManager.py:155
 msgid "Please wait while installation is in progress."
 msgstr "الرجاء الانتظار أثناء التثبيت قيد التقدم."
 
+#: ../src/OMBManagerInstall.py:168
 msgid ""
 "Please wait while installation is in progress.\n"
 "This operation may take a while."
@@ -130,41 +177,48 @@ msgstr ""
 "الرجاء الانتظار أثناء التثبيت قيد التقدم.\n"
 "قد تستغرق هذه العملية بعض الوقت."
 
-msgid "Rename"
-msgstr "إعادة تسمية"
-
-msgid "Save"
-msgstr "حفظ"
-
-msgid "Set next boot to %s ?"
-msgstr "هل تريد تعيين الإقلاع التالي %s ?"
-
-msgid "The folder %s already exist"
-msgstr "المجلد %s موجود بالفعل"
-
-msgid "Where do you want to install openMultiboot?"
-msgstr "أين تريد تثبيت نظام الملتيبوت المفتوح؟"
-
-msgid "You need the module "
-msgstr "أنت في حاجه إلى الوحدة"
-
-msgid "Your STB doesn't seem supported"
-msgstr "لا يبدو أن جهاز الإستقبال الخاص بك معتمد"
-
-msgid "openMultiboot About"
-msgstr "حول الملتيبوت المفتوح"
-
-msgid "openMultiboot Install"
-msgstr "تثبيت الملتيبوت المفتوح"
-
-msgid "openMultiboot Manager"
-msgstr "إدارة الملتيبوت المفتوح"
-
+#: ../src/OMBManagerList.py:263
 msgid "Preferences"
 msgstr "الإعدادات"
 
-msgid "About"
-msgstr "حول"
+#: ../src/OMBManagerList.py:185
+msgid "Rename"
+msgstr "إعادة تسمية"
 
-msgid "OpenMultiboot"
-msgstr "الملتيبوت المفتوح"
+#: ../src/OMBManagerList.py:358
+msgid "Save"
+msgstr "حفظ"
+
+#: ../src/OMBManagerList.py:245
+#, python-format
+msgid "Set next boot to %s ?"
+msgstr "هل تريد تعيين الإقلاع التالي %s ?"
+
+#: ../src/OMBManagerInstall.py:223
+#, python-format
+msgid "The folder %s already exist"
+msgstr "المجلد %s موجود بالفعل"
+
+#: ../src/OMBManager.py:43
+msgid "Where do you want to install openMultiboot?"
+msgstr "أين تريد تثبيت نظام الملتيبوت المفتوح؟"
+
+#: ../src/OMBManager.py:145
+msgid "You need the module "
+msgstr "أنت في حاجه إلى الوحدة"
+
+#: ../src/OMBManagerInstall.py:272
+msgid "Your STB doesn't seem supported"
+msgstr "لا يبدو أن جهاز الإستقبال الخاص بك معتمد"
+
+#: ../src/OMBManagerAbout.py:47
+msgid "openMultiboot About"
+msgstr "حول الملتيبوت المفتوح"
+
+#: ../src/OMBManagerInstall.py:143
+msgid "openMultiboot Install"
+msgstr "تثبيت الملتيبوت المفتوح"
+
+#: ../src/OMBManagerList.py:167
+msgid "openMultiboot Manager"
+msgstr "إدارة الملتيبوت المفتوح"

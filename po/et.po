@@ -7,17 +7,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-31 12:03+0200\n"
+"POT-Creation-Date: 2022-11-30 13:12+0000\n"
 "PO-Revision-Date: 2018-12-02 10:59+0200\n"
+"Last-Translator: rimas <rimas@domeen.ee>\n"
 "Language-Team: \n"
+"Language: et_EE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.2\n"
-"Last-Translator: rimas <rimas@domeen.ee>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: et_EE\n"
 
+#: ../src/OMBManager.py:145
 msgid ""
 " to use openMultiboot\n"
 "Do you want install it?"
@@ -25,73 +26,101 @@ msgstr ""
 " on vajalik openMultiboot kasutamiseks\n"
 "Kas paigaldada see?"
 
+#: ../src/OMBManagerList.py:263
+msgid "About"
+msgstr ""
+
+#: ../src/OMBManager.py:50
 msgid "Cancel"
 msgstr "Tühista"
 
+#: ../src/OMBManager.py:78
 msgid "Cannot create data folder"
 msgstr "Andmekataloogi loomine nurjus"
 
+#: ../src/OMBManagerInstall.py:229 ../src/OMBManagerInstall.py:240
 #, python-format
 msgid "Cannot create folder %s"
 msgstr "Kataloogi %s loomine nurjus"
 
+#: ../src/OMBManagerInstall.py:219
 #, python-format
 msgid "Cannot create kernel folder %s"
 msgstr "Kerneli kataloogi %s loomine nurjus"
 
+#: ../src/OMBManagerInstall.py:212
 #, python-format
 msgid "Cannot create main folder %s"
 msgstr "Põhikataloogi %s loomine nurjus"
 
+#: ../src/OMBManagerInstall.py:382
 msgid "Cannot create virtual MTD device"
 msgstr "Virtuaalse MTD seadme loomine nurjus"
 
+#: ../src/OMBManagerInstall.py:244
 msgid "Cannot deflate image"
 msgstr "Püsivara lahtipakkimine nurjus"
 
+#: ../src/OMBManagerInstall.py:250
 msgid "Cannot extract nfi image"
 msgstr "NFI tõmmise paigaldamine pole võimalik"
 
+#: ../src/OMBManager.py:104
 msgid "Cannot format the device"
 msgstr "Andmekandjat ei saa vormindada"
 
+#: ../src/OMBManager.py:164
 msgid "Cannot install "
 msgstr "Paigaldamine nurjus "
 
+#: ../src/OMBManager.py:107
 msgid "Cannot remount the device"
 msgstr "Andmekandja taashaakimine nurjus"
 
+#: ../src/OMBManager.py:101
 msgid "Cannot umount the device"
 msgstr "Andmekandja lahtihaakimine nurjus"
 
+#: ../src/OMBManagerInstall.py:152
 msgid "Choose the image to install"
 msgstr "Vali paigaldatav püsivara"
 
+#: ../src/OMBManagerList.py:178
 msgid "Current Running Image:"
 msgstr "Aktiivne püsivara:"
 
+#: ../src/OMBManagerList.py:238
 msgid "Delete"
 msgstr "Kustuta"
 
+#: ../src/OMBManagerList.py:319
 #, python-format
 msgid "Do you want to delete %s?"
 msgstr "Kas kustutada %s?"
 
+#: ../src/OMBManagerList.py:256
 msgid "Do you want to reboot now ?"
 msgstr "Kas taaskäivitada kohe?"
 
+#: ../src/OMBManagerList.py:370
 msgid "Enable Boot Menu"
 msgstr "Luba buudimenüü"
 
+#: ../src/OMBManagerInstall.py:286 ../src/OMBManagerInstall.py:316
+#: ../src/OMBManagerInstall.py:332 ../src/OMBManagerInstall.py:397
 msgid "Error copying kernel"
 msgstr "Viga kerneli kopeerimisel!"
 
+#: ../src/OMBManagerInstall.py:313 ../src/OMBManagerInstall.py:329
+#: ../src/OMBManagerInstall.py:394
 msgid "Error copying unpacked rootfs"
 msgstr "Viga rootfs kopeerimisel!"
 
+#: ../src/OMBManagerInstall.py:281 ../src/OMBManagerInstall.py:308
 msgid "Error unpacking rootfs"
 msgstr "Viga rootfs lahtipakkimisel!"
 
+#: ../src/OMBManager.py:133
 msgid ""
 "Filesystem not supported\n"
 "Do you want format your drive?"
@@ -99,40 +128,52 @@ msgstr ""
 "Failisüsteem ei ole toetatud\n"
 "Kas vormindada andmekandja?"
 
+#: ../src/OMBManagerInstall.py:335 ../src/OMBManagerInstall.py:400
 msgid "Generic error in unpack process"
 msgstr "Üldine tõrge lahtipakkimisel"
 
+#: ../src/OMBManagerList.py:189
 msgid "Install"
 msgstr "Paigalda"
 
+#: ../src/OMBManagerList.py:187
 msgid "Menu"
 msgstr "Menüü"
 
+#: ../src/OMBManager.py:55
 msgid "No suitable devices found"
 msgstr "Sobivat andmekandjat ei leitud"
 
+#: ../src/OMBManagerList.py:264
 msgid "Open MultiBoot Menu"
 msgstr "OpenMultiBoot menüü"
 
+#: ../src/plugin.py:34
 msgid "OpenMultiboot Manager"
 msgstr "OpenMultiboot haldur"
 
+#: ../src/OMBManagerList.py:280
 msgid "Please enter new name:"
 msgstr "Sisesta uus nimi:"
 
+#: ../src/OMBManagerList.py:338
 #, python-format
 msgid "Please upload an image inside %s"
 msgstr "Saada tõmmis kataloogi %s"
 
+#: ../src/OMBManagerList.py:298
 msgid "Please wait while delete is in progress."
 msgstr "Toimub kustutamine."
 
+#: ../src/OMBManager.py:92
 msgid "Please wait while format is in progress."
 msgstr "Toimub vormindamine."
 
+#: ../src/OMBManager.py:155
 msgid "Please wait while installation is in progress."
 msgstr "Toimub paigaldamine."
 
+#: ../src/OMBManagerInstall.py:168
 msgid ""
 "Please wait while installation is in progress.\n"
 "This operation may take a while."
@@ -140,34 +181,48 @@ msgstr ""
 "Toimub paigaldamine.\n"
 "See võib kesta mõnda aega."
 
+#: ../src/OMBManagerList.py:263
+msgid "Preferences"
+msgstr ""
+
+#: ../src/OMBManagerList.py:185
 msgid "Rename"
 msgstr "Nimeta ümber"
 
+#: ../src/OMBManagerList.py:358
 msgid "Save"
 msgstr "Salvesta"
 
+#: ../src/OMBManagerList.py:245
 #, python-format
 msgid "Set next boot to %s ?"
 msgstr "Kas järgmisel buutimisel laadida %s?"
 
+#: ../src/OMBManagerInstall.py:223
 #, python-format
 msgid "The folder %s already exist"
 msgstr "Kaust %s on juba olemas"
 
+#: ../src/OMBManager.py:43
 msgid "Where do you want to install openMultiboot?"
 msgstr "Kuhu openMultiboot paigaldada?"
 
+#: ../src/OMBManager.py:145
 msgid "You need the module "
 msgstr "Moodul "
 
+#: ../src/OMBManagerInstall.py:272
 msgid "Your STB doesn't seem supported"
 msgstr "Vastuvõtja pole toetatud"
 
+#: ../src/OMBManagerAbout.py:47
 msgid "openMultiboot About"
 msgstr "Programmist"
 
+#: ../src/OMBManagerInstall.py:143
 msgid "openMultiboot Install"
 msgstr "openMultiboot - paigaldamine"
 
+#: ../src/OMBManagerList.py:167
 msgid "openMultiboot Manager"
 msgstr "openMultiboot haldur"
