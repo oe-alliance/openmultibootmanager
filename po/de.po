@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-30 13:12+0000\n"
-"PO-Revision-Date: 2016-05-08 13:20+0200\n"
-"Last-Translator: neoatomic <neoatomic@users.noreply.github.com>\n"
+"PO-Revision-Date: 2022-11-30 15:15+0100\n"
+"Last-Translator: Masta2002\n"
 "Language-Team: German <arn354@email.de>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 3.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -26,12 +26,12 @@ msgid ""
 " to use openMultiboot\n"
 "Do you want install it?"
 msgstr ""
-"' um openMultiboot zu benutzen!\n"
+" um openMultiboot zu benutzen!\n"
 "Wollen sie es jetzt installieren?"
 
 #: ../src/OMBManagerList.py:263
 msgid "About"
-msgstr ""
+msgstr "Über"
 
 #: ../src/OMBManager.py:50
 msgid "Cancel"
@@ -54,7 +54,7 @@ msgstr "Erstellen des Kernel-Ordners %s nicht möglich"
 #: ../src/OMBManagerInstall.py:212
 #, python-format
 msgid "Cannot create main folder %s"
-msgstr ""
+msgstr "Erstellen des Hauptverzeichnisses %s nicht möglich"
 
 #: ../src/OMBManagerInstall.py:382
 msgid "Cannot create virtual MTD device"
@@ -112,16 +112,16 @@ msgstr "Aktiviere Boot-Menü"
 #: ../src/OMBManagerInstall.py:286 ../src/OMBManagerInstall.py:316
 #: ../src/OMBManagerInstall.py:332 ../src/OMBManagerInstall.py:397
 msgid "Error copying kernel"
-msgstr ""
+msgstr "Fehler beim Kopieren des Kernels"
 
 #: ../src/OMBManagerInstall.py:313 ../src/OMBManagerInstall.py:329
 #: ../src/OMBManagerInstall.py:394
 msgid "Error copying unpacked rootfs"
-msgstr ""
+msgstr "Fehler beim Kopieren von entpackten rootfs"
 
 #: ../src/OMBManagerInstall.py:281 ../src/OMBManagerInstall.py:308
 msgid "Error unpacking rootfs"
-msgstr ""
+msgstr "Fehler beim Entpacken von rootfs"
 
 #: ../src/OMBManager.py:133
 msgid ""
@@ -133,7 +133,7 @@ msgstr ""
 
 #: ../src/OMBManagerInstall.py:335 ../src/OMBManagerInstall.py:400
 msgid "Generic error in unpack process"
-msgstr ""
+msgstr "Allgemeiner Fehler beim Entpacken"
 
 #: ../src/OMBManagerList.py:189
 msgid "Install"
@@ -153,7 +153,7 @@ msgstr "Open MultiBoot Menü"
 
 #: ../src/plugin.py:34
 msgid "OpenMultiboot Manager"
-msgstr ""
+msgstr "OpenMultiboot Manager"
 
 #: ../src/OMBManagerList.py:280
 msgid "Please enter new name:"
@@ -166,7 +166,7 @@ msgstr "Bitte laden Sie ein Image nach %s"
 
 #: ../src/OMBManagerList.py:298
 msgid "Please wait while delete is in progress."
-msgstr "Bitte warten - es wird gelöscht"
+msgstr "Bitte warten - es wird gelöscht."
 
 #: ../src/OMBManager.py:92
 msgid "Please wait while format is in progress."
@@ -186,7 +186,7 @@ msgstr ""
 
 #: ../src/OMBManagerList.py:263
 msgid "Preferences"
-msgstr ""
+msgstr "Einstellungen"
 
 #: ../src/OMBManagerList.py:185
 msgid "Rename"
@@ -212,7 +212,7 @@ msgstr "Wohin soll openMultiboot installiert werden?"
 
 #: ../src/OMBManager.py:145
 msgid "You need the module "
-msgstr "Sie brauchen das Modul '"
+msgstr "Sie brauchen das Modul "
 
 #: ../src/OMBManagerInstall.py:272
 msgid "Your STB doesn't seem supported"
