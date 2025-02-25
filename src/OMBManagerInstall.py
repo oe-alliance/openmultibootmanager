@@ -387,6 +387,7 @@ class OMBManagerInstall(Screen):
 		else:
 			os.system(OMB_DD_BIN + ' if=' + rootfs_path + ' of=/dev/mtdblock' + mtd + ' bs=2048')
 		os.system(OMB_UBIATTACH_BIN + ' /dev/ubi_ctrl -m ' + mtd + ' -O ' + self.vid_offset)
+		os.system("sleep 10")
 		os.system(OMB_MOUNT_BIN + ' -t ubifs ubi1_0 ' + ubi_path)
 
 		if os.path.exists(ubi_path + '/usr/bin/enigma2'):
